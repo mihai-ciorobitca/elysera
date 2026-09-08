@@ -1,0 +1,12 @@
+.next/
+.next-build/
+out/
+node_modules/
+.env*
+!.env.example
+.vercel/
+npm-debug.log*
+AGENTS.md
+CLAUDE.md
+
+.vercel

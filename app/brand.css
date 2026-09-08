@@ -1,0 +1,19 @@
+/* ELYSERA packaging: deep blue lacquer and restrained champagne-gold details. */
+:root {
+  --ink: #132448;
+  --navy-hover: #263d64;
+  --muted: #526079;
+  --paper: #ffffff;
+  --ivory: #eef3f8;
+  --ice: #e7eef6;
+  --image-ground: #e2edf4;
+  --line: #d6dee8;
+  --gold: #b39461;
+  --gold-ink: #80622f;
+  --gold-soft: #e2c998;
+  --gold-line: #d9c6a2;
+  --on-navy-muted: #d9e1ee;
+  --gutter: clamp(24px, 4vw, 64px);
+  --section: 88px;
+  --content-max: 1456px;
+}
