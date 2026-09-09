@@ -57,3 +57,9 @@
 @media (prefers-reduced-motion: reduce) {
  .reference-home > :not(.cosmedix-hero) :is(.button,.reference-mosaic-card,.carousel-dots button span,.texture-tabs button,.routine-step-tabs button) { transition: none; }
 }
+.reference-home .home-faq summary { grid-template-columns: minmax(0, 1fr) 30px; }
+.reference-home .home-faq .plus { position: relative; font-size: 0; transform: none; }
+.reference-home .home-faq .plus::before,.reference-home .home-faq .plus::after { content: ''; position: absolute; width: 10px; height: 1px; background: currentColor; }
+.reference-home .home-faq .plus::after { transform: rotate(90deg); transition: transform 180ms ease; }
+.reference-home .home-faq details[open] .plus::after { transform: rotate(0); }
+@media (prefers-reduced-motion: reduce) { .reference-home .home-faq .plus::after { transition: none; } }
