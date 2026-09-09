@@ -1,4 +1,5 @@
 /* Shared responsive finishing for the complete storefront. */
+.atelier-product .atelier-product-info > h3 { width: 100%; max-width: none; align-self: stretch; text-align: center; margin-inline: 0; }
 body .skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; padding: 0; overflow: hidden; white-space: nowrap; }
 .route-banner > .campaign-motion[data-motion="hero-mobile"] {
   aspect-ratio: 4 / 5;
