@@ -3,12 +3,14 @@ import Link from 'next/link'
 import {useAutoAdvance} from './auto-carousel'
 import {useEffect,useRef,useState} from 'react'
 import ScrollMedia from './scroll-media'
-import {mediaRoot,mediaName,mediaImage,mediaVideo} from './media-library'
+import {mediaRoot,mediaName,mediaImage,mediaVideo,mediaSrcSet} from './media-library'
 export {mediaRoot}
 export function CampaignImage({name,alt='',className='',priority=false,sizes='(max-width: 600px) 100vw, 50vw',animate=true}){
- const atelier=['serum','toner','eye','hero','hero-mobile'].includes(name);const asset=name==='hero'||name==='hero-mobile'?'collection':name
- if(atelier){const collection=asset==='collection';const picture=<img className={className} src={`/media/atelier-2026/${collection?'collection-loop':asset}.webp`} alt={alt} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':'auto'} decoding="async"/>;return animate&&sizes!=='90px'?<ScrollMedia name={name} source={`/media/atelier-2026/${collection?'collection-loop':asset}.mp4`}>{picture}</ScrollMedia>:picture}
- const picture=<img className={className} src={mediaImage(name)} srcSet={`${mediaImage(name,true)} 560w, ${mediaImage(name)} ${mediaName(name)==='hero'?1536:1024}w`} sizes={sizes} alt={alt} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':'auto'} decoding="async"/>
+ const detailFiles={'story-serum':'story-serum-v2.webp','ugc-toner':'ugc-toner-lossless.webp'}
+ const fullDetail=detailFiles[mediaName(name)]
+ const detailKey=mediaName(name)==='story-serum'?'story-serum-v2':'ugc-toner-detail'
+ const detailSrcSet=fullDetail?`${mediaRoot}${detailKey}-560.webp 560w, ${mediaRoot}${detailKey}-1120.webp 1120w${mediaName(name)==='ugc-toner'?`, ${mediaRoot}${detailKey}-1680.webp 1680w, ${mediaRoot}${detailFiles[mediaName(name)]} 2160w`:''}`:undefined
+ const picture=<img data-packshot={['serum','toner','eye'].includes(name)||undefined} className={className} src={fullDetail?`${mediaRoot}${detailFiles[mediaName(name)]}`:mediaImage(name)} srcSet={fullDetail?detailSrcSet:mediaSrcSet(name)} sizes={sizes} alt={alt} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':'auto'} decoding="async"/>
  return animate&&sizes!=='90px'?<ScrollMedia name={name} source={mediaVideo(name)}>{picture}</ScrollMedia>:picture
 }
 export function CampaignMotion(props){return <CampaignImage {...props}/>}
@@ -19,7 +21,7 @@ export function Gallery({product:p}){
  const images=[{name:key,label:'Produkt',alt:`${p.name}, ${p.volume}`},{name:`${key}-texture`,label:'Textur',alt:`Illustrative Texturaufnahme: ${p.short}`},{name:`${key}-application`,label:'Anwendung',alt:`Illustrative Anwendung: ${p.short}`},{name:'hero-mobile',label:'Kollektion',alt:'Die drei ELYSERA Pflegeprodukte'}]
  const change=n=>setIndex(i=>(i+n+images.length)%images.length)
  useEffect(()=>{if(open){modal.current?.showModal();document.body.style.overflow='hidden'}else{modal.current?.close();document.body.style.overflow=''}return()=>{document.body.style.overflow=''}},[open])
- const close=()=>{setOpen(false);trigger.current?.focus()}
+ const close=()=>{modal.current?.close();setOpen(false);trigger.current?.focus({preventScroll:true})}
  const swipe=e=>{if(start.current!==null){const delta=e.changedTouches[0].clientX-start.current;if(Math.abs(delta)>45)change(delta<0?1:-1)}start.current=null}
  return <div className="product-gallery" onTouchStart={e=>{start.current=e.touches[0].clientX}} onTouchEnd={swipe}>
   <button ref={trigger} className="gallery-main" onClick={()=>setOpen(true)} aria-label={`${images[index].label} vergrößern`}><CampaignImage name={images[index].name} alt={images[index].alt} priority sizes="(max-width:600px) 100vw, 50vw"/><span className="badge">PRESALE</span><span className="zoom-label">VERGRÖSSERN <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6M7 10h6m-3-3v6"/></svg></span></button>

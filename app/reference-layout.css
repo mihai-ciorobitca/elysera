@@ -216,9 +216,9 @@
 .reference-mosaic-copy h3{font:600 24px/1.1 Montserrat,sans-serif;text-transform:uppercase;letter-spacing:0;margin:0}
 .reference-mosaic-copy p{font:400 16px/1.5 Nunito,sans-serif;margin:0;max-width:34ch;align-self:center}
 .reference-mosaic-copy .text-link{font-size:12.8px;font-weight:700;letter-spacing:0;text-decoration:underline;text-underline-offset:6px;color:inherit}
-.routine-mosaic .reference-mosaic-card:first-child .reference-mosaic-copy,.science-mosaic .reference-mosaic-card:nth-child(2) .reference-mosaic-copy{background:#f5f5f5c9;color:#36373a}
-.routine-mosaic .reference-mosaic-card:nth-child(2) .reference-mosaic-copy,.science-mosaic .reference-mosaic-card:first-child .reference-mosaic-copy{background:#06162c80;color:#fff}
-.routine-mosaic .reference-mosaic-card:last-child .reference-mosaic-copy,.science-mosaic .reference-mosaic-card:last-child .reference-mosaic-copy{background:#f5f5f5b8;color:#36373a}
+.routine-mosaic .reference-mosaic-card:first-child .reference-mosaic-copy{background:#f5f5f5c9;color:#36373a}
+.routine-mosaic .reference-mosaic-card:nth-child(2) .reference-mosaic-copy{background:#06162c80;color:#fff}
+.routine-mosaic .reference-mosaic-card:last-child .reference-mosaic-copy{background:#f5f5f5b8;color:#36373a}
 .reference-home .reference-quiz-banner{height:450px;min-height:0;margin:0;padding:0;display:grid;grid-template-columns:1fr;place-items:center;position:relative;isolation:isolate;overflow:hidden;background:#e6eaeb}
 .reference-quiz-banner>.campaign-motion{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
 .reference-quiz-banner>.campaign-motion img,.reference-quiz-banner>.campaign-motion video{width:100%;height:100%;object-fit:cover}
@@ -590,7 +590,7 @@ body h1 em,body h2 em,body .reference-home h1 em,body .reference-home h2 em,body
 .reference-home .cosmedix-hero{background:#07162e url('/media/atelier-2026/navy-gold-stone-header.webp') center top/cover no-repeat}
 .reference-home .cosmedix-hero:not([data-active=collection]){background:#07162e url('/media/atelier-2026/navy-gold-stone-header.webp') left center/50% 100% no-repeat}
 @media(max-width:700px){
- .reference-home .cosmedix-hero,.reference-home .cosmedix-hero:not([data-active=collection]){background:#07162e url('/media/atelier-2026/navy-gold-stone-header.webp') center top/100% 520px no-repeat}
+ .reference-home .cosmedix-hero,.reference-home .cosmedix-hero:not([data-active=collection]){background:radial-gradient(ellipse at 65% 8%,#213c67 0%,#102848 28%,#07162e 65%)}
 }
 
 /* Brand entrance and complete, gently entering product slides. */
@@ -606,3 +606,281 @@ body h1 em,body h2 em,body .reference-home h1 em,body .reference-home h2 em,body
  .reference-home .cosmedix-hero:not([data-active=collection]) .atelier-hero-media{mask-image:linear-gradient(to bottom,transparent,#000 28px)}
  .reference-home .cosmedix-hero:not([data-active=collection]) .atelier-hero-media .campaign-motion img,.reference-home .cosmedix-hero:not([data-active=collection]) .atelier-hero-media .campaign-motion video{padding-top:40px;padding-bottom:44px}
 }
+
+/* Keep the complete new portrait composition below the mobile hero copy. */
+.cosmedix-hero .campaign-motion>picture{display:contents}
+@media(max-width:700px){
+ .reference-home .cosmedix-hero[data-active=collection] .campaign-motion{background:#07162e}
+ .reference-home .cosmedix-hero[data-active=collection] .atelier-hero-media .campaign-motion img{object-fit:contain!important;object-position:center center}
+}
+@media(max-width:450px){.reference-home .cosmedix-hero[data-active=collection] .atelier-hero-media .campaign-motion img{object-fit:cover!important;object-position:center 40%}}
+
+/* Match the warm studio backdrop and blend away the packshot rectangle. */
+:root{--packshot-paper:#fdfbf7}
+body .atelier-product .product-photo .campaign-motion:has(>img[data-packshot]),body .campaign-motion:has(>img[data-packshot]),.product-photo:has(img[data-packshot]),.gallery-main:has(img[data-packshot]),.gallery-thumbnails button:has(img[data-packshot]),.lightbox-inner:has(img[data-packshot]){background:var(--packshot-paper)}
+.reference-home .cosmedix-hero:not([data-active=collection]) .atelier-hero-media{background:var(--packshot-paper)}
+body .campaign-motion>img[data-packshot]{mix-blend-mode:darken;background:transparent}
+
+/* Compact hero CTA after removing the descriptive paragraph. */
+.reference-home .cosmedix-hero .atelier-hero-copy>.button{width:auto;min-width:0;align-self:center;padding-inline:24px;margin-top:24px}
+
+/* Mobile brand placement follows the headline and collection action. */
+.hero-brand-below{display:none}
+@media(max-width:700px){
+ .home-header .reference-wordmark{display:none}
+ .reference-home .cosmedix-hero .atelier-hero-copy{top:100px}
+ .reference-home .cosmedix-hero .hero-brand-below{display:block;width:160px;height:170px;margin:18px auto 0}
+ .hero-brand-below .elysera-original-logo{display:block;width:100%;height:100%;filter:brightness(1.14) drop-shadow(0 2px 5px #020b1c)}
+}
+
+/* Gold reflections echo the campaign photograph around a quiet reading area. */
+.hero-atmosphere{display:none}
+@media(max-width:700px){
+ .hero-atmosphere{display:block;position:absolute;inset:0 0 auto;height:480px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(#000 75%,transparent)}
+ .hero-light-arc{position:absolute;display:block;border-radius:50%;border:1px solid #e5c28b50;box-shadow:0 0 14px #b88d4917,inset 0 0 18px #e3b16b12;transform:rotate(-27deg)}
+ .hero-light-arc.arc-one{width:270px;height:540px;right:-230px;top:-100px;border-left-color:#e8c98b9c}
+ .hero-light-arc.arc-two{width:360px;height:600px;left:-335px;top:40px;transform:rotate(28deg);border-right-color:#d8b5798c}
+ .hero-light-haze{position:absolute;inset:-30px;background:radial-gradient(ellipse at 100% 36%,#b88d4926,transparent 32%),radial-gradient(ellipse at 4% 67%,#3761a345,transparent 35%),radial-gradient(circle at 88% 17%,#fff0c6a8 0 1px,#dab88226 3px,transparent 13px),radial-gradient(circle at 95% 62%,#f5d49666 0 2px,transparent 11px),radial-gradient(circle at 5% 33%,#ead1a054 0 1px,transparent 8px)}
+}
+@keyframes elysera-reflection-breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(7px)}}
+@media(max-width:700px) and (prefers-reduced-motion:no-preference){.hero-light-haze{animation:elysera-reflection-breathe 15s ease-in-out infinite}}
+
+/* Original brand emblem and wordmark in the footer. */
+.compact-footer .footer-logo{display:block;width:150px;height:159px;margin-inline:auto;padding:0}
+.compact-footer .footer-logo .elysera-original-logo{display:block;width:100%;height:100%;filter:brightness(1.1)}
+
+/* One navy for all filled actions, including hover and selected controls. */
+:root{--button-navy:#07162e}
+/* Compact, balanced navigation on mobile shop and checkout pages. */
+@media(max-width:700px){
+ .reference-header:not(.home-header){height:112px;display:grid;grid-template-columns:minmax(88px,1fr) 90px minmax(88px,1fr);align-items:center;padding:8px 12px}
+ .reference-header:not(.home-header) .reference-wordmark{grid-column:2;grid-row:1;justify-self:center;width:90px;height:96px;margin:0;padding:0}
+ .reference-header:not(.home-header) .reference-mobile{grid-column:1;grid-row:1;justify-self:start;margin:0;align-self:center}
+ .reference-header:not(.home-header) .reference-actions{grid-column:3;grid-row:1;justify-self:end;align-self:center;display:flex;align-items:center;gap:0;padding:0;margin:0}
+ .reference-header:not(.home-header) .icon-button{width:44px;height:44px;min-width:44px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+ .reference-header:not(.home-header) .reference-account{display:none}
+ .reference-header:not(.home-header) .navigation-dropdown{top:100%}
+}
+body .button:not(.outline),body .reference-home .button:not(.outline),body .reference-home .cosmedix-hero .atelier-hero-copy .button,body .product-card-actions>button.button.outline,body .button.outline:hover:not(:disabled),body .filter-buttons button[aria-pressed=true],body .routine-experience .routine-view-tabs button[aria-pressed=true]{background:var(--button-navy);color:#fff}
+
+/* Mobile interior navigation: paired discovery controls, centered brand, bag. */
+@media(max-width:700px){
+ body:not(:has(.reference-home)) .presale-announcement{height:32px;background:#eee5d6;color:#07162e;letter-spacing:.05em;font-size:10px;border:0}
+ body:not(:has(.reference-home)) .presale-announcement a{text-decoration:none;display:flex;align-items:center;justify-content:center;min-height:32px}
+ .reference-header:not(.home-header){height:132px;grid-template-columns:1fr 110px 1fr;padding:8px 12px;border-bottom:1px solid #dec29940}
+ .reference-header:not(.home-header) .reference-wordmark{width:110px;height:116px;z-index:1}
+ .reference-header:not(.home-header) .reference-wordmark .elysera-original-logo{filter:brightness(1.12)}
+ .reference-header:not(.home-header) .reference-actions{display:contents}
+ .reference-header:not(.home-header) .reference-mobile{grid-column:1;grid-row:1;align-self:center;justify-self:start;transform:translateY(0)}
+ .reference-header:not(.home-header) .reference-actions>button:first-child{grid-column:1;grid-row:1;justify-self:start;margin-left:40px}
+ .reference-header:not(.home-header) .reference-actions>.bag{grid-column:3;grid-row:1;justify-self:end;position:relative}
+ .reference-header:not(.home-header) .icon-button svg{width:22px;height:22px;stroke-width:1.5}
+ .reference-header:not(.home-header) .bag>span{position:absolute;top:0;right:0;min-width:16px;height:16px;padding:0 3px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#dec299;color:#07162e;font:600 9px/1 Montserrat,sans-serif}
+}
+
+/* Founder editorial: calm portrait dissolves with an independently readable story. */
+.founder-section{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:center;padding:80px max(24px,7vw);background:#f7f4ef}
+.founder-portraits{min-width:0;max-width:560px;width:100%;margin:auto}
+.founder-frames{position:relative;aspect-ratio:4/5;background:#e5dfd4;overflow:hidden}
+.founder-frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.8s ease-in-out}
+.founder-frames img.is-active{opacity:1}
+.founder-controls{display:flex;align-items:center;justify-content:space-between;padding-top:8px}
+.founder-controls>div{display:flex}
+.founder-controls button{width:44px;height:44px;border:0;background:transparent;color:#07162e;cursor:pointer;font-size:20px;display:grid;place-items:center}
+.founder-controls button span{width:6px;height:6px;border:1px solid #80613a;border-radius:50%}
+.founder-controls button[aria-pressed=true] span{background:#80613a}
+.founder-controls button:focus-visible{outline:2px solid #80613a;outline-offset:-3px}
+.founder-copy{text-align:center;max-width:560px;margin:auto}
+.reference-home .founder-copy h2{font:600 clamp(27px,3vw,42px)/1.2 Montserrat,sans-serif;letter-spacing:-.025em;margin:18px 0;color:#07162e}
+.reference-home .founder-copy p{font-size:14px;line-height:1.85;margin:20px 0;color:#43516a}
+.reference-home .founder-copy .founder-role{font-size:11px;line-height:1.7;color:#80613a;margin:0 0 28px}
+.founder-copy blockquote{margin:28px 0 0;padding-top:26px;border-top:1px solid #cbb99b;font:400 17px/1.8 Montserrat,sans-serif;color:#07162e}
+.reference-home .founder-copy .founder-credit{font-size:12px;font-weight:600;color:#80613a}
+@media(max-width:700px){.founder-section{grid-template-columns:1fr;padding:44px 24px;gap:26px}.founder-copy p{font-size:13px}.founder-copy blockquote{font-size:15px}.founder-portraits{max-width:440px}}
+@media(prefers-reduced-motion:reduce){.founder-frames img{transition:none}}
+
+/* Shared top control row across the homepage and interior pages. */
+.reference-home-link{display:none}
+@media(max-width:700px){
+ .presale-announcement{display:none}
+ .reference-header:not(.home-header){height:190px;position:relative;grid-template-columns:1fr 110px 1fr;align-items:start;padding:8px 12px;background:#07162e}
+ .reference-header:not(.home-header) .reference-mobile{align-self:start;margin:0;transform:none}
+ .reference-header:not(.home-header) .reference-wordmark{position:absolute;top:64px;left:50%;transform:translateX(-50%);width:110px;height:116px}
+ .reference-header:not(.home-header) .reference-actions{display:flex;grid-column:3;grid-row:1;justify-self:end;align-self:start;align-items:center;gap:0;padding:0;margin:0}
+ .reference-header:not(.home-header) .reference-actions>button:first-child{margin:0}
+ .reference-header .icon-button{width:44px;height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+ .reference-header .icon-button svg{width:22px;height:22px;stroke-width:1.5}
+ .reference-header:not(.home-header) .reference-home-link{display:flex;position:absolute;top:8px;left:60px;height:44px;align-items:center;padding:0 8px;color:#fff;font:500 11px/1 Montserrat,sans-serif;letter-spacing:.04em;text-decoration:none}
+ .reference-home-link:focus-visible{outline:2px solid #dec299;outline-offset:-2px}
+}
+
+@media(max-width:700px){.reference-header:not(.home-header) .reference-wordmark{grid-column:auto;grid-row:auto}}
+
+/* Keep the full original brand readable below the mobile control row. */
+@media(max-width:700px){
+ .reference-header:not(.home-header){height:250px}
+ .reference-header:not(.home-header) .reference-wordmark{top:62px;width:160px;height:170px;left:50%;transform:translateX(-50%);grid-column:auto;grid-row:auto}
+ .reference-header:not(.home-header) .reference-wordmark .elysera-original-logo{filter:brightness(1.18)}
+}
+
+@media(max-width:700px){.skin-story .skin-story-image,.skin-story .skin-story-image .portrait-loop{height:auto;aspect-ratio:4/5}.skin-story .skin-story-image img{object-fit:contain;object-position:center}}
+
+.button.routine-set-button{position:relative;display:flex;justify-content:center;align-items:center;padding-inline:48px;text-align:center}.routine-set-button>span{display:block;text-align:center}.routine-set-button>svg{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:20px;height:20px}
+
+/* Never blend different faces into a double exposure. */
+.founder-frames img{transition:none;visibility:hidden}.founder-frames img.is-active{visibility:visible}
+
+.routine-experience .routine-visual[data-view="texture"]>.campaign-motion img,.routine-experience .routine-visual[data-view="texture"]>.campaign-motion video{width:100%;height:100%;object-fit:cover;object-position:center;padding:0}
+
+/* Product galleries show complete packaging, including thumbnail previews. */
+.product-gallery .gallery-main{display:flex;flex-direction:column;aspect-ratio:auto;height:auto;overflow:hidden}
+.product-gallery .gallery-main>.campaign-motion{display:block;position:relative;width:100%;height:auto;aspect-ratio:4/5;flex:none}
+.product-gallery .gallery-main>.campaign-motion img,.product-gallery .gallery-main>.campaign-motion video{width:100%;height:100%;object-fit:contain;object-position:center;padding:20px 12px 8px;box-sizing:border-box}
+.product-gallery .gallery-main .zoom-label{position:static;align-self:center;transform:none;margin:4px 0 12px;min-height:36px;padding:8px 16px}
+.product-gallery .gallery-thumbnails{width:100%;max-width:none;gap:10px}
+.product-gallery .gallery-thumbnails button{min-width:0}
+.product-gallery .gallery-thumbnails img[data-packshot]{object-fit:contain;padding:4px;box-sizing:border-box}
+
+/* Symmetric footer columns and a shared centered content axis. */
+.compact-footer .footer-main nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:360px;column-gap:16px;row-gap:0;justify-self:center}
+.compact-footer .footer-main nav a{width:100%;min-width:0;min-height:44px;text-align:center;justify-content:center;line-height:1.45}
+@media(max-width:700px){
+ .compact-footer{padding:32px 24px 24px}
+ .compact-footer .footer-main{display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;margin:0 auto}
+ .compact-footer .footer-main p{text-align:center;width:100%;margin:0;font-size:12px}
+ .compact-footer .footer-main nav{max-width:360px;column-gap:12px}
+ .compact-footer .footer-main nav a{font-size:12px}
+ .compact-footer .footer-legal{width:100%;margin:20px auto 0;padding:16px 0 0;justify-content:center;text-align:center}
+}
+
+.reference-home .routine-mosaic .reference-mosaic-card,.reference-home .routine-mosaic .reference-mosaic-copy,.reference-home .routine-mosaic .reference-mosaic-card>.campaign-motion{background:var(--packshot-paper)}
+.reference-home .routine-mosaic .reference-mosaic-card>.campaign-motion img[data-packshot]{background:transparent;mix-blend-mode:darken}
+.reference-home .routine-mosaic .reference-mosaic-card .reference-mosaic-copy{background:transparent}
+
+/* Reveal the quiz campaign photograph while keeping copy readable. */
+.reference-home .reference-quiz-banner:before{background:linear-gradient(180deg,rgba(4,16,35,.72),rgba(4,16,35,.46) 55%,rgba(4,16,35,.72))}
+.reference-home .reference-quiz-banner .editorial-copy h2,.reference-home .reference-quiz-banner .editorial-copy p{color:#fff;text-shadow:0 1px 8px #07162e66}
+.reference-home .reference-quiz-banner .editorial-copy>.text-link{color:#f0d5ab}
+.reference-home .reference-quiz-banner .editorial-copy>.button{border-color:#dec299}
+
+/* Editorial ingredient cards: generous photography and a dedicated copy panel. */
+.reference-home .science-editorial{background:#f7f4ef;padding-block:64px}
+.reference-home .science-editorial>.section-heading{padding-top:0;margin-bottom:30px;display:block}
+.reference-home .science-editorial>.section-heading .eyebrow{color:#80613a;font-size:10px;letter-spacing:.18em}
+.reference-home .science-editorial>.section-heading h2{font-weight:600;letter-spacing:-.02em;margin:12px 0 0}
+.reference-home .science-mosaic .reference-mosaic-card{display:flex;flex-direction:column;min-height:0;height:auto;aspect-ratio:auto;background:#fff;border:1px solid #ded8ce;border-radius:4px;box-shadow:0 8px 24px #07162e06;text-decoration:none}
+.reference-home .science-mosaic .reference-mosaic-card>.campaign-motion{position:relative;inset:auto;z-index:auto;display:block;width:100%;height:auto;aspect-ratio:4/3;flex:none}
+.reference-home .science-mosaic .reference-mosaic-card>.campaign-motion img{object-fit:cover;object-position:center 58%}
+.reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy{height:auto;flex:1;background:#fff;color:#07162e;padding:26px 22px;gap:14px;justify-content:flex-start}
+.reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy h3{font:600 21px/1.25 Montserrat,sans-serif;letter-spacing:-.02em;color:#07162e}
+.reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy p{font:400 13px/1.75 Montserrat,sans-serif;color:#536078;max-width:32ch;margin:0}
+.reference-home .science-mosaic .reference-mosaic-card .text-link{display:inline-flex;align-self:center;align-items:center;justify-content:center;min-height:44px;margin-top:auto;color:#80613a;font-size:10px;letter-spacing:.1em;text-decoration:none;border-bottom:1px solid #c9ad82}
+@media(max-width:700px){.reference-home .science-editorial{padding-block:44px}.reference-home .science-editorial>.section-heading{margin-bottom:24px}.reference-home .science-editorial>.section-heading h2{font-size:27px}.reference-home .science-mosaic .reference-mosaic-card>.campaign-motion{aspect-ratio:1/1}}
+
+/* A product-led closing invitation in the campaign palette. */
+.reference-home .presale-finale{display:grid;grid-template-columns:1fr 1fr;align-items:center;background:#07162e;padding:0;color:#fff;overflow:hidden}
+.presale-finale-art{height:100%;min-height:620px;position:relative;background:#07162e}
+.presale-finale-art>.campaign-motion{display:block;width:100%;height:100%;position:absolute;inset:0}
+.presale-finale-art img{width:100%;height:100%;object-fit:cover;object-position:center 65%}
+.presale-finale-copy{padding:64px 40px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.presale-finale-copy>.eyebrow{color:#dec299;font-size:10px;letter-spacing:.16em}
+.reference-home .presale-finale h2{color:#fff;font:600 clamp(28px,3vw,44px)/1.18 Montserrat,sans-serif;letter-spacing:-.025em;margin:22px 0}
+.presale-finale h2>span{color:#dec299}
+.reference-home .presale-finale p{color:#d5dce7;font-size:13px;line-height:1.8;margin:0;max-width:40ch}
+.presale-finale-price{display:flex;flex-direction:column;gap:8px;margin:28px 0}
+.presale-finale-price>span{font-size:10px;letter-spacing:.15em;color:#dec299}
+.presale-finale-price strong{font:500 42px/1.1 Montserrat,sans-serif;color:#fff;letter-spacing:-.04em}
+.presale-finale-price small{font-size:11px;color:#c6cfdd}
+body .reference-home .presale-finale .presale-finale-copy>.button{width:min(100%,340px);min-height:52px;background:#dec299;color:#07162e;border-color:#dec299;font-weight:600;display:flex;justify-content:center;gap:20px}
+body .reference-home .presale-finale .presale-finale-copy>.button:hover{background:#efdabd}
+.reference-home .presale-finale .text-link{color:#dec299;margin-top:20px;font-size:11px;min-height:44px;display:flex;align-items:center}
+@media(max-width:700px){.reference-home .presale-finale{grid-template-columns:1fr}.presale-finale-art{height:340px;min-height:0}.presale-finale-art img{object-position:center 66%}.presale-finale-copy{padding:32px 24px 40px}.reference-home .presale-finale h2{font-size:30px}.presale-finale-price{margin:24px 0}.presale-finale-art:after{content:'';position:absolute;inset:auto 0 0;height:55px;background:linear-gradient(transparent,#07162e)}}
+
+/* Opaque editorial reveal: products stay crisp rather than fading into white. */
+.reference-home .cosmedix-hero .atelier-hero-media>.campaign-motion{animation:none;opacity:1}
+@keyframes hero-product-depart{from{clip-path:inset(0);transform:translateX(0)}to{clip-path:inset(0 100% 0 0);transform:translateX(-12px)}}
+@keyframes hero-product-reveal{from{clip-path:inset(0 0 0 100%);transform:translateX(18px)}to{clip-path:inset(0);transform:translateX(0)}}
+@media(prefers-reduced-motion:no-preference){
+ .reference-home .cosmedix-hero[data-transition="leaving"] .atelier-hero-media>.campaign-motion{animation:hero-product-depart .5s cubic-bezier(.65,0,.35,1) both}
+ .reference-home .cosmedix-hero[data-transition="entering"] .atelier-hero-media>.campaign-motion{animation:hero-product-reveal 1.2s cubic-bezier(.22,1,.36,1) both}
+ .reference-home .cosmedix-hero .atelier-hero-copy{animation:elysera-copy-arrive 1s ease-out both}
+}
+
+.reference-home .reference-benefits svg{width:40px;height:40px;stroke:#96713f;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;fill:none}
+
+/* Routine cards keep the packshot and copy in separate rows. */
+.reference-home .routine-mosaic .reference-mosaic-card{display:flex;flex-direction:column;height:auto;min-height:0;aspect-ratio:auto}
+.reference-home .routine-mosaic .reference-mosaic-card>.campaign-motion{position:relative;inset:auto;z-index:auto;flex:none;width:100%;height:230px}
+.reference-home .routine-mosaic .reference-mosaic-card>.campaign-motion img{height:100%;width:100%;object-fit:contain;padding:16px;box-sizing:border-box}
+.reference-home .routine-mosaic .reference-mosaic-card .reference-mosaic-copy{position:relative;height:auto;flex:1;padding:20px 20px 24px;justify-content:flex-start;gap:14px;background:transparent}
+.reference-home .routine-mosaic .reference-mosaic-copy .text-link{margin-top:auto;min-height:44px;display:flex;align-items:center;justify-content:center}
+@media(max-width:700px){.reference-home .routine-mosaic .reference-mosaic-card>.campaign-motion{height:200px}.reference-home .routine-mosaic .reference-mosaic-copy h3{font-size:23px;line-height:1.2}}
+
+/* Shop cards share the same text rows and action baseline. */
+.shop-grid{align-items:stretch}
+.shop-grid .atelier-product{display:flex;flex-direction:column;min-width:0}
+.shop-grid .atelier-product-info{display:flex;flex-direction:column;flex:1;text-align:center}
+.shop-grid .product-card-meta{justify-content:center}
+.shop-grid .atelier-product-info h3{min-height:4.05em;line-height:1.35;margin:12px 0 8px}
+.shop-grid .product-role{min-height:5.1em;line-height:1.7;margin:0 0 12px}
+.shop-grid .atelier-price{min-height:4.8em;line-height:1.6;margin:0 0 16px}
+.shop-grid .product-card-actions{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:0}
+.shop-grid .product-card-actions>.button{width:100%;margin:0;min-height:48px}
+@media(max-width:700px){
+ .shop-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 16px}
+ .shop-grid>.atelier-product:last-child:nth-child(odd):not(:first-child){grid-column:1/-1;width:calc((100% - 16px)/2);justify-self:center}
+ .shop-grid .atelier-product-info h3{font-size:14px}
+ .shop-grid .product-role{font-size:12px}
+ .shop-grid .atelier-price{font-size:10px}
+ .shop-grid .product-card-actions>.button{font-size:9px;padding:12px 6px;letter-spacing:.04em}
+}
+
+.mobile-product-comparison{display:none}
+@media(max-width:700px){
+ .shop-comparison .comparison-scroll,.shop-comparison .comparison-hint{display:none}
+ .shop-comparison{padding:28px 16px}
+ .shop-comparison h2{font-size:24px;line-height:1.25}
+ .mobile-product-comparison{display:grid;gap:16px;margin-top:24px}
+ .mobile-product-comparison article{background:#fff;border:1px solid #d4dce7;padding:20px 16px;text-align:left}
+ .mobile-product-comparison h3{font:600 17px/1.35 Montserrat,sans-serif;color:#07162e;margin:0 0 16px}
+ .mobile-product-comparison dl{margin:0}
+ .mobile-product-comparison dl>div{display:grid;grid-template-columns:74px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid #e5e9ef;font:400 13px/1.6 Montserrat,sans-serif}
+ .mobile-product-comparison dt{color:#536078}
+ .mobile-product-comparison dd{margin:0;color:#07162e;overflow-wrap:anywhere}
+ .shop-comparison .routine-actions .text-link{font-size:11px;line-height:1.7;text-align:center}
+}
+
+/* Mobile comparison uses stacked definitions rather than squeezed columns. */
+@media(max-width:700px){
+ .shop-comparison{background:#f7f4ef;padding:34px 20px;border:0}
+ .shop-comparison>h2{max-width:15ch;margin:0 auto 28px;font-size:24px;line-height:1.3;letter-spacing:-.02em}
+ .mobile-product-comparison{gap:28px;margin-top:0}
+ .mobile-product-comparison article{background:transparent;border:0;border-top:1px solid #cbb99b;padding:24px 0 0}
+ .comparison-product-heading{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+ .comparison-step{font:400 32px/1 Montserrat,sans-serif;letter-spacing:-.04em;color:#96713f}
+ .comparison-step-label{display:block;font:500 9px/1.5 Montserrat,sans-serif;letter-spacing:.14em;color:#80613a;margin-bottom:5px}
+ .mobile-product-comparison h3{font-size:17px;line-height:1.35;margin:0;letter-spacing:-.02em}
+ .mobile-product-comparison dl{display:grid;gap:16px;padding-left:0}
+ .mobile-product-comparison dl>div{display:block;padding:0;border:0;min-width:0}
+ .mobile-product-comparison dl>div:first-child{display:none}
+ .mobile-product-comparison dt{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#80613a;margin-bottom:4px}
+ .mobile-product-comparison dd{font-size:14px;line-height:1.6;color:#07162e;margin:0;text-align:left;overflow-wrap:normal}
+ .shop-comparison .routine-actions{margin-top:32px;display:flex;justify-content:center}
+ .shop-comparison .routine-actions .text-link{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;min-height:48px;border:1px solid #b7986b;border-radius:999px;text-decoration:none;padding:12px 14px;font-size:10px;letter-spacing:.04em;color:#07162e}
+ .shop-comparison .routine-actions .text-link svg{flex:0 0 18px;width:18px}
+}
+
+/* Reserve equal side space so the set label cannot collide with the bag. */
+body .button.routine-set-button{position:relative;display:grid;grid-template-columns:minmax(0,1fr);padding:12px 48px;min-height:56px;width:min(100%,360px);white-space:normal}
+body .button.routine-set-button>span{min-width:0;width:100%;white-space:normal;overflow-wrap:normal;line-height:1.45;text-align:center}
+body .button.routine-set-button>svg{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;pointer-events:none}
+
+/* Keep the complete collection above the lower edge of the account banner. */
+.route-banner.account-banner>.campaign-motion{aspect-ratio:4/5;height:auto;max-height:none;align-self:center}
+.route-banner.account-banner>.campaign-motion img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 70%}
+
+.account-selection{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;max-width:400px;margin:36px auto 0}
+.account-selection>.source-note{margin:0;width:100%;padding-inline:8px;text-align:center;font-size:12px;line-height:1.8}
+body .account-selection>.button{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:60px;margin:0;padding:14px 48px;text-align:center}
+.account-selection>.button>span{min-width:0;line-height:1.5}
+.account-selection>.button>svg{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:18px;height:18px}

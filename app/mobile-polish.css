@@ -1,0 +1,178 @@
+/* Shared responsive finishing for the complete storefront. */
+body .skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; padding: 0; overflow: hidden; white-space: nowrap; }
+.route-banner > .campaign-motion[data-motion="hero-mobile"] {
+  aspect-ratio: 4 / 5;
+  height: auto;
+  max-height: none;
+  align-self: center;
+}
+.route-banner > .campaign-motion[data-motion="hero-mobile"] img {
+  object-fit: cover;
+  object-position: center 70%;
+}
+.route-banner > .campaign-motion[data-motion="contact-portrait"] {
+  aspect-ratio: 4 / 5;
+  height: auto;
+  max-height: none;
+}
+.route-banner > .campaign-motion[data-motion="contact-portrait"] img {
+  object-position: center top;
+}
+.account-banner + .account-destinations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.source-note { line-height: 1.8; }
+.presale-selection-price {
+  max-width: 640px;
+  margin: 28px auto;
+  padding: 24px;
+  background: #edf2f8;
+  border-block: 1px solid #d4dce7;
+  text-align: left;
+}
+.checkout .presale-selection-price p { margin: 0; max-width: none; }
+.checkout .presale-selection-price p + p { margin-top: 12px; }
+.checkout-availability { max-width: 42ch; margin: 24px auto 0; font-size: 13px; }
+.checkout-edit { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; }
+.checkout .page-heading > .button { display: inline-flex; align-items: center; justify-content: center; gap: 14px; }
+.checkout .page-heading > .button > span:first-child { min-width: 0; }
+.checkout .page-heading > .button > span[aria-hidden] { flex: none; }
+.drawer { overscroll-behavior: contain; }
+.drawer-inner { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+.drawer-head { gap: 16px; align-items: center; }
+.drawer-head h2 { min-width: 0; }
+.drawer-head .icon-button { flex: 0 0 44px; }
+.cart-product > div, .mini-product > div { min-width: 0; }
+.remove { min-height: 44px; }
+.search-input { font-size: 16px; }
+.quiz-options button { text-align: left; }
+.quiz-options button > svg { margin-left: auto; }
+.texture-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.texture-tabs button { min-width: 0; min-height: 48px; white-space: normal; line-height: 1.5; }
+.gallery-thumbnails button { min-width: 0; }
+.gallery-thumbnails .campaign-motion { height: 100%; }
+.gallery-thumbnails .campaign-motion img { object-fit: cover; }
+.gallery-thumbnails .campaign-motion img[data-packshot] { object-fit: contain; }
+.image-lightbox { width: min(94vw, 900px); max-width: 94vw; max-height: 94dvh; }
+.lightbox-inner { padding: 12px; }
+.lightbox-inner > .campaign-motion { display: block; width: 100%; height: min(74dvh, 760px); max-height: none; aspect-ratio: auto; }
+.lightbox-inner > .campaign-motion img { display: block; width: 100%; height: 100%; max-height: none; object-fit: contain; object-position: center; padding: 12px; }
+.lightbox-inner .gallery-nav { margin: 8px 0 0; min-height: 44px; }
+.lightbox-close { right: 16px; top: 16px; }
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  body .reference-home .cosmedix-hero .atelier-hero-copy h1 { font-size: clamp(34px, 4.4vw, 48px); }
+  .reference-home .routine-experience-copy > h2 { font-size: clamp(26px, 3.2vw, 36px); }
+  .routine-step-content h3 { font-size: 26px; }
+  .product-detail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+  .detail-copy h1 { font-size: 30px; }
+  .purchase-actions { flex-wrap: wrap; }
+  .purchase-actions > .button { width: 100%; }
+}
+
+@media (min-width: 701px) and (max-width: 1000px) {
+  .reference-header.home-header { height: 70px; margin-bottom: -70px; position: relative; align-items: center; }
+  .home-header .reference-mobile { grid-column: 1; grid-row: 1; justify-self: start; }
+  .home-header .reference-actions { grid-column: 3; grid-row: 1; justify-self: end; }
+  .home-header .reference-wordmark { display: none; }
+  .reference-home .cosmedix-hero { height: 940px; min-height: 940px; background: #07162e; }
+  .reference-home .cosmedix-hero:not([data-active="collection"]) { background: #07162e; }
+  .reference-home .cosmedix-hero .atelier-hero-copy {
+    position: absolute; top: 90px; left: 0; width: 100%; max-width: none;
+    padding: 24px; text-align: center; align-items: center; transform: none;
+  }
+  .reference-home .cosmedix-hero .hero-brand-below { display: block; width: 150px; height: 159px; margin: 24px auto 0; }
+  .hero-brand-below .elysera-original-logo { width: 100%; height: 100%; }
+  .reference-home .cosmedix-hero .atelier-hero-media,
+  .reference-home .cosmedix-hero:not([data-active="collection"]) .atelier-hero-media {
+    inset: 480px 0 0; width: 100%; height: 460px; mask-image: none;
+  }
+  .reference-home .cosmedix-hero .atelier-hero-media img { object-fit: contain; object-position: center; }
+  .reference-home .cosmedix-hero .hero-service-bar { display: none; }
+  .reference-home .cosmedix-hero .atelier-tabs { bottom: 12px; }
+}
+
+@media (max-width: 700px) {
+  main[data-page="inner"] .section { padding-inline: 24px; }
+  main[data-page="inner"] .skin-story-image {
+    width: 100%; max-width: none; height: auto; aspect-ratio: 4 / 5; margin: 0;
+  }
+  main[data-page="inner"] .skin-story-image > .campaign-motion { width: 100%; height: 100%; }
+  main[data-page="inner"] .skin-story-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .route-banner { overflow: hidden; }
+  .route-banner > div { padding: 32px 24px; }
+  .route-banner h1 { font-size: clamp(28px, 8vw, 35px); }
+  .route-banner .text-link { margin-top: 20px; min-height: 44px; }
+  .account-banner + .account-destinations { grid-template-columns: 1fr; }
+  .routine-detail { margin-block: 36px; }
+  .routine-detail > div { padding: 28px 20px; }
+  .routine-detail .text-link { min-height: 44px; margin-top: 12px; }
+  .knowledge-grid { gap: 28px; }
+  .knowledge-grid article { padding-top: 24px; }
+  .knowledge-grid h2 { margin-bottom: 14px; }
+  .source-note, .account-selection > .source-note { font-size: 12px; color: #51617a; }
+  .delivery-table { table-layout: fixed; width: 100%; }
+  .delivery-table th, .delivery-table td { padding: 16px 10px; font-size: 12px; line-height: 1.7; vertical-align: top; }
+  .delivery-table th:first-child { width: 38%; }
+  .texture-copy { padding: 28px 24px 32px; gap: 24px; }
+  .texture-tabs button { padding-inline: 4px; font-size: 11px; }
+  .texture-description h2 { font-size: 27px; }
+  .texture-description .text-link { min-height: 44px; margin-top: 12px; }
+  .texture-copy > small { font-size: 11px; }
+  .filter-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
+  .filter-buttons button { width: 100%; font-size: 12px; padding: 10px 8px; }
+  .sort-label { justify-content: space-between; width: 100%; }
+  .sort-label select { flex: 1; min-width: 0; max-width: 240px; }
+  .shop-grid .atelier-product-info h3 { min-height: 4.05em; font-size: 15px; }
+  .shop-grid .product-role { min-height: 5.1em; }
+  .shop-grid .atelier-price { font-size: 11px !important; min-height: 4.8em; }
+  .shop-grid .product-card-actions > .button { font-size: 10px; letter-spacing: .02em; }
+  .product-grid.related.auto-rail {
+    display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 88%;
+    gap: 16px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory;
+    scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .product-grid.related.auto-rail > * { min-width: 0; scroll-snap-align: start; }
+  .product-grid.related .atelier-product { display: flex; flex-direction: column; height: 100%; }
+  .product-grid.related .atelier-product-info { display: flex; flex: 1; flex-direction: column; width: 100%; }
+  .product-grid.related .product-card-actions { margin-top: auto; padding-top: 16px; }
+  .product-grid.related .product-photo { aspect-ratio: 4 / 5; }
+  .quiz-navigation { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 20px; }
+  .quiz-navigation .text-link { min-height: 48px; }
+  body .quiz-navigation > .button { min-width: 0; padding: 14px 16px; gap: 10px; }
+  .quiz-result > .product-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .quiz-result .atelier-product { display: flex; flex-direction: column; max-width: 360px; width: 100%; margin: auto; }
+  .quiz-result .atelier-product-info { width: 100%; }
+  .quiz-result > .text-link { min-height: 48px; margin-top: 24px; }
+  .drawer { width: 100%; max-width: 440px; max-height: 100dvh; }
+  .drawer-inner { padding: 20px 20px max(24px, env(safe-area-inset-bottom)); }
+  .drawer-head h2 { font-size: 22px; line-height: 1.3; }
+  .mobile-links a { font-size: 20px; min-height: 52px; padding-block: 12px; }
+  .cart-product { grid-template-columns: 72px minmax(0, 1fr); gap: 16px; }
+  .cart-product > img { width: 72px; height: 100px; object-fit: contain; }
+  .cart-product > div > a { font-size: 15px; line-height: 1.5; display: block; }
+  .cart-product p { font-size: 12px; line-height: 1.6; }
+  .mini-product { grid-template-columns: 64px minmax(0, 1fr) 20px; gap: 12px; }
+  .mini-product > img { width: 64px; height: 86px; object-fit: contain; }
+  .mini-product h3 { font-size: 16px; }
+  .cart-bottom { padding-top: 24px; }
+  .cart-bottom .button { width: 100%; }
+  .atelier-checkout-items article { grid-template-columns: 72px minmax(0, 1fr); gap: 16px; padding-block: 20px; }
+  .atelier-checkout-items img { width: 72px; height: 104px; }
+  .atelier-checkout-items h2 { font-size: 18px; line-height: 1.35; }
+  .atelier-checkout-items p { margin-top: 10px; }
+  .presale-selection-price { padding: 22px 20px; }
+  .presale-selection-price strong { display: block; line-height: 1.6; }
+  .checkout .page-heading > .button { width: 100%; max-width: 360px; }
+  .atelier-empty { padding: 16px 0 12px; }
+  .film-option-body h2 { font-size: 22px; line-height: 1.4; }
+}
+
+@media (max-width: 359px) {
+  .shop-grid { grid-template-columns: 1fr; gap: 36px; }
+  .shop-grid > .atelier-product:last-child:nth-child(odd):not(:first-child) { width: 100%; grid-column: auto; }
+  .shop-grid .atelier-product-info h3 { min-height: 0; font-size: 20px; }
+  .shop-grid .product-role, .shop-grid .atelier-price { min-height: 0; }
+  .shop-grid .product-role { font-size: 14px; }
+  .shop-grid .atelier-price { font-size: 12px !important; }
+  .shop-grid .product-card-actions > .button { font-size: 11px; }
+  .quiz-options button { gap: 12px; padding-inline: 14px; }
+}

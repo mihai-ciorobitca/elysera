@@ -24,7 +24,7 @@ export function useAutoAdvance(ref,advance,delay=7000){
  },[ref,delay])
 }
 
-export default function AutoCarousel({children,className,label}){
+export default function AutoCarousel({children,className,label,delay=7000}){
  const ref=useRef(null),[active,setActive]=useState(0)
  const items=Children.toArray(children)
  const go=index=>{
@@ -32,7 +32,7 @@ export default function AutoCarousel({children,className,label}){
   const child=rail.children[index],first=rail.children[0]
   rail.scrollTo({left:child.offsetLeft-first.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})
  }
- useAutoAdvance(ref,()=>go((active+1)%items.length))
+ useAutoAdvance(ref,()=>go((active+1)%items.length),delay)
  const sync=()=>{const rail=ref.current,first=rail.children[0];let closest=0;Array.from(rail.children).forEach((child,i)=>{if(Math.abs(child.offsetLeft-first.offsetLeft-rail.scrollLeft)<Math.abs(rail.children[closest].offsetLeft-first.offsetLeft-rail.scrollLeft))closest=i});setActive(closest)}
  return <><div ref={ref} className={`${className} auto-rail`} onScroll={sync} aria-label={label}>{items}</div><nav className="carousel-dots" aria-label={`${label} auswählen`}>{items.map((_,i)=><button type="button" key={i} aria-label={`${label}: ${i+1} von ${items.length}`} aria-pressed={active===i} onClick={()=>go(i)}><span/></button>)}</nav></>
 }

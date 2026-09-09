@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import FounderSection from './founder-section'
 import {products} from './catalog'
 import {ProductCard,FAQ,RoutineSet} from './storefront'
 import {CampaignMotion,TextureLibrary} from './campaign'
@@ -18,7 +19,7 @@ export default function Home(){return <div className="reference-home">
  <ReferenceBenefits/>
  <section className="section collection-section" id="collection">
   <div className="section-heading"><h2>Die Elysera Kollektion</h2></div>
-  <AutoCarousel className="product-grid" label="Produkt">{products.map(p=><ProductCard key={p.slug} product={p}/>)}</AutoCarousel>
+  <AutoCarousel className="product-grid" label="Produkt" delay={4000}>{products.map(p=><ProductCard key={p.slug} product={p}/>)}</AutoCarousel>
  </section>
  <section className="ritual-intro">
   <h2>Deine Pflege beginnt hier</h2><p>Drei aufeinander abgestimmte Schritte für deine tägliche Routine.</p>
@@ -29,7 +30,7 @@ export default function Home(){return <div className="reference-home">
   <div className="editorial-copy"><h2>Finde die Pflege,<br/>die zu deiner Haut passt</h2><p>Noch nicht sicher, womit du starten möchtest? Drei kurze Fragen führen dich zu deinem Einstieg in die Kollektion.</p><Link className="button" href="/quiz/">Pflege-Quiz starten</Link><Link className="text-link" href="/shop/">Oder alle Produkte entdecken</Link></div>
  </section>
  <section className="section care-section science-editorial">
-  <div className="section-heading"><h2>Die Kraft der Pflege im Detail</h2></div>
+  <div className="section-heading"><span className="eyebrow">WIRKSTOFFE & TEXTUREN</span><h2>Pflege im Detail</h2></div>
   <AutoCarousel className="reference-mosaic science-mosaic" label="Pflegewissen">{[
    ['Peptidpflege','serum-texture','Entdecke GHK-Cu und die Wirkstofflogik des Renewal Serums.'],
    ['Leichte Feuchtigkeit','toner-texture','Feiner Sprühnebel als erster Schritt nach der Reinigung.'],
@@ -39,7 +40,7 @@ export default function Home(){return <div className="reference-home">
  <TextureLibrary/>
  <section className="ugc-journal" id="pflege-alltag">
   <div className="ugc-journal-heading"><h2>Pflege im echten Leben</h2><p>Entdecke die Anwendung von Elysera.</p></div>
-  <AutoCarousel className="ugc-journal-grid" label="Anwendung">{[
+  <AutoCarousel className="ugc-journal-grid" label="Anwendung" delay={4000}>{[
    ['ugc-creator','UGC-Model zeigt das Elysera Renewal Serum im Badezimmer','Renewal Serum','renewal-serum'],
    ['ugc-morning','Illustrative Pflegeroutine mit Balance Toner','Balance Toner','balance-toner'],
    ['ugc-eye','Illustrative Anwendung der Augenpflege','Contour Eye Cream','contour-eye-cream'],
@@ -49,6 +50,7 @@ export default function Home(){return <div className="reference-home">
  <RoutineExperience compact/>
  <section className="routine-actions-band" aria-label="Gesamte Pflegeroutine auswählen"><div className="routine-actions"><RoutineSet/></div></section>
  <section className="skin-story" id="hautpflege-story"><div className="skin-story-image"><PortraitLoop name="story-serum" alt="Frau verteilt ELYSERA Renewal Serum sanft auf ihrer Wange"/></div><div className="skin-story-copy editorial-copy"><h2>Pflege, die bei<br/>deiner Haut beginnt</h2><p>ELYSERA verbindet gezielte Peptidpflege mit drei klaren Aufgaben – vom frischen Anfang bis zur Augenpartie.</p><Link className="button" href="/about/">Lerne Elysera kennen</Link></div></section>
+ <FounderSection/>
  <section className="section home-faq"><div><h2>Gut zu wissen</h2><Link className="text-link" href="/faq/">Alle Fragen</Link></div><FAQ limit={4}/></section>
- <section className="presale-close"><h2>Von Anfang an dabei</h2><p>Entdecke die drei Produkte der ersten ELYSERA Kollektion im Presale.</p><Link className="button" href="/shop/">Kollektion entdecken</Link><Link className="text-link" href="/presale/">So funktioniert der Presale</Link></section>
+ <section className="presale-close presale-finale"><div className="presale-finale-art"><CampaignMotion name="hero-mobile" alt="Die drei ELYSERA Pflegeprodukte in Nachtblau und Gold"/></div><div className="presale-finale-copy"><span className="eyebrow">PRESALE · AB 23.09.2026</span><h2>Deine Routine.<br/><span>Dein erster Schritt.</span></h2><p>Drei aufeinander abgestimmte Pflegeprodukte.<br/>Entdecke die erste ELYSERA Kollektion.</p><div className="presale-finale-price"><span>DAS 3ER-SET</span><strong>139 €</strong><small>Renewal Serum einzeln · 59 €</small></div><Link className="button" href="/shop/">KOLLEKTION ENTDECKEN <span aria-hidden="true">→</span></Link><Link className="text-link" href="/presale/">Presale & Lieferung</Link></div></section>
 </div>}

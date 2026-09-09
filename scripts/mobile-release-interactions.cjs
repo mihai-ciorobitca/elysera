@@ -1,0 +1,116 @@
+const browsers = require('playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const base = process.env.AUDIT_URL || 'http://localhost:3001';
+const out = process.env.AUDIT_OUT || 'outputs/mobile-release-final';
+(async () => {
+  fs.mkdirSync(out, { recursive: true });
+  const browser = await browsers[process.env.AUDIT_BROWSER || 'chromium'].launch();
+  const checks = [], errors = [];
+  const page = await browser.newPage({ viewport: { width: 320, height: 740 }, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
+  page.on('pageerror', e => errors.push(e.message));
+  const check = (name, value) => { assert.ok(value, name); checks.push(name); };
+  const visit = route => page.goto(base + route, { waitUntil: 'networkidle' });
+  const bounds = async selector => page.locator(selector).evaluate(el => {
+    const r = el.getBoundingClientRect();
+    return r.left >= -1 && r.right <= innerWidth + 1 && el.scrollWidth <= el.clientWidth + 2;
+  });
+  await visit('/');
+  await page.getByRole('button', { name: 'Menü öffnen', exact: true }).click();
+  check('Menu has all 10 navigation destinations', await page.locator('.mobile-links a').count() === 10);
+  check('Menu fits 320px viewport', await bounds('.drawer[open]'));
+  await page.locator('.drawer').screenshot({ path: out + '/menu.png' });
+  await page.locator('.mobile-links').getByRole('link', { name: 'Shop', exact: true }).click();
+  await page.waitForURL('**/shop');
+  check('Navigation closes drawer', await page.locator('dialog[open]').count() === 0);
+  await page.getByRole('button', { name: 'Produkte suchen', exact: true }).click();
+  await page.getByRole('searchbox').fill('Ectoin');
+  check('Ingredient search finds serum and toner', await page.locator('.mini-product').count() === 2);
+  await page.getByRole('searchbox').fill('xxxx');
+  check('Search has a readable empty state', await page.getByText('Keine Produkte gefunden.', { exact: false }).isVisible());
+  await page.getByRole('searchbox').fill('Serum');
+  check('Search result fits viewport', await bounds('.mini-product'));
+  await page.keyboard.press('Escape');
+  await page.locator('.drawer').waitFor({ state: 'hidden' });
+  check('Escape closes search', await page.locator('dialog[open]').count() === 0);
+  await page.locator('.filter-buttons').getByRole('button', { name: 'Toner', exact: true }).click();
+  check('Shop filter shows one product', await page.locator('.shop-grid .product-card').count() === 1);
+  await page.locator('.filter-buttons').getByRole('button', { name: 'Alle Produkte' }).click();
+  await page.locator('.sort-label select').selectOption('routine');
+  check('Shop routine sort starts with toner', (await page.locator('.shop-grid h3').first().innerText()).includes('Toner'));
+  await visit('/presale');
+  await page.locator('.routine-set-button').click();
+  check('Set adds all three products', await page.locator('.cart-product').count() === 3);
+  check('Cart content fits viewport', await bounds('.drawer-inner'));
+  await page.locator('.drawer').screenshot({ path: out + '/cart.png' });
+  await page.getByRole('button', { name: 'Renewal Serum: Menge erhöhen', exact: true }).click();
+  await page.getByRole('link', { name: 'ZUR ÜBERSICHT' }).click();
+  await page.waitForURL('**/checkout');
+  check('Set plus serum totals 198 euros', (await page.locator('.presale-selection-price').innerText()).includes('198 €'));
+  check('Filled checkout fits narrow viewport', await bounds('.atelier-checkout-items'));
+  check('Unavailable checkout explains state', await page.locator('.checkout-availability').isVisible());
+  check('Unavailable checkout cannot navigate', await page.locator('a[aria-disabled=true]').getAttribute('href') === null);
+  await page.screenshot({ path: out + '/checkout-filled.png', fullPage: true });
+  await page.reload({ waitUntil: 'networkidle' });
+  check('Selection persists after reload', (await page.locator('.presale-selection-price').innerText()).includes('198 €'));
+  await page.getByRole('button', { name: /Warenkorb,/ }).click();
+  await page.locator('.cart-product').first().getByRole('button', { name: 'Entfernen', exact: true }).click();
+  check('Removing product updates cart', await page.locator('.cart-product').count() === 2);
+  await page.getByRole('button', { name: 'Schließen', exact: true }).click();
+  for (const slug of ['renewal-serum', 'balance-toner', 'contour-eye-cream']) {
+    await visit('/products/' + slug);
+    for (let i = 0; i < 4; i++) {
+      await page.locator('.gallery-thumbnails button').nth(i).click();
+      check(slug + ' gallery slide ' + i, await page.locator('.gallery-main img').evaluate(i => i.complete && i.naturalWidth > 0));
+    }
+    await page.locator('.gallery-main').click();
+    check(slug + ' lightbox fits viewport', await bounds('.image-lightbox'));
+    await page.getByRole('button', { name: 'Nächstes großes Bild' }).click();
+    check(slug + ' lightbox advances', (await page.locator('.lightbox-inner .gallery-nav').innerText()).includes('1 / 4'));
+    check(slug + ' lightbox shows complete image', await page.locator('.lightbox-inner img').evaluate(i => getComputedStyle(i).objectFit === 'contain'));
+    await page.locator('.image-lightbox').screenshot({ path: out + '/lightbox-' + slug + '.png' });
+    await page.getByRole('button', { name: 'Vergrößerung schließen' }).click();
+    await page.locator('.image-lightbox').waitFor({ state: 'hidden' });
+    check(slug + ' gallery restores focus', await page.locator('.gallery-main').evaluate(el => el === document.activeElement));
+    await page.locator('.product-accordions summary').filter({ hasText: 'Wirkstoffschwerpunkte' }).click();
+    check(slug + ' ingredients accordion opens', await page.getByText('Dies ist keine vollständige INCI-Liste.', { exact: false }).isVisible());
+    await page.locator('.related + .carousel-dots button').last().click();
+    await page.waitForFunction(() => document.querySelector('.related + .carousel-dots button:last-child')?.getAttribute('aria-pressed') === 'true');
+    check(slug + ' recommendations can change', true);
+  }
+  for (const full of [false, true]) {
+    await visit('/quiz');
+    for (let i = 0; i < 3; i++) {
+      await page.locator('.quiz-options button').nth(i === 2 && full ? 1 : 0).click();
+      await page.locator('.quiz-navigation .button').click();
+    }
+    check('Quiz returns ' + (full ? 'three products' : 'one product'), await page.locator('.quiz-result .product-card').count() === (full ? 3 : 1));
+    check('Quiz result has no horizontal overflow', await bounds('.quiz-result'));
+    check('Quiz focuses result heading', await page.locator('.quiz-result h2').evaluate(e => document.activeElement === e));
+    if (full) await page.screenshot({ path: out + '/quiz-result.png', fullPage: true });
+    await page.getByRole('button', { name: /QUIZ NEU STARTEN/ }).click();
+    check('Quiz reset clears choices', await page.locator('.quiz-navigation .button').isDisabled());
+  }
+  await visit('/faq');
+  await page.locator('.faq-list summary').first().click();
+  check('FAQ opens answer', await page.locator('.faq-list details[open]').count() === 1);
+  await visit('/account');
+  await page.getByRole('link', { name: 'Zur Startseite', exact: true }).click();
+  await page.waitForURL(base + '/');
+  check('Home button returns to frontpage', true);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.locator('.atelier-tabs button').nth(1).click();
+  await page.waitForFunction(() => document.querySelector('.cosmedix-hero')?.dataset.active === 'serum' && document.querySelector('.cosmedix-hero')?.dataset.transition === 'idle');
+  check('Hero transition completes', true);
+  await page.locator('.collection-section .auto-rail').scrollIntoViewIfNeeded();
+  await page.locator('.collection-section + *').count();
+  await page.locator('.collection-section .carousel-dots button').first().click();
+  await page.locator('.collection-section .carousel-dots button').first().evaluate(e => e.blur());
+  await page.mouse.move(0, 0);
+  await page.waitForFunction(() => document.querySelector('.collection-section .carousel-dots button:nth-child(2)')?.getAttribute('aria-pressed') === 'true', { timeout: 12000 });
+  check('Home products advance automatically', true);
+  check('No browser runtime errors', errors.length === 0);
+  fs.writeFileSync(out + '/interactions.json', JSON.stringify({ checks, errors }, null, 2));
+  console.log(JSON.stringify({ passed: checks.length, errors }));
+  await browser.close();
+})().catch(e => { console.error(e); process.exit(1); });

@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import {mediaRoot} from '../media-library'
+import {legacyMediaRoot as mediaRoot} from '../media-library'
 import './selection.css'
 export const motifs=[['atelier-collection','Atelier · Kollektion'],['ugc-creator','UGC · Serum im Alltag'],['hero','Desktop-Hero'],['hero-mobile','Mobile-Hero'],['serum','Renewal Serum'],['toner','Balance Toner'],['eye','Contour Eye Cream'],['serum-texture','Serum-Textur'],['toner-texture','Toner-Textur'],['eye-texture','Augenpflege-Textur'],['story-serum','Serum-Anwendung'],['finder-eye','Augenpflege-Anwendung'],['toner-application','Toner-Anwendung']]
 export default function VideoSelection(){
