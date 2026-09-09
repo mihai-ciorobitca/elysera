@@ -1,0 +1,3 @@
+'use client'
+import AutoCarousel from './auto-carousel'
+export default function ReferenceBenefits(){return <AutoCarousel className="reference-benefits" label="Pflegevorteil"><div><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m8 20 8 8L33 8"/></svg><h3>Gezielte Peptidpflege</h3><p>Drei Produkte mit klaren Aufgaben.</p></div><div><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4C16 12 9 18 9 25a11 11 0 0 0 22 0c0-7-7-13-11-21Z"/></svg><h3>Leichte Texturen</h3><p>Entdecke Serum, Toner und Augenpflege.</p></div><div><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16"/><path d="M20 9v12l8 5"/></svg><h3>Deine Routine</h3><p>Ein täglicher Moment für dich.</p></div></AutoCarousel>}

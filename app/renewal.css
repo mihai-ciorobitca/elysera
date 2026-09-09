@@ -1,0 +1,30 @@
+/* Renewal campaign: let the actual films carry the movement. */
+.experience-art,.experience-art img,.experience-art video{animation:none!important;transform:none!important}
+.collection-scene .experience-art video{mask-image:none!important;opacity:1!important}
+.routine-visual>.campaign-motion{position:absolute;inset:0;width:100%;height:100%}
+.routine-view-tabs{position:absolute;z-index:3;left:20px;right:20px;bottom:20px;display:flex;gap:8px;padding:6px;border:1px solid #d5b88755;background:#091325cc;backdrop-filter:blur(12px)}
+.routine-view-tabs button{flex:1;min-height:44px;border:0;background:transparent;color:#fff5e6;font-size:10px;letter-spacing:.13em;cursor:pointer}
+.routine-view-tabs button[aria-pressed=true]{background:#e2c896;color:#10192a}
+.ugc-journal-grid .campaign-motion{display:block;width:100%;aspect-ratio:2/3}
+.ugc-journal-grid .campaign-motion img,.ugc-journal-grid .campaign-motion video{width:100%;height:100%;object-fit:cover}
+.skin-story,.routine-experience{background:#0d1a30;color:#f5eee4}
+.skin-story p,.routine-experience p,.routine-experience .muted{color:#c2c8d1}
+.skin-story .button,.routine-experience .button{color:#f5eee4;border-color:#c7ad78}
+.routine-experience .routine-step-tabs button{color:#b5bfcc}
+.routine-experience .routine-step-tabs button[aria-pressed=true]{color:#ecd6aa;border-color:#ecd6aa}
+.routine-experience .routine-step-tabs button span{color:inherit}
+.routine-experience a{color:#ecd6aa}
+.product-photo{background:#0a172c}
+.product-photo img,.product-photo video{transition:opacity .3s!important;transform:none!important}
+.routine-detail>.campaign-motion,.route-banner>.campaign-motion{display:block;width:100%;height:100%;min-width:0;overflow:hidden}
+.routine-detail>.campaign-motion img,.route-banner>.campaign-motion img{width:100%;height:100%;object-fit:cover}
+@media(max-width:700px){.routine-view-tabs{left:12px;right:12px;bottom:12px}.experience-art img,.experience-art video{object-position:center!important}}
+
+.motion-control{position:fixed;right:16px;bottom:16px;z-index:40;padding:10px 14px;border:1px solid #c7ad7880;border-radius:24px;background:#091325ed;color:#f5eee4;font-size:11px;cursor:pointer;min-height:44px;box-shadow:0 3px 18px #0002}.motion-control:focus-visible{outline:2px solid #e2c896;outline-offset:3px}
+.skin-story-copy{background:#0d1a30;color:#f5eee4}
+.skin-story-image .campaign-motion>img,.skin-story-image .campaign-motion>video{object-position:50% 18%}
+.product-application>.campaign-motion{height:auto;aspect-ratio:4/5;min-width:0}
+.route-banner>.campaign-motion{height:auto;aspect-ratio:4/3;max-height:560px}
+.routine-detail>.campaign-motion{height:auto;aspect-ratio:4/5}
+.routine-detail:nth-child(odd)>.campaign-motion{order:2}
+@media(max-width:600px){.routine-detail:nth-child(odd)>.campaign-motion{order:0}.route-banner>.campaign-motion{max-height:380px}.skin-story-image .campaign-motion>img,.skin-story-image .campaign-motion>video{object-position:50% 12%}}

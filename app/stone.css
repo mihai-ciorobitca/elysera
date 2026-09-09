@@ -1,0 +1,71 @@
+/* The hero's raw stone continues through the storefront. Media stays untinted. */
+:root{
+ --stone:#151617;--stone-raised:#1c1d1e;--stone-deep:#101112;--stone-text:#f0ede6;
+ --ink:#111315;--muted:#b9b6af;--gold:#cbb18a;--gold-ink:#d2b88e;--gold-soft:#e4cba5;
+ --line:#ffffff26;--gold-line:#cbb18a55;--on-navy-muted:#c8c4bc;--navy-hover:#34312b;
+ --stone-texture:url('/media/atelier-2026/stone-texture.webp');
+}
+body{background:var(--stone);color:var(--stone-text);color-scheme:dark}
+.reference-header,.home-header{background:var(--stone-deep)}
+.atelier-hero{background-color:var(--stone-deep);background-image:linear-gradient(100deg,#101112ee,#101112bf),var(--stone-texture);background-size:cover;color:var(--stone-text)}
+.atelier-hero-copy p,.atelier-presale,.atelier-tabs button{color:#c8c4bc}
+.atelier-tabs button[aria-pressed=true]{color:var(--gold-soft)}
+.collection-section,.atelier-shop,.care-section,.home-faq,.ugc-journal{background-color:var(--stone);color:var(--stone-text)}
+.collection-section,.atelier-shop{background-image:linear-gradient(110deg,#151617f5 30%,#151617c9),var(--stone-texture);background-size:100% 100%,1100px auto;background-repeat:no-repeat;background-position:top right}
+.ritual-intro,.promise-strip,.science-editorial,.texture-stage,.ingredients-strip,.route-banner,.routine-detail:nth-of-type(even),.science-feature,.brand-statement,.connected-band,.product-application{background:var(--stone-raised);color:var(--stone-text)}
+.ritual-intro{border-block:1px solid var(--gold-line)}
+.ritual-intro-links a{border-color:var(--gold-line)}
+.ritual-intro-links span,.ritual-intro-links strong{color:var(--gold-soft)}
+.ritual-intro-links small,.ritual-intro>p{color:var(--muted)}
+.promise-strip{background:var(--stone-deep);color:var(--muted)}
+.skin-story,.skin-story-copy,.routine-experience,.routine-actions-band,.finder-editorial{background:var(--stone-deep);color:var(--stone-text)}
+.skin-story-copy,.finder-editorial .editorial-copy{background-image:linear-gradient(#101112dc,#101112ed),var(--stone-texture);background-size:cover}
+.ugc-journal{border-top:1px solid var(--line)}
+.ugc-journal-heading p,.ugc-journal-note,.ugc-journal figcaption,.skin-story p,.finder-editorial p,.routine-experience p{color:var(--muted)}
+.ugc-journal figcaption span{color:var(--stone-text)}
+.ugc-journal .campaign-motion,.care-card>div{border:1px solid var(--gold-line)}
+.atelier-product{border-bottom:1px solid var(--gold-line);padding-bottom:26px}
+.atelier-product .product-photo{border:1px solid #bca58280;background:#f5f3ee}
+.atelier-product .product-photo .campaign-motion video,.gallery-main .campaign-motion video{background:#f5f3ee}
+.atelier-product h3,.detail-copy h1,.page-heading h1,.care-card h3{color:var(--stone-text)}
+.atelier-product .product-role,.product-card-meta,.volume,.product-subtitle{color:var(--muted)}
+.button,.button.light,.product-card-actions>button.button.outline,.purchase-actions>.button,.atelier-hero-copy .button{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.button.outline,.product-card-actions>a.button{background:transparent;color:var(--gold-soft);border-color:#cbb18a99}
+.button:hover:not(:disabled){background:#e1c8a2;color:var(--ink);border-color:#e1c8a2}
+.button.outline:hover:not(:disabled){background:#cbb18a18;color:var(--gold-soft);border-color:var(--gold)}
+.button svg,.button.light svg{color:currentColor}
+.text-link{color:var(--gold-soft)}
+.icon-button:hover{background:#ffffff0d}
+.catalog-bar,.shop-comparison,.purchase{border-color:var(--gold-line)}
+.filter-buttons button{border-color:var(--line);color:var(--muted)}
+.filter-buttons button[aria-pressed=true]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.sort-label select,.search-input,.quantity,.field-grid input,.field-grid select,input,select,textarea{background:#1c1d1e;color:var(--stone-text);border-color:#ffffff36}
+.quantity button:hover:not(:disabled){background:#34312b}
+.comparison-scroll table,.delivery-table{color:var(--stone-text)}
+.comparison-scroll th,.comparison-scroll td,.delivery-table th,.delivery-table td{background:transparent;border-color:var(--line)}
+.comparison-scroll thead,.comparison-scroll th,.delivery-table th{background:#202122;color:var(--gold-soft)}
+.gallery-main .badge,.zoom-label{background:#171819e8;color:var(--stone-text);border:1px solid var(--gold-line)}
+.gallery-thumbs button[aria-pressed=true]{border-color:var(--gold)}
+.drawer,.navigation-dropdown,.image-lightbox{background:var(--stone);color:var(--stone-text)}
+.navigation-dropdown a,.navigation-dropdown h3,.navigation-dropdown button{color:var(--stone-text)}
+.drawer::backdrop,.image-lightbox::backdrop{background:#000b}
+.cart-bottom,.checkout-summary{background:var(--stone-raised);color:var(--stone-text);border-color:var(--gold-line)}
+.cart-bottom .button{background:var(--gold);color:var(--ink)}
+.quiz-options button,.account-destinations article{color:var(--stone-text);border-color:var(--gold-line)}
+.quiz-options button[aria-pressed=true]{background:#cbb18a14;border-color:var(--gold)}
+.quiz-options button[aria-pressed=true] .radio-dot{background:var(--gold);box-shadow:inset 0 0 0 4px var(--stone)}
+.presale-close,.compact-footer{background-color:var(--stone-deep);background-image:linear-gradient(#101112bf,#101112de),var(--stone-texture);background-size:cover;color:var(--stone-text);border-top:1px solid var(--gold-line)}
+.footer-main p,.footer-legal{color:var(--muted)}
+.footer-logo,.footer-main a:hover{color:var(--gold-soft)}
+.routine-view-tabs{background:#111315e8;border-color:var(--gold-line)}
+.routine-view-tabs button[aria-pressed=true]{background:var(--gold);color:var(--ink)}
+.atelier-hero-media{background:#101112}
+.skip{background:var(--gold);color:var(--ink)}
+@media(max-width:700px){
+ .collection-section,.atelier-shop{background-size:100% 100%,740px auto}
+ .atelier-product{padding-block:24px}
+ .atelier-product .product-role{font-size:13px}
+ .product-card-actions .button{font-size:10px;letter-spacing:0}
+ .ritual-intro{padding-block:36px}
+ .presale-close{padding-block:48px}
+}

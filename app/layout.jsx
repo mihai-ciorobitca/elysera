@@ -1,5 +1,6 @@
 import './site.css'
 import {CardMotion} from './motion'
+
 import { Shell } from './storefront'
 export const metadata = {
   title: { default: 'ELYSERA — Die Kraft der Peptide', template: '%s | ELYSERA' },
@@ -8,5 +9,5 @@ export const metadata = {
   robots: { index: false, follow: false },
 }
 export default function Layout({ children }) {
-  return <html lang="de"><body><Shell>{children}</Shell><CardMotion/></body></html>
+  return <html lang="de"><body><Shell>{children}</Shell></body></html>
 }

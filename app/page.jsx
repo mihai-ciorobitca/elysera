@@ -1,21 +1,54 @@
 import Link from 'next/link'
 import {products} from './catalog'
-import {ProductCard,Icon,FAQ,RoutineSet} from './storefront'
+import {ProductCard,FAQ,RoutineSet} from './storefront'
 import {CampaignMotion,TextureLibrary} from './campaign'
-import {ExperienceHero,RoutineExperience} from './experience'
+import {RoutineExperience} from './experience'
 import PortraitLoop from './portrait-loop'
-export default function Home(){return <>
- <ExperienceHero/>
-<section className="ritual-intro"><h2>DREI SCHRITTE.<br/><em>Ein Moment für dich.</em></h2><p>Vorbereiten. Pflegen. Gezielt ergänzen. Entdecke deine tägliche Elysera-Routine.</p><div className="ritual-intro-links"><Link href="/products/balance-toner/"><span>01</span><strong>VORBEREITEN</strong><small>Balance Toner</small></Link><Link href="/products/renewal-serum/"><span>02</span><strong>PFLEGEN</strong><small>Renewal Serum</small></Link><Link href="/products/contour-eye-cream/"><span>03</span><strong>ERGÄNZEN</strong><small>Contour Eye Cream</small></Link></div></section>
- <div className="promise-strip"><span>GEZIELTE PEPTIDPFLEGE</span><span>LEICHTE TEXTUREN</span><span>DREI KLARE SCHRITTE</span><Link href="/presale/">DIE ERSTE KOLLEKTION <Icon/></Link></div>
- <section className="section collection-section" id="collection"><div className="section-heading"><h2>DEINE NEUE PFLEGE.<br/><em>DIE ELYSERA KOLLEKTION.</em></h2><p>Drei Produkte. Drei klare Aufgaben. Finde deinen Einstieg in die Kollektion.</p></div><div className="product-grid">{products.map(p=><ProductCard key={p.slug} product={p}/>)}</div></section>
- <section className="skin-story" id="hautpflege-story"><div className="skin-story-image"><PortraitLoop name="story-serum" alt="Frau verteilt ELYSERA Renewal Serum sanft auf ihrer Wange"/></div><div className="skin-story-copy editorial-copy"><h2>PFLEGE, DIE<br/>BEI DEINER<br/><em>HAUT BEGINNT.</em></h2><p>Wirkstoffe verstehen. Texturen spüren. Eine Routine finden, die sich in deinen Alltag einfügt.</p><p>ELYSERA verbindet gezielte Peptidpflege mit drei klaren Aufgaben – vom frischen Anfang bis zur Augenpartie.</p><Link className="button outline" href="/about/">LERNE ELYSERA KENNEN <Icon/></Link></div></section>
- <section className="section care-section"><div className="section-heading"><h2>WAS BRAUCHT<br/><em>DEINE ROUTINE?</em></h2></div><div className="care-grid">{[['FEUCHTIGKEIT','toner-texture','Ein frischer erster Schritt.','/products/balance-toner/'],['PEPTIDPFLEGE','serum-texture','Dein täglicher Fokus.','/products/renewal-serum/'],['AUGENPFLEGE','eye-texture','Besondere Pflege für deinen Blick.','/products/contour-eye-cream/'],['DEINE ROUTINE','hero-mobile','Drei Schritte, die zusammenpassen.','/routine/']].map(([title,image,copy,href])=><Link className="care-card" href={href} key={title}><div><CampaignMotion name={image} sizes="(max-width:600px) 50vw, 25vw"/></div><h3>{title}<Icon/></h3><p>{copy}</p></Link>)}</div></section>
+import ReferenceHero from './reference-hero'
+import ReferenceBenefits from './reference-benefits'
+import AutoCarousel from './auto-carousel'
+
+const steps = [
+ {title:'Vorbereiten',image:'toner',copy:'Ein frischer Anfang nach der Reinigung.',slug:'balance-toner'},
+ {title:'Pflegen',image:'serum',copy:'Dein täglicher Peptidschritt mit Renewal Serum.',slug:'renewal-serum'},
+ {title:'Gezielt ergänzen',image:'eye',copy:'Besondere Pflege für deine Augenpartie.',slug:'contour-eye-cream'},
+]
+export default function Home(){return <div className="reference-home">
+ <ReferenceHero/>
+ <ReferenceBenefits/>
+ <section className="section collection-section" id="collection">
+  <div className="section-heading"><h2>Die Elysera Kollektion</h2></div>
+  <AutoCarousel className="product-grid" label="Produkt">{products.map(p=><ProductCard key={p.slug} product={p}/>)}</AutoCarousel>
+ </section>
+ <section className="ritual-intro">
+  <h2>Deine Pflege beginnt hier</h2><p>Drei aufeinander abgestimmte Schritte für deine tägliche Routine.</p>
+  <AutoCarousel className="reference-mosaic routine-mosaic" label="Pflegeschritt">{steps.map(s=><Link href={`/products/${s.slug}/`} className="reference-mosaic-card" key={s.slug}><CampaignMotion name={s.image} alt=""/><div className="reference-mosaic-copy"><h3>{s.title}</h3><p>{s.copy}</p><span className="text-link">Produkt entdecken</span></div></Link>)}</AutoCarousel>
+ </section>
+ <section className="finder-editorial reference-quiz-banner" id="pflege-finder">
+  <CampaignMotion name="toner-texture" alt="Illustrative Textur der Elysera Pflege"/>
+  <div className="editorial-copy"><h2>Finde die Pflege,<br/>die zu deiner Haut passt</h2><p>Noch nicht sicher, womit du starten möchtest? Drei kurze Fragen führen dich zu deinem Einstieg in die Kollektion.</p><Link className="button" href="/quiz/">Pflege-Quiz starten</Link><Link className="text-link" href="/shop/">Oder alle Produkte entdecken</Link></div>
+ </section>
+ <section className="section care-section science-editorial">
+  <div className="section-heading"><h2>Die Kraft der Pflege im Detail</h2></div>
+  <AutoCarousel className="reference-mosaic science-mosaic" label="Pflegewissen">{[
+   ['Peptidpflege','serum-texture','Entdecke GHK-Cu und die Wirkstofflogik des Renewal Serums.'],
+   ['Leichte Feuchtigkeit','toner-texture','Feiner Sprühnebel als erster Schritt nach der Reinigung.'],
+   ['Gezielte Augenpflege','eye-texture','Peptide, Koffein und Squalan für deine Augenpartie.'],
+  ].map(([title,image,copy])=><Link className="reference-mosaic-card" href="/science/" key={title}><CampaignMotion name={image} alt=""/><div className="reference-mosaic-copy"><h3>{title}</h3><p>{copy}</p><span className="text-link">Mehr erfahren</span></div></Link>)}</AutoCarousel>
+ </section>
  <TextureLibrary/>
- <RoutineExperience/><section className="routine-actions-band" aria-label="Gesamte Pflegeroutine auswählen"><div className="routine-actions"><RoutineSet/></div></section>
- <section className="ugc-journal"><div className="ugc-journal-heading"><h2>DEIN ALLTAG.<br/><em>Dein Pflegemoment.</em></h2><p>Am Morgen, am Abend, ganz bei dir. Kleine Gesten machen aus Pflege ein persönliches Ritual.</p></div><div className="ugc-journal-grid"><figure><img src="/media/midnight-2026/ugc-morning.webp" alt="Frau mit natürlicher Hautstruktur trägt morgens Pflege vor ihrem Badezimmerspiegel auf" loading="lazy"/><figcaption><span>Ein guter Anfang.</span>Dein Moment im Morgenlicht.</figcaption></figure><figure><img src="/media/midnight-2026/ugc-evening.webp" alt="Frau mit kurzen Locken nimmt sich einen ruhigen Pflegemoment" loading="lazy"/><figcaption><span>Ganz in Ruhe.</span>Bewusste Pflege.</figcaption></figure><figure><img src="/media/midnight-2026/ugc-eye.webp" alt="Frau trägt vor dem Badezimmerspiegel behutsam Augenpflege auf" loading="lazy"/><figcaption><span>Die kleinen Details.</span>Gezielte Pflege für deine Augenpartie.</figcaption></figure></div><p className="ugc-journal-note">KI-generierte Anwendungsszenen · keine Kundenbewertungen.</p></section><section className="finder-editorial" id="pflege-finder"><PortraitLoop name="finder-eye" alt="Frau klopft ELYSERA Contour Lift Augenpflege behutsam ein"/><div className="editorial-copy"><h2>DEINE HAUT.<br/><em>DEINE ROUTINE.</em></h2><p>Noch nicht sicher, womit du starten möchtest? Drei kurze Fragen führen dich zu deinem Einstieg in die Kollektion.</p><Link className="button light" href="/quiz/">FINDE DEINE PFLEGE <Icon/></Link></div></section>
- <section className="section science-editorial"><div className="editorial-copy"><h2>DIE KRAFT<br/><em>IM DETAIL.</em></h2><p>Was steckt hinter GHK-Cu? Warum ist das Serum blau? Entdecke die Wirkstofflogik deiner Pflege.</p><Link className="text-link" href="/science/">PEPTIDWISSEN ENTDECKEN <Icon/></Link></div><CampaignMotion name="serum-texture" alt="Blaue Serumtextur an einer Glaspipette"/><CampaignMotion name="eye-texture" alt="Illustrative seidige Cremetextur"/></section>
- <section className="connected-band"><div><span className="connected-logo">ELYSERA</span><span aria-hidden="true">×</span><span className="connected-logo">PEPTIKING</span></div><h2>DEINE PFLEGE.<br/><em>DEINE COMMUNITY.</em></h2><p>Dein bestehendes PeptiKing-Konto ist dein Zugang<br/>zum Diamond Performance Club.</p><Link href="/account/" className="button outline">KONTO & CLUB ENTDECKEN <Icon/></Link></section>
- <section className="section home-faq"><div><h2>GUT<br/><em>ZU WISSEN.</em></h2><Link className="text-link" href="/faq/">ALLE FRAGEN <Icon/></Link></div><FAQ limit={4}/></section>
- <section className="presale-close"><h2>DEIN NEUES<br/><em>PFLEGERITUAL.</em></h2><p>Sei von Anfang an dabei. Entdecke alle drei Produkte der ersten ELYSERA Kollektion.</p><Link className="button light" href="/shop/">KOLLEKTION ENTDECKEN <Icon/></Link><Link className="text-link" href="/presale/">SO FUNKTIONIERT DER PRESALE <Icon/></Link></section>
- </>}
+ <section className="ugc-journal" id="pflege-alltag">
+  <div className="ugc-journal-heading"><h2>Pflege im echten Leben</h2><p>Entdecke die Anwendung von Elysera.</p></div>
+  <AutoCarousel className="ugc-journal-grid" label="Anwendung">{[
+   ['ugc-creator','UGC-Model zeigt das Elysera Renewal Serum im Badezimmer','Renewal Serum','renewal-serum'],
+   ['ugc-morning','Illustrative Pflegeroutine mit Balance Toner','Balance Toner','balance-toner'],
+   ['ugc-eye','Illustrative Anwendung der Augenpflege','Contour Eye Cream','contour-eye-cream'],
+  ].map(([image,alt,title,slug])=><figure key={slug}><CampaignMotion name={image} alt={alt}/><figcaption><Link className="text-link" href={`/products/${slug}/`}>{title} entdecken</Link></figcaption></figure>)}</AutoCarousel>
+  <p className="ugc-journal-note">KI-generierte Anwendungsszenen · keine Kundenbewertungen.</p>
+ </section>
+ <RoutineExperience compact/>
+ <section className="routine-actions-band" aria-label="Gesamte Pflegeroutine auswählen"><div className="routine-actions"><RoutineSet/></div></section>
+ <section className="skin-story" id="hautpflege-story"><div className="skin-story-image"><PortraitLoop name="story-serum" alt="Frau verteilt ELYSERA Renewal Serum sanft auf ihrer Wange"/></div><div className="skin-story-copy editorial-copy"><h2>Pflege, die bei<br/>deiner Haut beginnt</h2><p>ELYSERA verbindet gezielte Peptidpflege mit drei klaren Aufgaben – vom frischen Anfang bis zur Augenpartie.</p><Link className="button" href="/about/">Lerne Elysera kennen</Link></div></section>
+ <section className="section home-faq"><div><h2>Gut zu wissen</h2><Link className="text-link" href="/faq/">Alle Fragen</Link></div><FAQ limit={4}/></section>
+ <section className="presale-close"><h2>Von Anfang an dabei</h2><p>Entdecke die drei Produkte der ersten ELYSERA Kollektion im Presale.</p><Link className="button" href="/shop/">Kollektion entdecken</Link><Link className="text-link" href="/presale/">So funktioniert der Presale</Link></section>
+</div>}

@@ -1,0 +1,113 @@
+/* COSMEDIX reference: measured font families and retail hierarchy.
+   ELYSERA assets, original logo and media sources remain unchanged. */
+@font-face{font-family:Montserrat;src:url('/fonts/montserrat-variable.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('/fonts/nunito-variable.ttf') format('truetype');font-weight:200 1000;font-style:normal;font-display:swap}
+@font-face{font-family:'Source Code Pro';src:url('/fonts/source-code-pro-variable.ttf') format('truetype');font-weight:200 900;font-style:normal;font-display:swap}
+:root{
+ --stone:#fff;--stone-raised:#f5f5f5;--stone-deep:#fff;--stone-text:#36373a;
+ --paper:#fff;--ivory:#f5f5f5;--ice:#f0f0f0;
+ --ink:#15263e;--muted:#646569;--gold:#d8bd8f;--gold-ink:#79623d;--gold-soft:#79623d;
+ --line:#dedede;--gold-line:#dedede;--on-navy-muted:#646569;--navy-hover:#233a56;
+ --gutter:clamp(24px,4vw,64px);
+}
+body{font-family:Nunito,sans-serif;font-size:16px;line-height:1.6;background:var(--stone-deep);color:var(--stone-text);color-scheme:light;font-synthesis:none}
+h1,h2,h3,h4,.detail-copy h1,.page-heading h1,.atelier-product h3,.mobile-links a,.ugc-journal figcaption span{font-family:Montserrat,sans-serif;font-style:normal;font-weight:600;letter-spacing:normal;line-height:1.2}
+h1,h2,.section-heading h2,.page-heading h1,.care-card h3{text-transform:uppercase}
+h1 em,h2 em,h3 em{font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;letter-spacing:inherit;line-height:inherit;color:inherit}
+p,.page-heading p,.section-heading p,.product-subtitle{font-family:Nunito,sans-serif;font-size:16px;line-height:1.6;letter-spacing:normal}
+.button,.button.light,.button.outline,.text-link,.reference-links>a,.reference-links>button,button,input,select,textarea{font-family:Montserrat,sans-serif}
+.button,.button.light,.button.outline{border-radius:999px;min-height:44px;padding:12px 24px;font-size:12.8px;font-weight:600;letter-spacing:1.6px;line-height:1.5;text-transform:uppercase;transition:background .2s,color .2s,border-color .2s}
+.text-link{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.eyebrow,.atelier-presale,.product-card-meta,.atelier-tabs button,.ritual-intro-links span{font-family:'Source Code Pro',monospace;font-weight:400;font-style:normal;letter-spacing:.025em}
+.reference-header,.home-header{background:var(--stone-deep);border-bottom:1px solid var(--line)}
+.reference-links>a,.reference-links>button{font-size:12px;font-weight:600;letter-spacing:0}
+.atelier-hero,.collection-section,.atelier-shop,.skin-story-copy,.finder-editorial .editorial-copy,.presale-close,.compact-footer{background-image:none}
+.atelier-hero{background:var(--stone-deep);min-height:620px;grid-template-columns:1fr 1fr}
+.atelier-hero-copy{padding:64px 8% 90px 8%;max-width:720px}
+.atelier-hero-copy h1{font-size:48px;font-weight:600;line-height:1.2;letter-spacing:normal}
+.atelier-hero-copy h1 em{color:inherit;margin-top:0}
+.atelier-hero-copy p{font-family:Montserrat,sans-serif;font-size:20px;font-weight:500;line-height:1.5;color:var(--stone-text);margin:26px 0 32px;max-width:34ch}
+.atelier-hero-copy .button{min-width:0;padding-inline:30px;font-size:12.8px}
+.atelier-hero-copy .button svg{display:none}
+.atelier-presale{font-size:11px;text-transform:uppercase;color:var(--muted);margin-top:18px}
+.atelier-tabs button{font-size:11px;text-transform:uppercase;color:var(--muted)}
+.atelier-hero-media{background:var(--stone-deep)}
+.section,.ugc-journal{padding:72px var(--gutter)}
+.section-heading,.ugc-journal-heading{display:block;text-align:center;margin-bottom:36px}
+.section-heading h2,.ugc-journal-heading h2,.ritual-intro h2,.home-faq h2{font-size:40px;line-height:1.25}
+.section-heading p,.ugc-journal-heading p{max-width:52ch;margin:16px auto 0;font-size:16px;color:var(--muted)}
+.promise-strip{font-family:'Source Code Pro',monospace;background:var(--stone-raised);font-size:11px;letter-spacing:.025em;padding-block:18px;color:var(--stone-text)}
+.collection-section,.atelier-shop,.care-section{background:var(--stone-deep)}
+.ritual-intro,.science-editorial,.product-application,.ingredients-strip{background:var(--stone-raised)}
+.ritual-intro{padding:56px var(--gutter)}
+.ritual-intro>p{font-size:16px;max-width:55ch;margin:20px auto 30px}
+.ritual-intro-links strong{font-family:Montserrat,sans-serif;font-size:12px;font-weight:600;letter-spacing:0}
+.ritual-intro-links small{font-size:13px}.ritual-intro-links span{font-size:24px}
+.product-grid,.shop-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.atelier-product{display:flex;flex-direction:column;gap:0;padding:0;border:0;align-items:stretch;min-width:0}
+.atelier-product .product-photo{width:100%;aspect-ratio:1/1.1;height:auto;border:0;border-radius:0;background:#f5f3ee}
+.atelier-product-info{padding:20px 0 0;flex:1;display:flex;flex-direction:column;text-align:left}
+.product-card-meta{font-size:11px;color:var(--gold-soft)}
+.atelier-product h3{font-size:20px;line-height:1.35;letter-spacing:normal;margin:10px 0;text-transform:none}
+.atelier-product .product-role{font:400 15px/1.5 Nunito,sans-serif;min-height:2.8em}
+.atelier-price{font-family:Nunito,sans-serif;font-size:13px!important;margin-top:12px!important}
+.product-card-actions{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:8px}
+.product-card-actions .button{font-size:11px;letter-spacing:.6px;min-height:44px;padding:10px 8px}
+.ugc-journal{background:var(--stone);border:0}
+.ugc-journal-grid{gap:24px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.ugc-journal figure:nth-child(2),.ugc-journal figure:nth-child(3){padding-top:0}
+.ugc-journal .campaign-motion,.care-card>div{border:0}
+.ugc-journal figcaption span{font-size:20px;font-weight:500;line-height:1.4;letter-spacing:normal;text-transform:none}
+.ugc-journal figcaption{font:400 15px/1.5 Nunito,sans-serif}.ugc-journal-note{font:400 12px/1.5 'Source Code Pro',monospace;text-align:center;color:var(--muted)}
+.skin-story-copy,.finder-editorial .editorial-copy{background:var(--stone-deep)}
+.skin-story-copy h2,.finder-editorial h2,.routine-experience-heading h2,.presale-close h2{font-size:40px;line-height:1.25}
+.skin-story-copy p,.finder-editorial p,.routine-experience p{font-size:16px}
+.care-card h3{font-family:Montserrat,sans-serif;font-size:14px;font-weight:600;letter-spacing:0}
+.care-card p{font:400 15px/1.5 Nunito,sans-serif}
+.routine-experience,.routine-actions-band{background:var(--stone)}
+.routine-step-content h3{font-size:28px}.routine-step-tabs button{font-family:Montserrat,sans-serif;font-weight:600}
+.routine-view-tabs{background:#06152ce8}
+.home-faq{background:var(--stone-deep)}.faq-list summary{font-family:Montserrat,sans-serif;font-size:16px;font-weight:500;min-height:72px}.faq-list p{font-size:16px}
+.presale-close{background:var(--stone-raised);padding:64px 24px}.presale-close p{font-size:16px}.presale-close>.text-link{font-size:11px}
+.compact-footer{background:var(--stone-deep);padding:32px var(--gutter)}
+.footer-logo{font-family:Montserrat,sans-serif;font-size:26px;font-weight:500;letter-spacing:.12em}.footer-main p,.footer-main a{font-family:Nunito,sans-serif;font-size:14px}.footer-legal{font-family:Nunito,sans-serif}
+.page-heading h1{font-size:40px;line-height:1.2}.page-heading p{font-size:16px}.atelier-shop{padding-top:48px}
+.filter-buttons button{font-size:12px;font-weight:600}.sort-label{font:400 13px/1.5 Nunito,sans-serif}
+.sort-label select,.search-input,input,select,textarea,.quantity{background:var(--stone-raised);color:var(--stone-text)}
+.quantity button:hover:not(:disabled){background:#193959}
+.shop-comparison h2{font-size:30px}.comparison-scroll th,.comparison-scroll td{font:400 14px/1.5 Nunito,sans-serif}.comparison-scroll th{font-weight:600}.comparison-scroll thead,.comparison-scroll th,.delivery-table th{background:var(--stone-raised)}
+.detail-copy h1{text-transform:uppercase;font-size:40px;line-height:1.2}.detail-copy p{font-size:16px}.purchase-actions>.button{font-size:12px}.purchase small{font:400 12px/1.5 Nunito,sans-serif}
+.product-accordions summary{font-family:Montserrat,sans-serif;font-size:15px;font-weight:500}.volume{font:400 13px/1.5 'Source Code Pro',monospace}
+.gallery-main .badge,.zoom-label{background:#06152ce8;color:var(--stone-text)}
+.mobile-links a{font-family:Montserrat,sans-serif;font-size:21px;font-weight:600;text-transform:uppercase;letter-spacing:0}
+.cart-product h3,.mini-product h3{font-family:Montserrat,sans-serif;font-size:18px;font-weight:500;letter-spacing:0}
+.quiz-body h2{font-size:28px}.quiz-options button{font:500 15px/1.5 Montserrat,sans-serif}.checkout-summary,.drawer,.navigation-dropdown,.image-lightbox{background:var(--stone)}
+@media(max-width:700px){
+ .reference-header{height:96px}
+ .atelier-hero{min-height:0}.atelier-hero-media{height:clamp(300px,40svh,350px)}
+ .atelier-hero-copy{padding:24px 24px 12px;max-width:none}
+ .atelier-hero-copy h1{font-size:32px;line-height:1.2;letter-spacing:0}
+ .atelier-hero-copy p{font-size:16px;line-height:1.5;margin:18px 0 24px;font-weight:400}
+ .atelier-hero-copy .button{font-size:12px;letter-spacing:1.4px;width:100%;min-height:46px;padding:12px 20px}
+ .atelier-presale{font-size:10px;line-height:1.5;margin-top:14px}
+ .atelier-tabs{padding:4px 20px 12px;gap:20px}.atelier-tabs button{font-size:10px;letter-spacing:0;min-height:44px}
+ .section,.ugc-journal{padding:44px 24px}.section-heading,.ugc-journal-heading{margin-bottom:28px}
+ .section-heading h2,.ugc-journal-heading h2,.ritual-intro h2,.home-faq h2{font-size:28px;line-height:1.25}
+ .section-heading p,.ugc-journal-heading p{font-size:16px;margin-top:14px}
+ .promise-strip{font-size:9px;padding:14px 20px;gap:10px 18px}.promise-strip a{font-size:9px}
+ .collection-section>.product-grid,.product-grid.related{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:86%;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:0;padding:0 0 18px;scrollbar-width:thin;scrollbar-color:var(--gold) #ffffff1a}
+ .atelier-product{display:flex;padding:0;gap:0;border:0;scroll-snap-align:start}
+ .atelier-product .product-photo{width:100%;aspect-ratio:1/1.1;height:auto}
+ .atelier-product-info{padding-top:16px}.atelier-product h3{font-size:18px;line-height:1.35;letter-spacing:0}
+ .atelier-product .product-role{font-size:15px}.product-card-meta{font-size:10px}.atelier-price{font-size:13px!important}
+ .product-card-actions{margin-top:12px;gap:8px}.product-card-actions .button{font-size:10px;letter-spacing:.5px;padding:10px 5px;min-height:44px}
+ .shop-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 16px}.shop-grid .atelier-product h3{font-size:15px;min-height:4.05em}.shop-grid .product-card-meta{font-size:9px}.shop-grid .product-role{font-size:14px;min-height:4.5em}.shop-grid .product-card-actions{grid-template-columns:1fr;gap:8px}.shop-grid .product-card-actions .button{font-size:10px;letter-spacing:.6px}.shop-grid .atelier-price{font-size:11px!important}
+ .ugc-journal-grid{grid-template-columns:repeat(3,86%);gap:18px}.ugc-journal figcaption span{font-size:18px}.ugc-journal-note{font-size:10px}
+ .ritual-intro{padding:40px 24px}.ritual-intro>p{font-size:16px}.ritual-intro-links strong{font-size:10px}.ritual-intro-links small{font-size:11px}
+ .skin-story-copy,.finder-editorial .editorial-copy{padding:36px 24px}.skin-story-copy h2,.finder-editorial h2,.routine-experience-heading h2,.presale-close h2{font-size:28px;line-height:1.25}.skin-story-copy p,.finder-editorial p{font-size:16px}
+ .care-grid{gap:24px 16px}.care-card h3{font-size:12px}.care-card p{font-size:14px}.routine-experience{padding:44px 24px}.routine-step-content h3{font-size:24px}
+ .page-heading h1{font-size:30px}.page-heading p{font-size:16px}.atelier-shop{padding-top:36px}.shop-comparison h2{font-size:26px}
+ .detail-copy h1{font-size:30px}.detail-copy p{font-size:16px}.purchase-actions>.button{font-size:11px;letter-spacing:1px}
+ .faq-list summary{font-size:14px}.presale-close{padding:44px 24px}.presale-close p{font-size:16px}.compact-footer{padding:28px 24px}
+ .quiz-body h2{font-size:24px}
+}

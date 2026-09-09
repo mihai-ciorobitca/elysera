@@ -1,0 +1,73 @@
+/* Product-led landing: compact navigation, readable type and a short footer. */
+body{font-family:Arial,Helvetica,sans-serif;font-size:16px;letter-spacing:0}
+h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.035em;line-height:1.12}
+h1 em,h2 em,h3 em{font-family:inherit;font-size:1em;font-style:normal;font-weight:400;letter-spacing:inherit;line-height:inherit}
+h3{font-family:Arial,Helvetica,sans-serif;font-weight:500;letter-spacing:-.015em}
+p{letter-spacing:0;line-height:1.65}
+.button,.text-link{font-family:Arial,Helvetica,sans-serif;letter-spacing:.015em;font-size:12px;font-weight:500}
+.reference-links>a,.reference-links>button{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.04em}
+.reference-header{height:104px;padding-top:0;align-items:center}
+.reference-wordmark{width:86px;height:92px}
+.reference-links,.reference-actions{padding-top:0}
+.navigation-dropdown{top:104px}
+.experience-hero{height:calc(100svh - 104px);min-height:590px;max-height:850px}
+.home-header{position:relative;background:#061126}
+.experience-copy{width:44%;height:100%;padding:40px 0 90px 6%;justify-content:center}
+.experience-copy h1{font-size:clamp(44px,5vw,76px);letter-spacing:-.045em;line-height:1.06}
+.experience-copy h1 em{font-size:1em;letter-spacing:inherit}
+.experience-copy p{font-size:16px;letter-spacing:0;line-height:1.6;max-width:31ch;margin:22px 0}
+.experience-copy .button{background:#e5cba3;color:#081427;border-color:#e5cba3;font-size:14px;padding:14px 24px;min-height:48px}
+.experience-presale{font-size:12px;min-height:32px;margin-top:8px;opacity:.8}
+.experience-controls{height:54px;min-height:54px;padding-inline:6%;justify-content:flex-start}
+.campaign-tabs{gap:24px}.campaign-tabs button{min-height:44px;font-size:11px}
+.campaign-pause{display:none}
+.experience-art:after{background:linear-gradient(90deg,#061126aa,transparent 62%)}
+.motion-control{width:40px;height:40px;min-height:40px;padding:0;display:grid;place-items:center;right:12px;bottom:12px;background:#091325c9}
+.ugc-journal{padding-block:64px;background:#f3eee5}
+.ugc-journal-heading{margin-bottom:28px}.ugc-journal-heading h2{font-size:clamp(32px,3.4vw,48px)}
+.ugc-journal-heading p{font-size:15px;letter-spacing:0}
+.ugc-journal-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.ugc-journal figure:nth-child(n){padding-top:0}
+.ugc-journal-grid .campaign-motion{aspect-ratio:3/4;overflow:hidden;border-radius:8px}
+.ugc-journal-grid .campaign-motion img,.ugc-journal-grid .campaign-motion video{object-position:50% 30%}
+.ugc-journal figcaption{font-size:13px;letter-spacing:0;line-height:1.5;padding-top:12px}
+.ugc-journal figcaption span{font:400 22px/1.3 Georgia,serif;margin-bottom:4px}
+.ugc-journal-note{font-size:11px;margin-top:20px}
+.compact-footer{padding:32px var(--gutter) 20px;background:#061126;color:#e9e5dc;text-align:left}
+.footer-main{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px}
+.footer-logo{font:400 32px/1 Georgia,serif;color:#e5cba3}
+.footer-logo span{display:block;font:400 8px/1 Arial,sans-serif;letter-spacing:.32em;margin-top:8px;text-align:center}
+.footer-main p{font-size:13px;color:#bec5d1;margin:0}
+.footer-main nav{display:flex;gap:22px;flex-wrap:wrap}
+.footer-main nav a{font-size:13px;min-height:44px;display:flex;align-items:center;padding:0;margin:0}
+.footer-legal{border-top:1px solid #ffffff20;margin-top:24px;padding-top:16px;display:flex;justify-content:space-between;gap:12px;font-size:10px;color:#99a5b8}
+.presale-close{padding-block:54px}.presale-close h2{font-size:clamp(34px,4vw,52px)}
+@media(max-width:700px){
+ .reference-header{height:82px;grid-template-columns:1fr 65px 1fr;padding:0 16px;align-items:center}
+ .reference-wordmark{width:65px;height:70px}.reference-mobile{margin-top:0}.reference-actions{padding-top:0;gap:0}
+ .reference-actions .icon-button{width:38px}.navigation-dropdown{top:82px}
+ .experience-hero{display:flex;flex-direction:column;height:auto;min-height:0;max-height:none}
+ .experience-art,.single-scene .experience-art{position:relative;inset:auto;order:0;width:100%;height:clamp(290px,46svh,420px);aspect-ratio:auto;z-index:0}
+ .experience-art img,.experience-art video{object-fit:cover;object-position:50% 66%!important}
+ .experience-art video{display:block}
+ .experience-art:after{background:linear-gradient(0deg,#061126,transparent 20%);inset:0}
+ .experience-copy,.single-scene .experience-copy{order:1;width:100%;height:auto;padding:6px 24px 12px;align-items:center;text-align:center;background:#061126}
+ .experience-copy h1{font-size:38px;line-height:1.04;letter-spacing:-.04em}
+ .experience-copy h1 br{display:none}.experience-copy h1 em:before{content:' '}
+ .experience-copy p{font-size:14px;line-height:1.5;letter-spacing:0;max-width:32ch;margin:12px 0 16px}
+ .experience-copy .button{min-height:46px;font-size:14px;width:100%;max-width:330px;padding:12px 20px}
+ .experience-presale{font-size:11px;min-height:28px;margin-top:5px}
+ .experience-controls{order:2;height:42px;min-height:42px;position:relative;padding:0 24px;justify-content:center;border:0}
+ .campaign-tabs{gap:22px}.campaign-tabs button{min-height:40px;font-size:10px;gap:5px}.campaign-tabs button>span:first-child{display:none}.campaign-tabs button>span:last-child{display:block}
+ .ritual-intro{padding:36px 22px}.ritual-intro h2{font-size:30px}.ritual-intro>p{font-size:14px;margin:16px auto 24px}
+ .section-heading h2,.skin-story-copy h2,.routine-experience-heading h2,.editorial-copy h2{font-size:32px;letter-spacing:-.035em}
+ .section-heading p,.editorial-copy p{font-size:15px}
+ .ugc-journal{padding:40px 20px}.ugc-journal-heading{margin-bottom:22px}.ugc-journal-heading h2{font-size:32px}.ugc-journal-heading p{font-size:14px;margin-top:12px}
+ .ugc-journal-grid{display:grid;grid-template-columns:repeat(3,78%);overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:12px}
+ .ugc-journal figure:first-child{grid-column:auto}.ugc-journal figure{scroll-snap-align:start;min-width:0}
+ .ugc-journal-grid .campaign-motion{aspect-ratio:3/4}.ugc-journal figcaption span{font-size:22px}
+ .compact-footer{padding:28px 24px 22px}.footer-main{grid-template-columns:1fr;gap:12px}.footer-logo{font-size:30px;width:max-content}
+ .footer-main nav{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.footer-main nav a{font-size:13px;line-height:1.3;min-height:38px}
+ .footer-main p{font-size:12px}.footer-legal{margin-top:14px;flex-wrap:wrap;padding-top:14px;padding-right:25px;font-size:9px}
+ .presale-close{padding:38px 24px}.presale-close h2{font-size:34px}
+}
