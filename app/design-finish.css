@@ -1,0 +1,59 @@
+/* Finish the existing sections; hero and navigation deliberately have no selectors here. */
+.reference-home :is(.section-heading,.ritual-intro,.ugc-journal-heading,.home-faq) h2 {
+ letter-spacing: -.025em;
+ line-height: 1.2;
+ text-wrap: balance;
+}
+.reference-home :is(.ritual-intro,.ugc-journal-heading) > p { line-height: 1.8; }
+.reference-home .atelier-product-info { padding-top: 6px; }
+.reference-home .atelier-product-info .product-card-meta { color: #637086; font-size: 12px; gap: 18px; }
+.reference-home .atelier-product-info h3 { line-height: 1.45; letter-spacing: -.015em; }
+.reference-home .atelier-product-info .atelier-price { line-height: 1.65; }
+.reference-home .product-photo { border: 1px solid #d8c9b333; border-radius: 4px; }
+.reference-home .product-card-actions .button { border-color: #b79967; box-shadow: inset 0 1px 0 #ffffff12; }
+.reference-home .routine-mosaic .reference-mosaic-card { border: 1px solid #d8c9b366; border-radius: 4px; overflow: hidden; }
+.reference-home .routine-mosaic .reference-mosaic-copy { padding-inline: 24px; padding-bottom: 26px; }
+.reference-home .science-mosaic .reference-mosaic-card { border-color: #d8c9b380; box-shadow: 0 8px 28px #07162e05; }
+.reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy { padding: 28px 24px; gap: 16px; }
+.reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy h3 { font-weight: 500; letter-spacing: -.025em; line-height: 1.35; }
+.reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy p { font-size: 14px; line-height: 1.8; color: #49576d; }
+.reference-home :is(.routine-mosaic,.science-mosaic) .text-link { text-underline-offset: 6px; }
+.reference-home :is(.routine-mosaic,.science-mosaic) .reference-mosaic-card { transition: border-color 240ms ease, box-shadow 240ms ease; }
+.reference-home .carousel-dots { gap: 8px; }
+.reference-home .carousel-dots button { min-width: 44px; min-height: 44px; }
+.reference-home .carousel-dots button span { transition: width 240ms ease, background-color 240ms ease; }
+.reference-home .carousel-dots button[aria-pressed=true] span { background: #96703e; }
+.reference-home :is(.routine-step-tabs,.texture-tabs) button { transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease; }
+.reference-home .founder-copy blockquote { border-color: #b7996766; padding-top: 28px; line-height: 1.85; }
+.reference-home .founder-controls { padding-block: 12px; }
+.reference-home .founder-controls > button { border: 1px solid #b7996766; border-radius: 50%; width: 44px; height: 44px; }
+.reference-home .home-faq .faq-list { border-top: 1px solid #c8b28b80; }
+.reference-home .home-faq details { border-bottom: 1px solid #c8b28b66; }
+.reference-home .home-faq summary { padding: 23px 14px; gap: 24px; box-sizing: border-box; width: 100%; line-height: 1.6; }
+.reference-home .home-faq .faq-question { font-weight: 500; }
+.reference-home .home-faq .plus { display: inline-flex; flex: 0 0 30px; width: 30px; height: 30px; align-items: center; justify-content: center; border: 1px solid #c8b28b99; border-radius: 50%; color: #876439; }
+.reference-home .home-faq details[open] { background: #faf8f4; }
+.reference-home .home-faq details > p { line-height: 1.85; color: #49576d; padding: 0 14px 24px; }
+.reference-home .presale-finale-price { padding-block: 22px; border-block: 1px solid #dec29940; width: min(100%,340px); gap: 10px; }
+.reference-home .presale-finale-price small { line-height: 1.7; }
+.reference-home :is(.collection-section,.reference-quiz-banner,.routine-actions-band,.skin-story,.presale-finale) .button {
+ transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+.reference-home > :not(.cosmedix-hero) :is(a,button,summary):focus-visible { outline: 2px solid #b18c53; outline-offset: 5px; }
+@media (hover: hover) and (pointer: fine) {
+ .reference-home :is(.routine-mosaic,.science-mosaic) .reference-mosaic-card:hover { border-color: #b79967; box-shadow: 0 12px 32px #07162e0d; }
+ .reference-home .founder-controls > button:hover { background: #eee5d6; }
+ .reference-home .home-faq summary:hover { color: #876439; }
+ .reference-home :is(.collection-section,.reference-quiz-banner,.routine-actions-band,.skin-story) .button:not(:disabled):hover { border-color: #d6b985; box-shadow: 0 4px 16px #07162e1c, inset 0 1px 0 #ffffff20; }
+ .reference-home .presale-finale .button:hover { box-shadow: 0 5px 24px #dec29920; }
+}
+@media (max-width: 700px) {
+ .reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy { padding: 24px 20px; }
+ .reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy h3 { font-size: 21px; }
+ .reference-home .home-faq summary { padding-block: 20px; gap: 14px; font-size: 14px; }
+ .reference-home .home-faq details > p { font-size: 14px; }
+ .reference-home .presale-finale-price { padding-block: 20px; margin-block: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .reference-home > :not(.cosmedix-hero) :is(.button,.reference-mosaic-card,.carousel-dots button span,.texture-tabs button,.routine-step-tabs button) { transition: none; }
+}
