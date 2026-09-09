@@ -213,3 +213,24 @@ body .skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; padding
  .signature-footer .footer-legal { flex-direction: column; align-items: center; gap: 10px; margin: 0; font-size: 8px; }
 }
 .signature-footer nav .footer-eyebrow { text-align: left; }
+
+/* Shared navigation and clearly signposted expandable menus. */
+.reference-header .reference-links > button { gap: 8px; }
+.reference-links .nav-chevron { display: block; flex: 0 0 16px; color: #dec299; transition: transform .2s ease; }
+.reference-links button[aria-expanded="true"] .nav-chevron { transform: rotate(180deg); }
+.reference-header .navigation-dropdown { top: 100%; z-index: 60; background: #fcfaf6; color: #07162e; border-top: 2px solid #dec299; box-shadow: 0 20px 40px #07162e33; max-height: calc(100dvh - 240px); overflow-y: auto; }
+.reference-header .navigation-dropdown h2 { color: #806239; }
+.reference-header .navigation-dropdown a, .reference-header .navigation-dropdown button { color: #07162e; }
+.reference-header .dropdown-products img { object-fit: contain; background: #f8f5ef; }
+.reference-header .navigation-dropdown a:focus-visible { outline: 2px solid #806239; outline-offset: 3px; }
+@media (min-width: 1001px) {
+ .reference-header, .reference-header.home-header { height: 218px; grid-template-columns: minmax(0,1fr) 196px minmax(0,1fr); align-items: start; padding: 8px 3% 0; position: relative; z-index: 50; }
+ .reference-header .reference-wordmark, .home-header .reference-wordmark { width: 196px; height: 208px; }
+ .reference-header .reference-links, .reference-header .reference-actions { padding-top: 12px; }
+ .reference-header .reference-links > a, .reference-header .reference-links > button { padding-inline: 10px; font-size: 11px; letter-spacing: .1em; }
+ .reference-header .reference-home-link { display: none; }
+}
+@media (min-width: 1001px) and (max-width: 1250px) {
+ .reference-header .reference-links > a, .reference-header .reference-links > button { padding-inline: 6px; font-size: 9px; letter-spacing: .04em; }
+ .reference-header .reference-links > button { gap: 4px; }
+}
