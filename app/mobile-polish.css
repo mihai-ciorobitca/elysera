@@ -177,3 +177,39 @@ body .skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; padding
   .shop-grid .product-card-actions > .button { font-size: 11px; }
   .quiz-options button { gap: 12px; padding-inline: 14px; }
 }
+
+/* Signature brand footer */
+.compact-footer.signature-footer { padding: 64px 5vw 24px; background: #09162b; border-top: 1px solid #b8965c; }
+.signature-footer .footer-main { display: grid; grid-template-columns: 180px minmax(220px, 1fr) minmax(340px, 1fr); align-items: center; gap: 64px; max-width: 1280px; margin: 0 auto; padding: 0 0 48px; justify-items: stretch; }
+.signature-footer .footer-brand { text-align: center; }
+.compact-footer.signature-footer .footer-logo { width: 128px; height: 136px; margin: 0 auto 18px; }
+.signature-footer .footer-brand p { margin: 0; font-size: 12px; line-height: 1.8; color: #b8c1cf; }
+.signature-footer .footer-eyebrow { display: block; font-size: 10px; font-weight: 500; letter-spacing: .16em; color: #d6ba89; line-height: 1.7; }
+.signature-footer .footer-discover { padding-left: 40px; border-left: 1px solid #d6ba8933; }
+.signature-footer .footer-discover p { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px, 3vw, 44px); font-weight: 400; line-height: 1.16; letter-spacing: -.02em; color: #f5eee3; margin: 18px 0 20px; }
+.signature-footer .footer-discover em { font-weight: 400; color: #d6ba89; }
+.signature-footer a.footer-discover-link { display: inline-flex; gap: 24px; font-size: 12px; color: #eee8de; border-bottom: 1px solid #b8965c80; padding: 0 0 4px; min-height: 40px; }
+.signature-footer .footer-discover-link span { color: #d6ba89; font-size: 20px; }
+.compact-footer.signature-footer .footer-main nav { display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; max-width: none; align-items: start; justify-self: stretch; }
+.signature-footer nav .footer-eyebrow { margin-bottom: 16px; }
+.compact-footer.signature-footer .footer-main nav a { display: flex; justify-content: flex-start; text-align: left; font-size: 13px; color: #d8dfeb; min-height: 42px; }
+.signature-footer a { transition: color .2s ease; }
+.signature-footer a:hover { color: #e7c897 !important; }
+.signature-footer a:focus-visible { outline: 2px solid #d6ba89; outline-offset: 5px; }
+.signature-footer .footer-legal { display: flex; justify-content: space-between; gap: 16px; max-width: 1280px; margin: 0 auto; padding-top: 22px; border-top: 1px solid #d6ba8930; font-size: 9px; letter-spacing: .1em; color: #98a5b9; }
+@media (max-width: 1050px) {
+ .signature-footer .footer-main { grid-template-columns: 150px 1fr; gap: 36px; }
+ .compact-footer.signature-footer .footer-main nav { grid-column: 1 / -1; max-width: 600px; justify-self: center; }
+}
+@media (max-width: 600px) {
+ .compact-footer.signature-footer { padding: 40px 24px 24px; }
+ .compact-footer.signature-footer .footer-main { display: flex; flex-direction: column; gap: 32px; padding-bottom: 30px; }
+ .signature-footer .footer-brand p { line-height: 1.8; }
+ .signature-footer .footer-discover { width: 100%; padding: 28px 0 0; border-left: 0; border-top: 1px solid #d6ba8930; text-align: center; }
+ .signature-footer .footer-discover p { font-size: 36px; width: auto; margin: 16px 0; line-height: 1.16; }
+ .compact-footer.signature-footer .footer-main nav { width: 100%; gap: 16px; grid-template-columns: 1fr 1.25fr; }
+ .signature-footer nav .footer-eyebrow { font-size: 8px; letter-spacing: .1em; margin-bottom: 10px; }
+ .compact-footer.signature-footer .footer-main nav a { font-size: 11px; min-height: 44px; }
+ .signature-footer .footer-legal { flex-direction: column; align-items: center; gap: 10px; margin: 0; font-size: 8px; }
+}
+.signature-footer nav .footer-eyebrow { text-align: left; }
