@@ -10,6 +10,6 @@ export const faqs = [
  ['Warum ist das Serum blau?','Die blaue Farbe gehört zum kupfergebundenen GHK-Cu-Komplex, einem charakteristischen Bestandteil der ELYSERA Serie.'],
  ['Kann ich danach Make-up verwenden?','Die Routine ist auf leichte Schichten ausgelegt. Dünn auftragen und jede Schicht kurz einziehen lassen. Zu viel Produkt oder starkes Reiben kann Röllchenbildung begünstigen.'],
  ['Wie funktioniert der Presale?','Der Presale startet am 23.09.2026. Das 3er-Set kostet 139 €, das Renewal Serum einzeln 59 €. Toner und Eye Cream sind im Presale im 3er-Set erhältlich. Für das Renewal Serum ist die Auslieferung Mitte Oktober 2026 geplant. Die Liefertermine von Toner und Eye Cream werden separat bekannt gegeben.'],
- ['Kann ich mein PeptiKing-Konto verwenden?','Dein bestehendes PeptiKing-Konto bleibt der Zugang zu deiner Bestellübersicht. Über „Mein Konto“ gelangst du zum bestehenden Login.'],
+ ['Kann ich mein PeptiKing-Konto verwenden?','Ja. Über „Mein Konto“ kannst du dich mit deinem PeptiKing-Zugang anmelden oder kostenlos registrieren. Bestätige anschließend deine unverbindliche Pre-Sale-Vormerkung. Sie wird in deinem Konto gespeichert und kann im Dashboard geändert oder zurückgezogen werden.'],
  ['Wo finde ich die vollständigen Inhaltsstoffe?','Die Produktseiten zeigen die Wirkstoffschwerpunkte aus dem Marken-Coaching. Die vollständigen INCI-Listen werden vor der Bestellfreigabe ergänzt.'],
 ]

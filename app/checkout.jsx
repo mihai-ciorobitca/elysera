@@ -18,7 +18,7 @@ export default function Checkout({ cart = {}, liveProducts = [] }) {
 
   return <section className="section checkout"><div className="page-heading">
     <h1>Deine Elysera<br/><em>Auswahl.</em></h1>
-    <p>Deine vorgemerkten Pflegeprodukte auf einen Blick. Der Presale startet am {presale.start}.</p>
+    <p>Deine auf diesem Gerät gespeicherten Pflegeprodukte auf einen Blick. Der Presale startet am {presale.start}.</p>
     {selected.length > 0 ? <div className="atelier-checkout-items">{selected.map(([slug, quantity]) => {
       const product = liveProducts.find((item) => item.slug === slug)
       const catalog=products.find(item=>item.slug===slug)
@@ -26,8 +26,9 @@ export default function Checkout({ cart = {}, liveProducts = [] }) {
     })}</div>:<div className="atelier-empty"><p>Deine Auswahl ist noch leer.</p><Link href="/shop/" className="button">Kollektion entdecken</Link></div>}
     {selected.length > 0 && <div className="presale-selection-price"><p>Presale ab {presale.start}</p>{sets > 0 && <p>{sets} × 3er-Set · {sets * presale.setPrice} €</p>}{extraSerums > 0 && <p>{extraSerums} × Renewal Serum · {extraSerums * presale.serumPrice} €</p>}{hasSetOnlyRemainder ? <p>Toner und Eye Cream sind im Presale nur im vollständigen 3er-Set erhältlich.</p> : <p><strong>Presale-Produktgesamtpreis: {previewTotal} €</strong><br/>Versandkosten werden vor dem Kauf angezeigt.</p>}</div>}
     {selected.length > 0 && <>
+      <Link href="/account/" className="button">FÜR DEN PRE-SALE VORREGISTRIEREN</Link>
       <Link className="text-link checkout-edit" href="/shop/">AUSWAHL ERGÄNZEN →</Link>
-      {!available && <p className="checkout-availability">Deine Auswahl ist vorgemerkt. Sobald die Produkte bestellbar sind, kannst du hier zum PeptiKing-Checkout wechseln.</p>}
+      {!available && <p className="checkout-availability">Deine Auswahl ist nur in diesem Browser gespeichert. Für eine Vormerkung in deinem Konto registriere dich kostenlos und bestätige dein Interesse bei PeptiKing.</p>}
       <a className={`button${available ? '' : ' disabled'}`} aria-disabled={!available} href={available ? `${peptikingUrl}/elysera-checkout?selection=${handoff}` : undefined}><span>ZUM GEMEINSAMEN CHECKOUT</span><span aria-hidden="true">→</span></a>
     </>}
   </div></section>
