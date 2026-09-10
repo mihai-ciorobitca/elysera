@@ -16,9 +16,9 @@ main{text-align:center}
 main .skin-story-copy{align-items:center}
 main .route-banner p,main .skin-story-copy p,main .routine-detail>div,main .detail-copy>p,main .source-note{margin-inline:auto}
 main .delivery-table th,main .delivery-table td,main .comparison-scroll th,main .comparison-scroll td,main input,main select{text-align:center}
-main .faq-list summary{display:grid;grid-template-columns:24px minmax(0,1fr) 24px;gap:12px;text-align:center}
-main .faq-question{grid-column:2}
-main .faq-list .plus{grid-column:3;color:var(--gold-ink)}
+main .faq-list summary{display:grid;grid-template-columns:minmax(0,1fr) 30px;gap:12px;text-align:center}
+main .faq-question{grid-column:1;min-width:0}
+main .faq-list .plus{grid-column:2;color:var(--gold-ink)}
 main .product-accordions summary{justify-content:center;position:relative;padding-inline:30px}
 main .product-accordions summary>span{position:absolute;right:0}
 main .service-cta{align-items:center;justify-content:center;text-align:center}
@@ -43,11 +43,11 @@ main .price-pending{flex-direction:column;align-items:center;justify-content:cen
 .connected-band>div>span[aria-hidden]{color:var(--gold-ink)}
 .connected-band .button,.presale-close .button{width:min(100%,360px)}
 .care-card h3{min-height:64px;text-align:center}
-.home-faq .faq-list summary{display:grid;grid-template-columns:28px minmax(0,1fr) 28px;gap:12px;text-align:center}
-.home-faq .faq-question{grid-column:2}
-.home-faq .plus{grid-column:3;color:var(--gold-ink)}
+.home-faq .faq-list summary{display:grid;grid-template-columns:minmax(0,1fr) 30px;gap:12px;text-align:center}
+.home-faq .faq-question{grid-column:1;min-width:0}
+.home-faq .plus{grid-column:2;color:var(--gold-ink)}
 .home-faq .faq-list details>p{max-width:66ch;margin-inline:auto;text-align:center}
 .routine-actions-band{background:var(--ivory);padding:32px var(--gutter) 64px;border-bottom:1px solid var(--gold-line)}
 .routine-actions-band .routine-actions{max-width:var(--content-max);margin:0 auto}
 .routine-actions-band .button{width:min(100%,400px)}
-@media(max-width:600px){.editorial-copy{padding-inline:var(--gutter)}.texture-description.editorial-copy{padding-inline:0}.editorial-copy h2{margin-bottom:20px}.editorial-copy .button,.editorial-copy .text-link{margin-top:24px}.routine-actions-band{padding:28px var(--gutter) 44px}.routine-actions-band .routine-actions{margin:0}.home-faq .faq-list summary{grid-template-columns:16px minmax(0,1fr) 16px;gap:8px}.connected-band>div{gap:16px}.presale-close>.text-link{font-size:9px}}
+@media(max-width:600px){.editorial-copy{padding-inline:var(--gutter)}.texture-description.editorial-copy{padding-inline:0}.editorial-copy h2{margin-bottom:20px}.editorial-copy .button,.editorial-copy .text-link{margin-top:24px}.routine-actions-band{padding:28px var(--gutter) 44px}.routine-actions-band .routine-actions{margin:0}.home-faq .faq-list summary{grid-template-columns:minmax(0,1fr) 30px;gap:8px}.connected-band>div{gap:16px}.presale-close>.text-link{font-size:9px}}

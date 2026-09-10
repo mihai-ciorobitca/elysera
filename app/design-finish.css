@@ -27,13 +27,6 @@
 .reference-home .founder-copy blockquote { border-color: #b7996766; padding-top: 28px; line-height: 1.85; }
 .reference-home .founder-controls { padding-block: 12px; }
 .reference-home .founder-controls > button { border: 1px solid #b7996766; border-radius: 50%; width: 44px; height: 44px; }
-.reference-home .home-faq .faq-list { border-top: 1px solid #c8b28b80; }
-.reference-home .home-faq details { border-bottom: 1px solid #c8b28b66; }
-.reference-home .home-faq summary { padding: 23px 14px; gap: 24px; box-sizing: border-box; width: 100%; line-height: 1.6; }
-.reference-home .home-faq .faq-question { font-weight: 500; }
-.reference-home .home-faq .plus { display: inline-flex; flex: 0 0 30px; width: 30px; height: 30px; align-items: center; justify-content: center; border: 1px solid #c8b28b99; border-radius: 50%; color: #876439; }
-.reference-home .home-faq details[open] { background: #faf8f4; }
-.reference-home .home-faq details > p { line-height: 1.85; color: #49576d; padding: 0 14px 24px; }
 .reference-home .presale-finale-price { padding-block: 22px; border-block: 1px solid #dec29940; width: min(100%,340px); gap: 10px; }
 .reference-home .presale-finale-price small { line-height: 1.7; }
 .reference-home :is(.collection-section,.reference-quiz-banner,.routine-actions-band,.skin-story,.presale-finale) .button {
@@ -43,23 +36,105 @@
 @media (hover: hover) and (pointer: fine) {
  .reference-home :is(.routine-mosaic,.science-mosaic) .reference-mosaic-card:hover { border-color: #b79967; box-shadow: 0 12px 32px #07162e0d; }
  .reference-home .founder-controls > button:hover { background: #eee5d6; }
- .reference-home .home-faq summary:hover { color: #876439; }
  .reference-home :is(.collection-section,.reference-quiz-banner,.routine-actions-band,.skin-story) .button:not(:disabled):hover { border-color: #d6b985; box-shadow: 0 4px 16px #07162e1c, inset 0 1px 0 #ffffff20; }
  .reference-home .presale-finale .button:hover { box-shadow: 0 5px 24px #dec29920; }
 }
 @media (max-width: 700px) {
  .reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy { padding: 24px 20px; }
  .reference-home .science-mosaic .reference-mosaic-card .reference-mosaic-copy h3 { font-size: 21px; }
- .reference-home .home-faq summary { padding-block: 20px; gap: 14px; font-size: 14px; }
- .reference-home .home-faq details > p { font-size: 14px; }
  .reference-home .presale-finale-price { padding-block: 20px; margin-block: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
  .reference-home > :not(.cosmedix-hero) :is(.button,.reference-mosaic-card,.carousel-dots button span,.texture-tabs button,.routine-step-tabs button) { transition: none; }
 }
-.reference-home .home-faq summary { grid-template-columns: minmax(0, 1fr) 30px; }
-.reference-home .home-faq .plus { position: relative; font-size: 0; transform: none; }
-.reference-home .home-faq .plus::before,.reference-home .home-faq .plus::after { content: ''; position: absolute; width: 10px; height: 1px; background: currentColor; }
-.reference-home .home-faq .plus::after { transform: rotate(90deg); transition: transform 180ms ease; }
-.reference-home .home-faq details[open] .plus::after { transform: rotate(0); }
-@media (prefers-reduced-motion: reduce) { .reference-home .home-faq .plus::after { transition: none; } }
+
+/* One FAQ contract: a flexible question and a fixed disclosure column. */
+body main .faq-list { width: 100%; max-width: 820px; margin-inline: auto; border-top: 1px solid #c8b28b80; }
+body main .faq-list details { border: 0; border-bottom: 1px solid #c8b28b66; }
+body main :is(.home-faq,.editorial) .faq-list details > summary { display: grid; grid-template-columns: minmax(0, 1fr) 30px; align-items: center; gap: 20px; padding: 23px 16px; width: 100%; box-sizing: border-box; text-align: left; line-height: 1.6; font-size: 15px; cursor: pointer; }
+body main .faq-list .faq-question { grid-column: 1; grid-row: 1; min-width: 0; width: auto; max-width: none; font-weight: 500; text-align: left; }
+body main .faq-list .plus { grid-column: 2; grid-row: 1; position: relative; justify-self: end; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid #c8b28b99; border-radius: 50%; color: #876439; font-size: 0; transform: none; }
+body main .faq-list .plus::before,body main .faq-list .plus::after { content: ''; position: absolute; width: 10px; height: 1px; background: currentColor; }
+body main .faq-list .plus::after { transform: rotate(90deg); transition: transform 180ms ease; }
+body main .faq-list details[open] .plus::after { transform: rotate(0); }
+body main .faq-list details[open] { background: #faf8f4; }
+body main .faq-list details > p { margin: 0; padding: 0 66px 24px 16px; max-width: none; text-align: left; font-size: 14px; line-height: 1.85; color: #49576d; }
+body main .faq-list summary:focus-visible { outline: 2px solid #997445; outline-offset: 3px; }
+
+/* Existing inner-page components share spacing, borders and readable copy. */
+main[data-page=inner] :is(.page-heading,.route-banner,.about-body,.feature-copy,.routine-detail,.account-destinations,.knowledge-grid) :is(h1,h2,h3) { text-wrap: balance; letter-spacing: -.02em; }
+main[data-page=inner] :is(.route-banner,.feature-copy,.routine-detail,.about-body,.account-destinations,.knowledge-grid,.presale-steps) p { line-height: 1.85; color: #49576d; }
+main[data-page=inner] .account-destinations { gap: 24px; }
+main[data-page=inner] .account-destinations article { display: flex; flex-direction: column; align-items: center; border-top: 1px solid #c8b28b99; padding: 28px 20px; min-width: 0; }
+main[data-page=inner] .account-destinations article p { margin: 18px 0 24px; max-width: 42ch; }
+main[data-page=inner] .account-destinations article > :is(a,.button) { margin-top: auto; min-height: 48px; }
+main[data-page=inner] .account-destinations article > .button { max-width: 100%; gap: 14px; padding-inline: 20px; line-height: 1.6; }
+main[data-page=inner] .account-destinations article > a > svg { flex: 0 0 20px; }
+main[data-page=inner] .account-selection { padding: 24px 20px; background: #faf8f4; border-top: 1px solid #c8b28b80; }
+main[data-page=inner] .account-selection .source-note { margin: 0; }
+main[data-page=inner] .knowledge-grid article { padding-block: 28px; border-color: #c8b28b80; }
+main[data-page=inner] .knowledge-grid h2 { margin-bottom: 16px; }
+main[data-page=inner] .presale-steps article { border-color: #c8b28b80; padding-block: 24px; }
+main[data-page=inner] .presale-steps article > span { color: #876439; font-size: 13px; letter-spacing: .06em; }
+main[data-page=inner] .delivery-table { border-collapse: collapse; border: 1px solid #d8c9b380; }
+main[data-page=inner] .delivery-table th { background: #f4f1eb; color: #07162e; }
+main[data-page=inner] .delivery-table td { text-align: left; line-height: 1.75; border-color: #d8c9b380; }
+main[data-page=inner] .service-cta { border-color: #c8b28b80; padding-block: 26px; gap: 18px; }
+main[data-page=inner] .quiz-body h2:focus,main[data-page=inner] .quiz-result h2:focus { outline: 2px solid #b18c5366; outline-offset: 10px; }
+main[data-page=inner] .quiz-options button { border-color: #c8b28b99; min-height: 64px; line-height: 1.6; transition: background-color 180ms ease,border-color 180ms ease; }
+main[data-page=inner] .quiz-options button[aria-pressed=true] { border-color: #9c7742; background: #f6f1e8; box-shadow: inset 3px 0 #9c7742; }
+main[data-page=inner] .quiz-options button:focus-visible { outline: 2px solid #876439; outline-offset: 3px; }
+main[data-page=inner] .quiz-options .radio-dot { flex-shrink: 0; }
+main[data-page=inner] .presale-selection-price { background: #faf8f4; border-color: #c8b28b80; }
+main[data-page=inner] .atelier-empty { padding: 26px 20px; background: #faf8f4; border-block: 1px solid #c8b28b66; }
+main[data-page=inner] .product-accordions { border-color: #c8b28b80; }
+main[data-page=inner] .product-accordions details { border-color: #c8b28b80; }
+main[data-page=inner] .product-accordions summary { min-height: 64px; font-size: 14px; }
+main[data-page=inner] .product-accordions p { line-height: 1.85; }
+main[data-page=inner] .gallery-thumbnails button { border-radius: 3px; transition: border-color 180ms ease; }
+main[data-page=inner] .gallery-thumbnails button[aria-pressed=true] { border-color: #9c7742; }
+main[data-page=inner] .catalog-bar { border-color: #c8b28b80; }
+main[data-page=inner] .filter-buttons button { border-color: #c8b28b80; min-height: 44px; }
+main[data-page=inner] .sort-label select { min-height: 44px; border-color: #c8b28b99; }
+main[data-page=inner] .shop-grid .product-photo { border: 1px solid #d8c9b333; border-radius: 3px; }
+main[data-page=inner] .shop-grid .product-card-actions { gap: 10px; }
+main[data-page=inner] :is(.account-destinations,.routine-detail,.about-body,.service-cta) .text-link { line-height: 1.6; }
+
+/* Balanced footer columns and one consistent mobile rhythm. */
+.compact-footer.signature-footer .footer-main nav { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; }
+.signature-footer nav .footer-eyebrow { min-height: 34px; margin-bottom: 10px; display: flex; align-items: flex-start; font-size: 10px; letter-spacing: .1em; }
+.compact-footer.signature-footer .footer-main nav a { min-height: 46px; font-size: 13px; line-height: 1.55; }
+.signature-footer .footer-legal { font-size: 10px; letter-spacing: .04em; }
+.signature-footer a.footer-discover-link { justify-content: space-between; width: min(100%,270px); min-height: 48px; gap: 20px; }
+@media (max-width: 700px) {
+ body main :is(.home-faq,.editorial) .faq-list details > summary { padding: 20px 12px; gap: 16px; font-size: 14px; }
+ body main .faq-list details > p { padding: 0 12px 24px; }
+ main[data-page=inner] .account-destinations { gap: 12px; }
+ main[data-page=inner] .account-destinations article { padding: 26px 12px; }
+ main[data-page=inner] .account-destinations article h2 { font-size: 23px; }
+ main[data-page=inner] :is(.route-banner,.feature-copy,.routine-detail,.about-body,.account-destinations,.knowledge-grid,.presale-steps) p { font-size: 14px; }
+ main[data-page=inner] .delivery-table { font-size: 13px; }
+ main[data-page=inner] .delivery-table th,main[data-page=inner] .delivery-table td { padding: 16px 12px; }
+ main[data-page=inner] .source-note { font-size: 12px; line-height: 1.8; }
+ main[data-page=inner] .quiz-options button { font-size: 14px; padding: 16px; gap: 14px; }
+ .compact-footer.signature-footer { padding: 36px 24px 22px; }
+ .compact-footer.signature-footer .footer-main { display: flex; flex-direction: column; gap: 26px; padding-bottom: 24px; }
+ .compact-footer.signature-footer .footer-logo { width: 112px; height: 119px; margin-bottom: 14px; }
+ .signature-footer .footer-discover { width: 100%; padding: 26px 0 0; border-left: 0; border-top: 1px solid #d6ba8930; text-align: center; }
+ .signature-footer .footer-discover > .footer-eyebrow { font-size: 9px; letter-spacing: .12em; }
+ .signature-footer .footer-discover p { font-size: 34px; line-height: 1.2; margin: 14px 0; }
+ .compact-footer.signature-footer .footer-main nav { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; width: 100%; max-width: 440px; }
+ .signature-footer nav .footer-eyebrow { font-size: 9px; min-height: 30px; letter-spacing: .08em; margin-bottom: 8px; }
+ .compact-footer.signature-footer .footer-main nav a { font-size: 12px; min-height: 44px; }
+ .signature-footer .footer-legal { flex-direction: column; align-items: center; gap: 8px; margin: 0; padding-top: 18px; font-size: 9px; text-align: center; }
+}
+@media (hover:hover) and (pointer:fine) {
+ body main .faq-list summary:hover { background: #faf8f4; }
+ main[data-page=inner] .quiz-options button:hover { border-color: #9c7742; background: #faf8f4; }
+}
+@media (prefers-reduced-motion: reduce) {
+ body main .faq-list .plus::after,main[data-page=inner] .quiz-options button,main[data-page=inner] .gallery-thumbnails button { transition: none; }
+}
+main[data-page=inner] .account-destinations article > .button { font-size: 11px; letter-spacing: .04em; }
+main[data-page=inner] .product-detail .purchase .price-pending > span { font-size: 13px; line-height: 1.8; }
+@media (max-width:700px) { .compact-footer.signature-footer .footer-main nav a { font-size: 13px; } }
