@@ -214,6 +214,14 @@ main[data-page=inner] .presale-selection-price { border-radius: 4px; padding: 24
 }
 
 /* Delivery reads as three complete records, without narrow prose columns on phones. */
+body main .jessica-founder { background: #edf1f5; border-top: 1px solid #d4c8b5; scroll-margin-top: 24px; }
+body main .jessica-founder .founder-copy { text-align: left; }
+body main .jessica-founder .founder-copy h2,main[data-page=inner] .founder-copy h2 { font: 600 clamp(27px,3vw,42px)/1.2 Montserrat,sans-serif; letter-spacing: -.025em; margin: 18px 0; color: #07162e; overflow-wrap: break-word; }
+body main .jessica-founder .founder-copy p,main[data-page=inner] .founder-copy p { font-size: 14px; line-height: 1.85; margin: 20px 0; color: #43516a; }
+body main .jessica-founder .founder-copy .founder-role,main[data-page=inner] .founder-copy .founder-role { font-size: 12px; line-height: 1.7; color: #80613a; margin: 0 0 28px; }
+main[data-page=inner] .founder-controls { padding-block: 12px; }
+main[data-page=inner] .founder-controls > button { border: 1px solid #b7996766; border-radius: 50%; width: 44px; height: 44px; }
+@media (min-width:701px) { body main .jessica-founder .founder-portraits { order: 2; } }
 body main .delivery-overview { margin-block: 28px; text-align: left; }
 main[data-page=inner] .mobile-product-comparison :is(dt,.comparison-product-heading,.comparison-product-heading h3) { text-align: left; }
 main[data-page=inner] .comparison-scroll :is(th,td) { text-align: left; vertical-align: top; }
