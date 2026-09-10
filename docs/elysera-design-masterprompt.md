@@ -1,5 +1,7 @@
 # ELYSERA — Masterprompt für die vollständige Designverfeinerung
 
+> Folgeauftrag vom 10. September 2026: Zusätzliche generierte Bildmotive, eigene Icons und interaktive Details sind ausdrücklich erwünscht. Ergänzende Bildkarten und eine mobile Neuordnung der Auslieferungsübersicht sind damit erlaubt. Vorhandene Motive und der geschützte Hero bleiben erhalten. Diese Freigabe ergänzt die ursprünglichen Grenzen unten. Umsetzung und aktuelle Nachweise: `docs/editorial-details-review.md`.
+
 ## Auftrag
 
 Nutze den installierten Skill `frontend-design` unter `C:/Users/lol/.codex/skills/frontend-design/SKILL.md`. Arbeite als verantwortlicher Designer und Frontend-Entwickler an der bestehenden ELYSERA-Website in `C:/Users/lol/Documents/elysera`. Prüfe zunächst den aktuellen Stand auf `http://localhost:3003` und verfeinere anschließend alle öffentlichen Seiten innerhalb der folgenden Grenzen.

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import FounderSection from './founder-section'
+import {EditorialDiscover} from './design-details'
 import {products} from './catalog'
 import {ProductCard,FAQ,RoutineSet} from './storefront'
 import {CampaignMotion,TextureLibrary} from './campaign'
@@ -51,6 +52,7 @@ export default function Home(){return <div className="reference-home">
  <section className="routine-actions-band" aria-label="Gesamte Pflegeroutine auswählen"><div className="routine-actions"><RoutineSet/></div></section>
  <section className="skin-story" id="hautpflege-story"><div className="skin-story-image"><PortraitLoop name="story-serum" alt="Frau verteilt ELYSERA Renewal Serum sanft auf ihrer Wange"/></div><div className="skin-story-copy editorial-copy"><h2>Pflege, die bei<br/>deiner Haut beginnt</h2><p>ELYSERA verbindet gezielte Peptidpflege mit drei klaren Aufgaben – vom frischen Anfang bis zur Augenpartie.</p><Link className="button" href="/about/">Lerne Elysera kennen</Link></div></section>
  <FounderSection/>
+ <EditorialDiscover/>
  <section className="section home-faq"><div><h2>Gut zu wissen</h2><Link className="text-link" href="/faq/">Alle Fragen</Link></div><FAQ limit={4}/></section>
  <section className="presale-close presale-finale"><div className="presale-finale-art"><CampaignMotion name="hero-mobile" alt="Die drei ELYSERA Pflegeprodukte in Nachtblau und Gold"/></div><div className="presale-finale-copy"><span className="eyebrow">PRESALE · AB 23.09.2026</span><h2>Deine Routine.<br/><span>Dein erster Schritt.</span></h2><p>Drei aufeinander abgestimmte Pflegeprodukte.<br/>Entdecke die erste ELYSERA Kollektion.</p><div className="presale-finale-price"><span>DAS 3ER-SET</span><strong>139 €</strong><small>Renewal Serum einzeln · 59 €</small></div><Link className="button" href="/shop/">KOLLEKTION ENTDECKEN <span aria-hidden="true">→</span></Link><Link className="text-link" href="/presale/">Presale & Lieferung</Link></div></section>
 </div>}

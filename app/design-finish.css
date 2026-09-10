@@ -76,9 +76,6 @@ main[data-page=inner] .knowledge-grid article { padding-block: 28px; border-colo
 main[data-page=inner] .knowledge-grid h2 { margin-bottom: 16px; }
 main[data-page=inner] .presale-steps article { border-color: #c8b28b80; padding-block: 28px; text-align: left; }
 main[data-page=inner] .presale-steps article > span { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid #c8b28b; border-radius: 50%; background: #faf8f4; color: #876439; font-size: 12px; letter-spacing: .06em; margin-bottom: 24px; }
-main[data-page=inner] .delivery-table { border-collapse: collapse; border: 1px solid #d8c9b380; }
-main[data-page=inner] .delivery-table th { background: #f4f1eb; color: #07162e; }
-main[data-page=inner] .delivery-table td { text-align: left; line-height: 1.75; border-color: #d8c9b380; }
 main[data-page=inner] .service-cta { border-color: #c8b28b80; padding-block: 26px; gap: 18px; }
 main[data-page=inner] .quiz-body h2:focus,main[data-page=inner] .quiz-result h2:focus { outline: 2px solid #b18c5366; outline-offset: 10px; }
 main[data-page=inner] .quiz-options button { border-color: #c8b28b99; min-height: 64px; line-height: 1.6; transition: background-color 180ms ease,border-color 180ms ease; }
@@ -114,8 +111,6 @@ main[data-page=inner] :is(.account-destinations,.routine-detail,.about-body,.ser
  main[data-page=inner] .account-destinations article { padding: 26px 20px; }
  main[data-page=inner] .account-destinations article h2 { font-size: 23px; }
  main[data-page=inner] :is(.route-banner,.feature-copy,.routine-detail,.about-body,.account-destinations,.knowledge-grid,.presale-steps) p { font-size: 14px; }
- main[data-page=inner] .delivery-table { font-size: 13px; }
- main[data-page=inner] .delivery-table th,main[data-page=inner] .delivery-table td { padding: 16px 12px; }
  main[data-page=inner] .source-note { font-size: 12px; line-height: 1.8; }
  main[data-page=inner] .quiz-options button { font-size: 14px; padding: 16px; gap: 14px; }
  .compact-footer.signature-footer { padding: 36px 24px 22px; }
@@ -216,4 +211,75 @@ main[data-page=inner] .presale-selection-price { border-radius: 4px; padding: 24
  main[data-page=inner] .account-selection { flex-direction: column; gap: 22px; }
  main[data-page=inner] .account-selection > .source-note { text-align: center; }
  main[data-page=inner] .account-selection > .button { flex: auto; width: 100%; }
+}
+
+/* Delivery reads as three complete records, without narrow prose columns on phones. */
+body main .delivery-overview { margin-block: 28px; text-align: left; }
+main[data-page=inner] .mobile-product-comparison :is(dt,.comparison-product-heading,.comparison-product-heading h3) { text-align: left; }
+main[data-page=inner] .comparison-scroll :is(th,td) { text-align: left; vertical-align: top; }
+body main .delivery-overview ul { list-style: none; padding: 0; margin: 0; }
+body main .delivery-entry { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.15fr) 44px; align-items: center; gap: 28px; padding: 24px 0; border-top: 1px solid #d7cbb8; }
+body main .delivery-entry:last-child { border-bottom: 1px solid #d7cbb8; }
+body main .delivery-product { display: flex; align-items: center; gap: 18px; min-width: 0; }
+body main .delivery-product img { width: 64px; height: 80px; flex: 0 0 64px; object-fit: contain; background: #fcfaf6; border-radius: 3px; }
+body main .delivery-product h3 { font-size: 17px; line-height: 1.5; font-weight: 600; margin: 0 0 6px; text-align: left; color: #0b1930; }
+body main .delivery-product span { font-size: 13px; color: #5c6877; }
+body main .delivery-status { min-width: 0; }
+body main .delivery-label { display: flex; align-items: center; gap: 9px; color: #806039; font-size: 12px; font-weight: 500; line-height: 1.6; }
+body main .delivery-label .detail-icon { width: 21px; height: 21px; flex: 0 0 21px; }
+body main .delivery-status p { margin: 9px 0 0; color: #37465b; line-height: 1.75; font-size: 15px; text-align: left; }
+body main .delivery-link { display: flex; align-items: center; justify-content: center; border: 1px solid #c8b28b; border-radius: 50%; width: 44px; height: 44px; color: #806039; }
+body main .delivery-link > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+body main .delivery-link > .detail-icon { width: 24px; height: 24px; flex: 0 0 24px; }
+body main .detail-icon { flex-shrink: 0; }
+main[data-page=inner] .account-destinations article > .detail-icon { color: #937044; margin-bottom: 20px; }
+.reference-home .reference-benefits .detail-icon { width: 44px; height: 44px; overflow: visible; }
+
+/* Additional editorial images have their own readable captions and directional action. */
+body main .editorial-discover { margin: 64px auto; max-width: 1328px; padding-inline: 28px; }
+main[data-page=inner] .editorial .editorial-discover { padding-inline: 0; }
+body main .editorial-discover-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; }
+body main .editorial-discover-card { display: flex; flex-direction: column; background: #faf7f1; color: #0b1930; border-radius: 4px; overflow: hidden; text-decoration: none; border: 1px solid #e4d9c7; }
+body main .editorial-discover-image { overflow: hidden; aspect-ratio: 3/2; }
+body main .editorial-discover-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+body main .editorial-discover-copy { display: grid; grid-template-columns: minmax(0,1fr) 40px; gap: 12px 20px; padding: 28px; text-align: left; flex: 1; }
+body main .editorial-discover-copy > .detail-icon { grid-column: 2; grid-row: 1; color: #937044; }
+body main .editorial-discover-copy h2 { grid-column: 1; grid-row: 1; font-size: clamp(22px,2.3vw,30px); line-height: 1.3; text-transform: none; text-align: left; margin: 0; align-self: center; letter-spacing: -.025em; }
+body main .editorial-discover-copy p { grid-column: 1/-1; font-size: 14px; line-height: 1.75; margin: 0; color: #536073; }
+body main .editorial-discover-action { display: flex; align-items: center; justify-content: space-between; grid-column: 1/-1; border-top: 1px solid #d8c9b3; margin-top: 12px; padding-top: 16px; font-size: 12px; letter-spacing: .05em; font-weight: 500; color: #806039; }
+body main .editorial-discover-action > span { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: #0b1930; color: #e5cba2; }
+body main .editorial-discover-action .detail-icon { width: 26px; height: 26px; }
+body main .editorial-image-note { display: block; margin-top: 14px; text-align: center; font-size: 11px; line-height: 1.6; color: #637086; }
+
+/* Motion responds to intentional interaction and never touches the hero. */
+body main :is(.delivery-link,.editorial-discover-card,.editorial-discover-action > span) { transition: color 200ms ease,background-color 200ms ease,border-color 200ms ease,box-shadow 200ms ease; }
+body main :is(.delivery-link,.editorial-discover-action) .detail-icon { transition: transform 220ms cubic-bezier(.2,.7,.2,1); }
+body main .editorial-discover-image img { transition: transform 260ms cubic-bezier(.2,.7,.2,1); }
+main[data-page=inner] :is(.button,.text-link),.reference-home > :not(.cosmedix-hero) :is(.button,.text-link) { transition: color 180ms ease,background-color 180ms ease,border-color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
+main[data-page=inner] :is(.button,.text-link) > svg,.reference-home > :not(.cosmedix-hero) :is(.button,.text-link) > svg { transition: transform 180ms ease; }
+body main :is(.delivery-link,.editorial-discover-card):focus-visible { outline: 2px solid #937044; outline-offset: 5px; }
+main[data-page=inner] .button:not(:disabled):active,.reference-home > :not(.cosmedix-hero) .button:not(:disabled):active { transform: translateY(1px); }
+@media (hover:hover) and (pointer:fine) {
+ body main .delivery-link:hover { color: #f8e8cb; background: #0b1930; border-color: #0b1930; }
+ body main .delivery-link:hover .detail-icon,body main .editorial-discover-card:hover .editorial-discover-action .detail-icon { transform: translateX(3px); }
+ body main .editorial-discover-card:hover { border-color: #b79967; box-shadow: 0 12px 30px #0b19300c; }
+ body main .editorial-discover-card:hover img { transform: scale(1.025); }
+ body main .editorial-discover-card:hover .editorial-discover-action > span { background: #806039; }
+ main[data-page=inner] :is(.button,.text-link):hover > svg,.reference-home > :not(.cosmedix-hero) :is(.button,.text-link):hover > svg { transform: translateX(3px); }
+}
+@media (max-width:700px) {
+ body main .delivery-entry { grid-template-columns: minmax(0,1fr); gap: 18px; padding: 24px 0; }
+ body main .delivery-product h3 { font-size: 18px; }
+ body main .delivery-status { padding: 18px 20px; background: #faf7f1; border-left: 2px solid #c8b28b; border-radius: 0 3px 3px 0; }
+ body main .delivery-status p { font-size: 15px; }
+ body main .delivery-link { justify-content: space-between; width: 100%; border: 0; border-radius: 0; height: 44px; }
+ body main .delivery-link > span { position: static; width: auto; height: auto; overflow: visible; clip-path: none; font-size: 12px; font-weight: 500; }
+ body main .delivery-link > .detail-icon { box-sizing: content-box; padding: 9px; border: 1px solid #c8b28b; border-radius: 50%; }
+ body main .editorial-discover { margin-block: 44px; padding-inline: 24px; }
+ body main .editorial-discover-grid { grid-template-columns: minmax(0,1fr); gap: 24px; }
+ body main .editorial-discover-copy { padding: 22px; gap: 12px; }
+ body main .editorial-discover-copy h2 { font-size: 23px; }
+}
+@media (prefers-reduced-motion:reduce) {
+ body main :is(.delivery-link,.editorial-discover-card,.editorial-discover-card img,.editorial-discover-action > span,.delivery-link .detail-icon,.editorial-discover-action .detail-icon),main[data-page=inner] :is(.button,.text-link,.button > svg,.text-link > svg),.reference-home > :not(.cosmedix-hero) :is(.button,.text-link,.button > svg,.text-link > svg) { transition: none; }
 }

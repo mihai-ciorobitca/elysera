@@ -18,6 +18,22 @@ const routes = ['/', '/shop', '/products/renewal-serum', '/products/balance-tone
    const violations = await page.evaluate(() => {
     const issues = [];
     if (document.documentElement.scrollWidth > innerWidth + 1) issues.push('Page overflow');
+    for (const row of document.querySelectorAll('.delivery-entry')) {
+     const product = row.querySelector('.delivery-product').getBoundingClientRect();
+     const status = row.querySelector('.delivery-status').getBoundingClientRect();
+     const label = row.querySelector('.delivery-label').getBoundingClientRect();
+     const copy = row.querySelector('.delivery-status p').getBoundingClientRect();
+     const edge = row.getBoundingClientRect();
+     if (innerWidth <= 700 && (status.width < edge.width - 2 || status.top < product.bottom + 10)) issues.push('Delivery mobile record is squeezed');
+     if (Math.abs(label.left-copy.left) > 1 || copy.top < label.bottom + 5) issues.push('Delivery label and copy alignment');
+     const link = row.querySelector('.delivery-link').getBoundingClientRect();
+     if (link.width < 44 || link.height < 44 || link.right > edge.right+1 || link.bottom > edge.bottom+1) issues.push('Delivery action dimensions');
+    }
+    for (const card of document.querySelectorAll('.editorial-discover-card')) {
+     const heading = card.querySelector('h2').getBoundingClientRect();
+     const icon = card.querySelector('.editorial-discover-copy > svg').getBoundingClientRect();
+     if (heading.right + 8 > icon.left) issues.push('Editorial heading overlaps icon');
+    }
     const cards = [...document.querySelectorAll('.shop-grid .atelier-product')];
     for (const card of cards) {
      const fields = ['.product-photo','.product-card-meta','h3','.product-role','.atelier-price','.product-card-actions'].map(s => card.querySelector(s).getBoundingClientRect());
@@ -59,7 +75,7 @@ const routes = ['/', '/shop', '/products/renewal-serum', '/products/balance-tone
    }
    results.push({route,width,violations});
    if (width === 390) {
-    const selector = route === '/' ? '.home-faq' : route === '/shop' ? '.shop-comparison' : route.startsWith('/products/') ? '.detail-copy' : route === '/routine' ? '.routine-detail' : route === '/science' ? '.knowledge-grid' : route === '/about' ? '.about-body' : route === '/faq' ? '.faq-list' : ['/account','/contact'].includes(route) ? '.account-destinations' : route === '/presale' ? '.delivery-table' : route === '/quiz' ? '.quiz-body' : route === '/checkout' ? '.checkout' : '.film-option';
+    const selector = route === '/' ? '.home-faq' : route === '/shop' ? '.shop-comparison' : route.startsWith('/products/') ? '.detail-copy' : route === '/routine' ? '.routine-detail' : route === '/science' ? '.knowledge-grid' : route === '/about' ? '.about-body' : route === '/faq' ? '.faq-list' : ['/account','/contact'].includes(route) ? '.account-destinations' : route === '/presale' ? '.delivery-overview' : route === '/quiz' ? '.quiz-body' : route === '/checkout' ? '.checkout' : '.film-option';
     const region = page.locator(selector).first();
     if (await region.count()) await region.screenshot({path: `${out}/${route === '/' ? 'home' : route.slice(1).replaceAll('/','-')}.png`});
    }
