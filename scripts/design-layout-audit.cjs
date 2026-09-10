@@ -18,6 +18,23 @@ const routes = ['/', '/shop', '/products/renewal-serum', '/products/balance-tone
    const violations = await page.evaluate(() => {
     const issues = [];
     if (document.documentElement.scrollWidth > innerWidth + 1) issues.push('Page overflow');
+    const cards = [...document.querySelectorAll('.shop-grid .atelier-product')];
+    for (const card of cards) {
+     const fields = ['.product-photo','.product-card-meta','h3','.product-role','.atelier-price','.product-card-actions'].map(s => card.querySelector(s).getBoundingClientRect());
+     for (let i = 1; i < fields.length; i++) if (fields[i].top < fields[i-1].bottom - 1) issues.push('Shop card fields overlap');
+     if (fields[0].width < card.getBoundingClientRect().width - 3) issues.push('Shop image does not fill card');
+     for (const other of cards) {
+      if (Math.abs(other.getBoundingClientRect().top-card.getBoundingClientRect().top) > 2) continue;
+      if (Math.abs(other.querySelector('.product-card-actions').getBoundingClientRect().top-fields[5].top) > 2) issues.push('Shop actions not aligned');
+     }
+    }
+    for (const purchase of document.querySelectorAll('.purchase')) {
+     const edge = purchase.getBoundingClientRect();
+     for (const child of purchase.querySelectorAll('.quantity,.button')) {
+      const r = child.getBoundingClientRect();
+      if (r.right > edge.right + 1 || r.left < edge.left - 1) issues.push('Purchase control outside panel');
+     }
+    }
     for (const summary of document.querySelectorAll('.faq-list summary')) {
      const s = summary.getBoundingClientRect(), q = summary.querySelector('.faq-question').getBoundingClientRect(), i = summary.querySelector('.plus').getBoundingClientRect();
      if (q.width < s.width * .65) issues.push('FAQ question column too narrow');
