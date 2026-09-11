@@ -1,3 +1,4 @@
+import {validateDetails} from '@/lib/auth/details-policy.mjs'
 import {NextResponse} from 'next/server'
 import {requireMail,passwordNotice} from '@/lib/auth/account-mail'
 import {createClient} from '@supabase/supabase-js'
@@ -16,7 +17,7 @@ export async function POST(request,{params}){
  if(['register','reset','password'].includes(action)&&!validPassword(b.password))return reply({error:'Das Passwort muss 12 bis 128 Zeichen enthalten.'},400)
  if(['verify','reset'].includes(action)&&!validToken(b.token))return reply({error:'Dieser Link ist ungültig. Bitte einen neuen anfordern.'},400)
  if(!await loginRateLimit(request,email,action))return reply({error:'Zu viele Versuche. Bitte in 15 Minuten erneut versuchen.'},429)
- if(action==='register'){if(typeof b.name!=='string'||!b.name.trim()||b.name.length>80||typeof b.last!=='string'||b.last.length>80)return reply({error:'Bitte deinen Namen eingeben.'},400);await registerAccount(email,b.password,b.name.trim(),b.last.trim());return reply({message:'Falls dein Konto noch bestätigt werden muss, erhältst du eine E-Mail. Bei einem bestehenden Konto kannst du dich anmelden oder dein Passwort zurücksetzen.'})}
+ if(action==='register'){const details=validateDetails(b);if(!details)return reply({error:'Bitte vollständigen Namen und Adresse eingeben.'},400);if(typeof b.name!=='string'||!b.name.trim()||b.name.length>80||typeof b.last!=='string'||b.last.length>80)return reply({error:'Bitte deinen Namen eingeben.'},400);await registerAccount(email,b.password,b.name.trim(),b.last.trim(),details);return reply({message:'Falls dein Konto noch bestätigt werden muss, erhältst du eine E-Mail. Bei einem bestehenden Konto kannst du dich anmelden oder dein Passwort zurücksetzen.'})}
  if(action==='forgot'||action==='resend'){requireMail();const user=await findAccount(email);if(allowedAccount(user)&&user.supabaseUserId&&(action==='forgot'?user.emailVerified:!user.emailVerified))await issueToken(user,action==='forgot'?'reset':'verify');return reply({message:'Wenn die Adresse zu einem passenden Konto gehört, erhältst du eine E-Mail. Prüfe auch deinen Spam-Ordner.'})}
  if(action==='verify'){if(!await verifyEmail(b.token))return reply({error:'Dieser Link ist ungültig oder abgelaufen. Bitte einen neuen anfordern.'},400);return reply({message:'Deine E-Mail-Adresse ist bestätigt. Du kannst dich jetzt anmelden.'})}
  if(action==='reset'){const result=await resetPassword(b.token,b.password);if(!result)return reply({error:'Dieser Link ist ungültig oder abgelaufen. Bitte einen neuen anfordern.'},400);return reply({message:'Dein Passwort wurde geändert. Melde dich mit deinem neuen Passwort an.'})}

@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS "ElyseraAccountProfile" (
+ "userId" TEXT PRIMARY KEY REFERENCES "User"("id") ON DELETE CASCADE,
+ "details" JSONB NOT NULL DEFAULT '{}'::jsonb,
+ "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+ALTER TABLE "ElyseraAccountProfile" ENABLE ROW LEVEL SECURITY;
