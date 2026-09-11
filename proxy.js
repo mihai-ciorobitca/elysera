@@ -1,3 +1,4 @@
+import {referralCookie,referralCode} from './lib/auth/referral-policy.mjs'
 import {createServerClient} from '@supabase/ssr'
 import {NextResponse} from 'next/server'
 import {authConfig,cookieOptions,storageCookieOptions} from './lib/auth/policy.mjs'
@@ -7,6 +8,7 @@ export async function proxy(request){
   const client=createServerClient(url,key,{cookieOptions:cookieOptions(),cookies:{getAll:()=>request.cookies.getAll(),setAll:items=>{for(const {name,value}of items)request.cookies.set(name,value);response=NextResponse.next({request});for(const {name,value,options}of items)response.cookies.set(name,value,storageCookieOptions(options))}}})
   await client.auth.getUser()
  }
+ const code=referralCode(request.nextUrl.searchParams.get('ref'));if(code)response.cookies.set(referralCookie,code,{httpOnly:true,secure:request.nextUrl.protocol==='https:',sameSite:'lax',path:'/',maxAge:60*60*24*30});
  response.headers.set('Cache-Control','private, no-store');return response
 }
 export const config={matcher:['/dashboard/:path*','/api/account/:path*','/auth/:path*','/account']}
