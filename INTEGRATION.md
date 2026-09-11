@@ -1,40 +1,22 @@
-# Elysera storefront
+# ELYSERA account integration
 
-Standalone Next.js storefront for Elysera. The app deploys independently from PeptiKing and keeps the existing brand-specific layout, routes, media, and client-side presale selection.
+ELYSERA uses the existing Supabase Auth identity and the existing public User record. No password copy, legacy hash fallback, account duplication, schema migration, or PeptiKing source changes.
 
-## Local development
+Sign in: /auth/signin. Successful email/password login redirects only to /dashboard. Verified TOTP MFA is enforced when enrolled. ADMIN and STAFF accounts are excluded from this customer portal. Dashboard and account APIs verify the provider identity and business account status server-side.
 
-1. Copy `.env.example` to `.env.local` and supply the shared PeptiKing database URLs.
-2. Run `npm install`.
-3. Run `npm run dev` and open `http://localhost:3001`.
+Cookies are named elysera-auth, host-only, HttpOnly, SameSite=Lax, Secure in production. Logout uses scope local. Other domains retain their own sessions. Shared profile name edits affect the same existing account; email and structured telephone are read-only here.
 
-## Shared PeptiKing database
+Set server-only ELYSERA_SUPABASE_URL, ELYSERA_SUPABASE_ANON_KEY, ELYSERA_RATE_LIMIT_SECRET and existing database variables. Local credentials are ignored by Git. Login attempts use namespaced HMAC keys in the existing AiRateLimitBucket table.
 
-`GET /api/products` queries the existing PeptiKing `Products` table through Prisma. Only the three fixed Elysera product IDs are selected, and only active, non-staff products with a positive EUR price are returned. Database credentials stay server-side.
+Orders and commissions are limited to 200 recent user-owned records whose orders contain exclusively ELYSERA product IDs. Mixed orders are excluded. Personal purchase value is not affiliate revenue. Empty accounts show zero, never invented demonstration figures.
 
-The expected IDs are:
+Implemented: registration, email verification and resend, password recovery and authenticated password changes. ELYSERA uses its own Resend templates and namespaced hashed tokens in the existing EmailVerificationToken / PasswordResetToken tables; no shared Supabase email templates are changed. Links expire after 30 minutes and require explicit POST confirmation; GET requests never consume them. A shared password change applies wherever that identity is used.
 
-- `elysera-renewal-serum-30ml`
-- `elysera-balance-toner-100ml`
-- `elysera-contour-eye-cream-15ml`
+Not yet configured: a valid ELYSERA Resend key (current key returns 401), verified sender matching ELYSERA_SITE_URL, production domain/deployment, Google OAuth, ELYSERA referral tracking/team membership, checkout and payout initiation. Shared provider branding and emails were not changed. Real-account successful login needs an interactive check by the account holder; never send passwords in chat.
 
-No separate database or schema migration is required.
+Verification: node --test scripts/auth-policy.test.mjs; npm run build; node scripts/check-elysera-auth.cjs. No production deployment is implied.
 
-## PeptiKing checkout handoff
 
-The storefront keeps the selection in `localStorage` and sends it as the URL-encoded `selection` query parameter to `${NEXT_PUBLIC_PEPTIKING_URL}/elysera-checkout`. PeptiKing remains responsible for customer authentication, cart validation, stock checks, payments, orders, referrals, and fulfillment.
+Environment: ELYSERA_SUPABASE_SERVICE_ROLE_KEY (server-only, verified read access), ELYSERA_RESEND_API_KEY, ELYSERA_EMAIL_FROM, ELYSERA_SITE_URL. Never put these secrets in NEXT_PUBLIC variables. Production requires an explicit HTTPS site origin. Password changes require current password and existing MFA assurance; recovery changes the password without issuing a session, so subsequent login still enforces MFA.
 
-## Vercel
-
-The repository is linked to the Vercel project `mihai-ciorobitca/elysera`. Configure these values for Development, Preview, and Production:
-
-- `DATABASE_URL`
-- `DIRECT_URL`
-- `NEXT_PUBLIC_PEPTIKING_URL`
-- `NEXT_PUBLIC_SITE_URL`
-
-`DATABASE_URL` and `DIRECT_URL` use the same Supabase/Postgres project as PeptiKing.
-
-## Product status
-
-At the time of separation, the shared database connection worked but returned no publicly sellable Elysera products. The records must be active, priced, stocked, and legally approved before checkout can be enabled.
+Validation: 23 isolated browser checks and 8 unit/policy checks passed. No real registration emails were sent and no live user account was changed. E-mail previews are under output/account-emails. Supply the final domain, verified sender, working mail API key through local environment settings, and a user-owned test mailbox to finish real delivery verification.

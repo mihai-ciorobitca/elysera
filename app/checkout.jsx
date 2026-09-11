@@ -2,8 +2,6 @@
 import Link from 'next/link'
 import {products,presale,presalePriceLabel} from './catalog'
 
-const peptikingUrl = process.env.NEXT_PUBLIC_PEPTIKING_URL || 'https://www.peptiking.com'
-
 export default function Checkout({ cart = {}, liveProducts = [] }) {
   const selected = Object.entries(cart)
   const available = selected.length > 0 && selected.every(([slug, quantity]) => {
@@ -27,8 +25,7 @@ export default function Checkout({ cart = {}, liveProducts = [] }) {
     {selected.length > 0 && <div className="presale-selection-price"><p>Presale ab {presale.start}</p>{sets > 0 && <p>{sets} × 3er-Set · {sets * presale.setPrice} €</p>}{extraSerums > 0 && <p>{extraSerums} × Renewal Serum · {extraSerums * presale.serumPrice} €</p>}{hasSetOnlyRemainder ? <p>Toner und Eye Cream sind im Presale nur im vollständigen 3er-Set erhältlich.</p> : <p><strong>Presale-Produktgesamtpreis: {previewTotal} €</strong><br/>Versandkosten werden vor dem Kauf angezeigt.</p>}</div>}
     {selected.length > 0 && <>
       <Link className="text-link checkout-edit" href="/shop/">AUSWAHL ERGÄNZEN →</Link>
-      {!available && <p className="checkout-availability">Deine Auswahl ist vorgemerkt. Sobald die Produkte bestellbar sind, kannst du hier zum PeptiKing-Checkout wechseln.</p>}
-      <a className={`button${available ? '' : ' disabled'}`} aria-disabled={!available} href={available ? `${peptikingUrl}/elysera-checkout?selection=${handoff}` : undefined}><span>ZUM GEMEINSAMEN CHECKOUT</span><span aria-hidden="true">→</span></a>
+      <p className="checkout-availability">Deine Auswahl ist vorgemerkt. Die Bestellung direkt bei ELYSERA wird noch eingerichtet.</p><button className="button" disabled>BESTELLUNG BALD MÖGLICH</button>
     </>}
   </div></section>
 }

@@ -6,6 +6,7 @@ import ScrollMedia from './scroll-media'
 import {mediaRoot,mediaName,mediaImage,mediaVideo,mediaSrcSet} from './media-library'
 export {mediaRoot}
 export function CampaignImage({name,alt='',className='',priority=false,sizes='(max-width: 600px) 100vw, 50vw',animate=true}){
+ if(['serum','toner','eye'].includes(name))return <img className={`lp-gallery-packshot ${className}`} src={`/media/atelier-2026/${name}.webp`} alt={alt} loading={priority?'eager':'lazy'} decoding="async"/>
  const portrait=['story-serum','ugc-serum','ugc-toner','ugc-eye'].includes(mediaName(name))&&sizes!=='90px'
  const detailFiles={'story-serum':'story-serum-v2.webp','ugc-toner':'ugc-toner-lossless.webp'}
  const fullDetail=detailFiles[mediaName(name)]

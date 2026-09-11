@@ -1,0 +1,21 @@
+.care-detail{display:grid;grid-template-columns:1fr 1fr;gap:48px 72px}
+.section.care-detail,.section.care-detail h2,.section.care-detail p,.section.care-detail li,.section.care-entry article,.section.care-entry article p,.section.care-knowledge,.section.care-knowledge p,.section.care-ingredients,.section.care-ingredients p{text-align:left}
+.section.care-detail h2,.section.care-knowledge h2,.section.care-ingredients h2{text-transform:none}
+.care-detail h2,.care-knowledge>h2,.care-ingredients>h2{font-size:clamp(28px,3vw,44px);line-height:1.15;margin:0 0 28px}
+.care-detail ul{padding-left:20px;margin:0;display:grid;gap:18px}
+.care-detail p,.care-detail li,.care-entry p,.care-knowledge p,.care-ingredients p{line-height:1.75}
+.care-detail-copy h3{font-size:21px;margin:32px 0 12px}
+.care-evidence{grid-column:1/-1;font-size:13px;line-height:1.7;max-width:960px;opacity:.8;margin:10px 0 0}
+.care-note{font-size:13px;line-height:1.7;opacity:.8}
+.care-entry-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.care-entry-grid h3,.care-goal-grid h3{font-size:25px;margin:0 0 12px}
+.care-entry-grid article{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.care-entry-grid p{flex:1;margin:0 0 24px}
+.care-goal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 48px;margin:40px 0}
+.care-goal-grid p{margin:0}
+.care-ingredient-list{margin:32px 0}
+.care-ingredient-list details{border-bottom:1px solid #a9b9c655;padding:22px 0}
+.care-ingredient-list summary{font-size:20px;cursor:pointer}
+.care-ingredient-list p{max-width:850px;margin:18px 0 0}
+.care-entry a:focus-visible,.care-ingredients summary:focus-visible{outline:2px solid currentColor;outline-offset:6px}
+@media(max-width:760px){.care-detail{grid-template-columns:1fr;gap:32px}.care-entry-grid,.care-goal-grid{grid-template-columns:1fr;gap:28px}.care-entry-grid p{margin-bottom:14px}.care-goal-grid{margin:28px 0}.care-ingredient-list summary{font-size:18px}.care-detail h2{margin-bottom:22px}}

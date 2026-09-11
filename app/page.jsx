@@ -1,59 +1,21 @@
 import Link from 'next/link'
-import FounderSection from './founder-section'
-import {EditorialDiscover} from './design-details'
 import {products} from './catalog'
-import {ProductCard,FAQ,RoutineSet} from './storefront'
-import {CampaignMotion,TextureLibrary} from './campaign'
-import {RoutineExperience} from './experience'
-import PortraitLoop from './portrait-loop'
-import ReferenceHero from './reference-hero'
-import ReferenceBenefits from './reference-benefits'
-import AutoCarousel from './auto-carousel'
-
-const steps = [
- {title:'Vorbereiten',image:'toner',copy:'Ein frischer Anfang nach der Reinigung.',slug:'balance-toner'},
- {title:'Pflegen',image:'serum',copy:'Dein täglicher Peptidschritt mit Renewal Serum.',slug:'renewal-serum'},
- {title:'Gezielt ergänzen',image:'eye',copy:'Besondere Pflege für deine Augenpartie.',slug:'contour-eye-cream'},
-]
-export default function Home(){return <div className="reference-home">
- <ReferenceHero/>
- <ReferenceBenefits/>
- <section className="section collection-section" id="collection">
-  <div className="section-heading"><h2>Die Elysera Kollektion</h2></div>
-  <AutoCarousel className="product-grid" label="Produkt" delay={4000}>{products.map(p=><ProductCard key={p.slug} product={p}/>)}</AutoCarousel>
- </section>
- <section className="ritual-intro">
-  <h2>Deine Pflege beginnt hier</h2><p>Drei aufeinander abgestimmte Schritte für deine tägliche Routine.</p>
-  <AutoCarousel className="reference-mosaic routine-mosaic" label="Pflegeschritt">{steps.map(s=><Link href={`/products/${s.slug}/`} className="reference-mosaic-card" key={s.slug}><CampaignMotion name={s.image} alt=""/><div className="reference-mosaic-copy"><h3>{s.title}</h3><p>{s.copy}</p><span className="text-link">Produkt entdecken</span></div></Link>)}</AutoCarousel>
- </section>
- <section className="finder-editorial reference-quiz-banner" id="pflege-finder">
-  <CampaignMotion name="toner-texture" alt="Illustrative Textur der Elysera Pflege"/>
-  <div className="editorial-copy"><h2>Finde die Pflege,<br/>die zu deiner Haut passt</h2><p>Noch nicht sicher, womit du starten möchtest? Drei kurze Fragen führen dich zu deinem Einstieg in die Kollektion.</p><Link className="button" href="/quiz/">Pflege-Quiz starten</Link><Link className="text-link" href="/shop/">Oder alle Produkte entdecken</Link></div>
- </section>
- <section className="section care-section science-editorial">
-  <div className="section-heading"><span className="eyebrow">WIRKSTOFFE & TEXTUREN</span><h2>Pflege im Detail</h2></div>
-  <AutoCarousel className="reference-mosaic science-mosaic" label="Pflegewissen">{[
-   ['Peptidpflege','serum-texture','Entdecke GHK-Cu und die Wirkstofflogik des Renewal Serums.'],
-   ['Leichte Feuchtigkeit','toner-texture','Feiner Sprühnebel als erster Schritt nach der Reinigung.'],
-   ['Gezielte Augenpflege','eye-texture','Peptide, Koffein und Squalan für deine Augenpartie.'],
-  ].map(([title,image,copy])=><Link className="reference-mosaic-card" href="/science/" key={title}><CampaignMotion name={image} alt=""/><div className="reference-mosaic-copy"><h3>{title}</h3><p>{copy}</p><span className="text-link">Mehr erfahren</span></div></Link>)}</AutoCarousel>
- </section>
- <TextureLibrary/>
- <section className="ugc-journal" id="pflege-alltag">
-  <div className="ugc-journal-heading"><h2>Pflege im echten Leben</h2><p>Entdecke die Anwendung von Elysera.</p></div>
-  <AutoCarousel className="ugc-journal-grid" label="Anwendung" delay={4000}>{[
-   ['ugc-creator','UGC-Model zeigt das Elysera Renewal Serum im Badezimmer','Renewal Serum','renewal-serum'],
-   ['ugc-morning','Illustrative Pflegeroutine mit Balance Toner','Balance Toner','balance-toner'],
-   ['ugc-eye','Illustrative Anwendung der Augenpflege','Contour Eye Cream','contour-eye-cream'],
-  ].map(([image,alt,title,slug])=><figure key={slug}><CampaignMotion name={image} alt={alt}/><figcaption><Link className="text-link" href={`/products/${slug}/`}>{title} entdecken</Link></figcaption></figure>)}</AutoCarousel>
-  <p className="ugc-journal-note">KI-generierte Anwendungsszenen · keine Kundenbewertungen.</p>
- </section>
- <RoutineExperience compact/>
- <section className="routine-actions-band" aria-label="Gesamte Pflegeroutine auswählen"><div className="routine-actions"><RoutineSet/></div></section>
- <section className="skin-story" id="hautpflege-story"><div className="skin-story-image"><PortraitLoop name="story-serum" alt="Frau verteilt ELYSERA Renewal Serum sanft auf ihrer Wange"/></div><div className="skin-story-copy editorial-copy"><h2>Pflege, die bei<br/>deiner Haut beginnt</h2><p>ELYSERA verbindet gezielte Peptidpflege mit drei klaren Aufgaben – vom frischen Anfang bis zur Augenpartie.</p><Link className="button" href="/about/">Lerne Elysera kennen</Link></div></section>
- <FounderSection/>
- <FounderSection person="jessica"/>
- <EditorialDiscover/>
- <section className="section home-faq"><div><h2>Gut zu wissen</h2><Link className="text-link" href="/faq/">Alle Fragen</Link></div><FAQ limit={4}/></section>
- <section className="presale-close presale-finale"><div className="presale-finale-art"><CampaignMotion name="hero-mobile" alt="Die drei ELYSERA Pflegeprodukte in Nachtblau und Gold"/></div><div className="presale-finale-copy"><span className="eyebrow">PRESALE · AB 23.09.2026</span><h2>Deine Routine.<br/><span>Dein erster Schritt.</span></h2><p>Drei aufeinander abgestimmte Pflegeprodukte.<br/>Entdecke die erste ELYSERA Kollektion.</p><div className="presale-finale-price"><span>DAS 3ER-SET</span><strong>139 €</strong><small>Renewal Serum einzeln · 59 €</small></div><Link className="button" href="/shop/">KOLLEKTION ENTDECKEN <span aria-hidden="true">→</span></Link><Link className="text-link" href="/presale/">Presale & Lieferung</Link></div></section>
-</div>}
+import {ProductCard,ProductShelf,FAQ,RoutineSet} from './storefront'
+const media='/media/wavespeed-4k/'
+function Heading({kicker,title,copy,href,label}){return <div className="lp-heading">{kicker&&<span className="lp-kicker">{kicker}</span>}<h2>{title}</h2>{copy&&<p>{copy}</p>}{href&&<Link className="lp-button" href={href}>{label||'ENTDECKEN'}</Link>}</div>}
+function Split({image,alt,kicker,title,copy,href,label,reverse=false,pale=false,position}){return <section className={`lp-split${reverse?' lp-reverse':''}${pale?' lp-pale':''}`}><div className="lp-split-image"><img src={image} alt={alt} loading="lazy" decoding="async" style={position?{objectPosition:position}:undefined}/></div><div className="lp-split-copy"><span className="lp-kicker">{kicker}</span><h2>{title}</h2><p>{copy}</p><Link href={href} className="lp-button">{label||'MEHR ENTDECKEN'}</Link></div></section>}
+export default function Home(){return <div className="lp-home">
+ <section className="lp-hero lp-hero-blue"><picture className="lp-hero-media"><source media="(max-width:700px)" srcSet="/media/wavespeed-4k/hero-mobile.webp"/><img src="/media/wavespeed-4k/hero-desktop.webp" alt="Die ELYSERA Kollektion vor tiefblauem Hintergrund mit goldener DNA-Helix" fetchPriority="high" decoding="async"/></picture><div className="lp-hero-copy"><span className="lp-kicker">DIE ERSTE KOLLEKTION</span><h1>DEIN TÄGLICHES<br/>RITUAL.<br/>NEU DEFINIERT.</h1><p>ENTDECKE DIE WELT DER PEPTIDPFLEGE</p><Link className="lp-button lp-button-white" href="/shop">DIE KOLLEKTION</Link></div></section>
+ <section className="lp-collection" id="collection"><Heading title="DREI SCHRITTE. EIN PFLEGERITUAL." href="/routine" label="DIE ROUTINE ENTDECKEN"/><ProductShelf items={[products[1],products[0],products[2]]}/></section>
+ <Split image={`${media}ugc-toner-lossless.webp`} alt="Leichter Sprühnebel bei der Anwendung des Balance Toners" kicker="DER ERSTE SCHRITT" title={<>EIN FRISCHER ANFANG.<br/>JEDEN TAG.</>} copy="Ein feiner Sprühnebel. Ein Moment für deine Haut. Der Balance Prepeptide Toner ergänzt deine Routine mit leichter Feuchtigkeit und bereitet die Haut auf den nächsten Pflegeschritt vor." href="/products/balance-toner" label="BALANCE TONER ENTDECKEN" position="50% 10%"/>
+ <section className="lp-feature"><Heading title="DIE WISSENSCHAFT DER PFLEGE"/><Split image={`${media}serum-texture.webp`} alt="Illustrative blaue Serumtextur" kicker="DAS ELYSERA WIRKSTOFFKONZEPT" title={<>PEPTIDE.<br/>BEWUSST KOMBINIERT.</>} copy="GHK-Cu, Hyaluron, Niacinamid und Ectoin: Lerne die Wirkstoffschwerpunkte unserer Kollektion kennen und verstehe, wie sich die drei Pflegeschritte ergänzen." href="/science" label="PEPTIDWISSEN ENTDECKEN" pale/></section>
+ <Split image={`${media}story-serum-v2.webp`} alt="Sanfte Anwendung des ELYSERA Renewal Serums" kicker="DEIN PERSÖNLICHES PFLEGERITUAL" title={<>DEINE HAUT.<br/>DEINE ROUTINE.</>} copy="Jede Pflegeroutine beginnt mit deinen Bedürfnissen. Drei kurze Fragen helfen dir, deinen Einstieg in die ELYSERA Kollektion zu finden." href="/quiz" label="DEINE PFLEGE FINDEN" reverse pale position="50% 12%"/>
+ <section className="lp-collection lp-selection"><Heading kicker="AUFEINANDER ABGESTIMMT" title="DEINE TÄGLICHEN BEGLEITER" copy="Vorbereiten. Pflegen. Gezielt ergänzen. Entdecke die Texturen deiner Routine." href="/shop" label="ALLE PRODUKTE ENTDECKEN"/><ProductShelf items={products}/></section>
+ <Split image={`${media}ugc-eye.webp`} alt="Gezielte Pflege an der Augenpartie" kicker="CONTOUR LIFT EYE CREAM" title={<>BESONDERE PFLEGE.<br/>FÜR DEINEN BLICK.</>} copy="Die Augenpartie verdient einen eigenen Pflegeschritt. Eine leichte Creme mit Peptiden, Koffein und Squalan ergänzt dein tägliches Ritual – lokal und ohne Tönung." href="/products/contour-eye-cream" label="DIE AUGENPFLEGE ENTDECKEN" position="50% 12%"/>
+ <section className="lp-editorial"><Heading title="DIE KUNST DEINES PFLEGERITUALS" copy="Leichte Schichten. Sanfte Berührungen. Ein Moment, der dir gehört."/><div className="lp-editorial-grid"><Link href="/routine"><div><img src={`${media}ugc-toner-lossless.webp`} alt="Balance Toner als erster Pflegeschritt" loading="lazy"/></div><span className="lp-kicker">MORGENS UND ABENDS</span><h3>DEINE ROUTINE IN DREI SCHRITTEN</h3><span className="lp-underlink">DAS RITUAL ENTDECKEN</span></Link><Link href="/products/renewal-serum"><div><img src={`${media}story-serum-v2.webp`} alt="Renewal Serum sanft auf der Haut verteilen" loading="lazy"/></div><span className="lp-kicker">DER ZENTRALE PEPTIDSCHRITT</span><h3>EIN MOMENT FÜR DEINE HAUT</h3><span className="lp-underlink">DAS SERUM ENTDECKEN</span></Link></div></section>
+ <section className="lp-textures"><Heading title="DREI TEXTUREN. EIN ZUSAMMENSPIEL." copy="Vom feinen Sprühnebel bis zur geschmeidigen Creme."/><div className="lp-texture-grid">{[{p:products[1],key:'toner',title:'FRISCHE'},{p:products[0],key:'serum',title:'LEICHTIGKEIT'},{p:products[2],key:'eye',title:'GESCHMEIDIGKEIT'}].map(({p,key,title})=><Link key={key} href={`/products/${p.slug}`}><img src={`${media}${key}-texture.webp`} alt={`Illustrative Texturinszenierung: ${p.short}`} loading="lazy"/><h3>{title}</h3><span>{p.short}</span><span className="lp-underlink">ENTDECKEN</span></Link>)}</div></section>
+ <section className="lp-presale-band"><span className="lp-kicker">AB 23. SEPTEMBER 2026</span><h2>DEINE ERSTE ELYSERA ROUTINE</h2><p>Entdecke die vollständige Kollektion im 3er-Set für 139 €.<br/>Das Renewal Serum ist auch einzeln für 59 € erhältlich.</p><RoutineSet/><Link href="/presale" className="lp-underlink">PRESALE & LIEFERUNG</Link></section>
+ <Split image="/media/bettina/portrait-laugh.webp" alt="Bettina Mattheus, Mitgründerin von ELYSERA" kicker="DIE MENSCHEN HINTER ELYSERA" title={<>HAUTPRAXIS TRIFFT<br/>PFLEGEKONZEPT.</>} copy="Mehr als 25 Jahre Hautpraxis prägen Bettina Mattheus’ Blick auf Pflege. Gemeinsam mit Jessica Winterholler steht sie hinter ELYSERA – und einer Routine, in der Wirkstoffe, Textur und Anwendung zusammenpassen." href="/about" label="DIE MARKE KENNENLERNEN" position="50% 30%"/>
+ <Split image="/media/jessica/portrait-confident-1122.webp" alt="Jessica Winterholler im dunkelblauen Anzug mit heller Bluse, Mitgründerin von ELYSERA" kicker="MITGRÜNDERIN · MARKENSTRATEGIE & VISION" title={<>JESSICA<br/>WINTERHOLLER</>} copy="Jessica steht hinter der Idee und Vision von ELYSERA. Sie verbindet moderne Wirkstoffkosmetik mit einem klaren Markenkonzept und verantwortet die Markenentwicklung, Positionierung und strategische Ausrichtung." href="/about#jessica-winterholler" label="JESSICA KENNENLERNEN" reverse pale position="50% 12%"/>
+ <section className="lp-faq"><Heading title="DEINE FRAGEN. UNSERE ANTWORTEN."/><FAQ limit={4}/><Link className="lp-underlink" href="/faq">ALLE FRAGEN ANSEHEN</Link></section>
+ </div>}

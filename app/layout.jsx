@@ -9,5 +9,5 @@ export const metadata = {
   robots: { index: false, follow: false },
 }
 export default function Layout({ children }) {
-  return <html lang="de"><body><Shell>{children}</Shell></body></html>
+  return <html lang="de"><body className="prairie-site"><Shell>{children}</Shell></body></html>
 }
