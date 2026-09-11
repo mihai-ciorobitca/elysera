@@ -56,3 +56,11 @@ html{scroll-padding-top:24px}body.prairie-site{background:#fff;color:#444449;fon
 @media(max-width:360px){.lp-hero-blue .lp-hero-media{height:330px}}
 .lp-hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media(max-width:700px){.lp-hero-blue .lp-hero-media video{object-position:center}}
+/* Scroll-linked hero depth; the mobile composition stays stationary. */
+.lp-hero-blue{overflow:hidden}
+.lp-hero-blue .lp-hero-media{transform:translate3d(0,var(--hero-drift,0px),0) scale(var(--hero-scale,1));transform-origin:center center}
+.lp-hero-blue .lp-hero-copy{opacity:var(--hero-copy-opacity,1);transform:translateY(var(--hero-copy-shift,0px))}
+.lp-hero-blue .lp-hero-copy:focus-within{opacity:1}
+@media(prefers-reduced-motion:reduce){.lp-hero-blue .lp-hero-media{transform:none}.lp-hero-blue .lp-hero-copy{opacity:1;transform:none}}
+/* Preserve the complete model and product in the new portrait campaign. */
+.lp-split-image>img[src*="-20260912"],.lp-editorial-grid img[src*="-20260912"]{object-fit:contain;object-position:center!important;background:#fff}

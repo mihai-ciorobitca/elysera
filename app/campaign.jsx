@@ -7,14 +7,7 @@ import {mediaRoot,mediaName,mediaImage,mediaVideo,mediaSrcSet} from './media-lib
 export {mediaRoot}
 export function CampaignImage({name,alt='',className='',priority=false,sizes='(max-width: 600px) 100vw, 50vw',animate=true}){
  if(['serum','toner','eye'].includes(name))return <img className={`lp-gallery-packshot ${className}`} src={`/media/atelier-2026/${name}.webp`} alt={alt} loading={priority?'eager':'lazy'} decoding="async"/>
- const portrait=['story-serum','ugc-serum','ugc-toner','ugc-eye'].includes(mediaName(name))&&sizes!=='90px'
- const detailFiles={'story-serum':'story-serum-v2.webp','ugc-toner':'ugc-toner-lossless.webp'}
- const fullDetail=detailFiles[mediaName(name)]
- const detailKey=mediaName(name)==='story-serum'?'story-serum-v2':'ugc-toner-detail'
- const detailSrcSet=fullDetail?`${mediaRoot}${detailKey}-560.webp 560w, ${mediaRoot}${detailKey}-1120.webp 1120w${mediaName(name)==='ugc-toner'?`, ${mediaRoot}${detailKey}-1680.webp 1680w, ${mediaRoot}${detailFiles[mediaName(name)]} 2160w`:''}`:undefined
- // Full-size portraits retain native facial detail even in narrow desktop previews.
- // Thumbnail requests keep the responsive derivatives; lazy loading bounds transfer cost.
- const picture=<img data-packshot={['serum','toner','eye'].includes(name)||undefined} className={className} src={fullDetail?`${mediaRoot}${detailFiles[mediaName(name)]}`:mediaImage(name)} srcSet={portrait?undefined:fullDetail?detailSrcSet:mediaSrcSet(name)} sizes={portrait?undefined:sizes} alt={alt} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':'auto'} decoding="async"/>
+ const picture=<img className={className} src={mediaImage(name)} srcSet={mediaSrcSet(name)} sizes={sizes} alt={alt} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':'auto'} decoding="async"/>
  return animate&&sizes!=='90px'?<ScrollMedia name={name} source={mediaVideo(name)}>{picture}</ScrollMedia>:picture
 }
 export function CampaignMotion(props){return <CampaignImage {...props}/>}
