@@ -55,6 +55,4 @@ html{scroll-padding-top:24px}body.prairie-site{background:#fff;color:#444449;fon
 @media(max-width:700px){.lp-hero-blue .lp-hero-media{position:relative;inset:auto;height:390px;flex:none}.lp-hero-blue .lp-hero-media img{object-position:50% 85%}.lp-hero-blue .lp-hero-copy{width:100%;margin:0}}
 @media(max-width:360px){.lp-hero-blue .lp-hero-media{height:330px}}
 .lp-hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.lp-hero-play{position:absolute;right:18px;bottom:18px;z-index:3;width:44px;height:44px;border:1px solid #ffffff80;border-radius:50%;color:white;background:#06132baa;cursor:pointer}
-.lp-hero-play:focus-visible{outline:2px solid white;outline-offset:3px}
 @media(max-width:700px){.lp-hero-blue .lp-hero-media video{object-position:center}}
