@@ -1,8 +1,11 @@
 import {redirect} from 'next/navigation'
 import Link from 'next/link'
 import {currentUser} from '@/lib/auth/server'
+import {pendingGoogle} from '@/lib/auth/pending-google'
+import {cookies} from 'next/headers'
+import {referralCookie} from '@/lib/auth/referral-policy.mjs'
 import {accountProfile} from '@/lib/auth/details-store'
 import ProfileDetails from '../profile-details'
 import '../signin/signin.css'
 export const dynamic='force-dynamic'
-export default async function Page(){const user=await currentUser();if(!user)redirect('/auth/signin');return <main className="es-login"><Link href="/" className="es-logo">ELYSERA</Link><section className="es-complete es-login-form"><h1>Dein Profil vervollständigen.</h1><ProfileDetails initialProfile={await accountProfile(user)} complete/><Link href="/">Zur Startseite</Link></section></main>}
+export default async function Page(){const user=await currentUser();const pending=user?null:await pendingGoogle();if(!user&&!pending)redirect('/auth/signin');const metadata=pending?.user_metadata||{};const full=String(metadata.full_name||metadata.name||'').trim().split(/\s+/);const profile=user?await accountProfile(user):{email:pending.email,name:metadata.given_name||full[0]||'',last:metadata.family_name||full.slice(1).join(' '),country:'Deutschland',referral:(await cookies()).get(referralCookie)?.value||''};return <main className="es-login"><Link href="/" className="es-logo">ELYSERA</Link><section className="es-complete es-login-form"><h1>Dein Profil vervollständigen.</h1><ProfileDetails initialProfile={profile} pendingGoogle={Boolean(pending)} complete/><Link href="/">Zur Startseite</Link></section></main>}
