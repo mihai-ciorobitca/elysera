@@ -1,4 +1,5 @@
 import './site.css'
+import ImpersonationBanner from './impersonation-banner'
 import {CardMotion} from './motion'
 
 import { Shell } from './storefront'
@@ -9,5 +10,5 @@ export const metadata = {
   robots: { index: false, follow: false },
 }
 export default function Layout({ children }) {
-  return <html lang="de"><body className="prairie-site"><Shell>{children}</Shell></body></html>
+  return <html lang="de"><body className="prairie-site"><ImpersonationBanner/><Shell>{children}</Shell></body></html>
 }

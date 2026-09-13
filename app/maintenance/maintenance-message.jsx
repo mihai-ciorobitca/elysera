@@ -1,0 +1,1 @@
+export default function MaintenanceMessage({message}){return <main style={{maxWidth:640,margin:'80px auto',padding:24,overflowWrap:'anywhere'}}><h1>ELYSERA</h1><h2>Wir sind bald wieder da</h2><p>{message||'Unsere Website wird gerade gewartet. Bitte versuche es später erneut.'}</p></main>}

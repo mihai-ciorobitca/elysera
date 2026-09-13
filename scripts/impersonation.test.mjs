@@ -1,0 +1,5 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {eligibleImpersonationTarget,impersonatedUser,newImpersonationToken,tokenHash} from '../lib/auth/impersonation.mjs'
+test('only eligible customer or explicit test accounts; never admins',()=>{assert(eligibleImpersonationTarget({role:'AFFILIATE',blocked:false,emailVerified:true}));assert(eligibleImpersonationTarget({role:'TEST',blocked:true,emailVerified:false}));for(const user of [{role:'ADMIN'},{role:'STAFF'},{role:'AFFILIATE',blocked:true,emailVerified:true},{role:'AFFILIATE',blocked:false,emailVerified:false},{role:'TEST',adminAccess:true}])assert.equal(eligibleImpersonationTarget(user),false)})
+test('requires authenticated actor and opaque token; never uses target id as session',async()=>{const db={$queryRaw:()=>{throw Error('must not query')}};assert.equal(await impersonatedUser(db,null,newImpersonationToken()),null);assert.equal(await impersonatedUser(db,{id:'admin'},'customer-id'),null);const token=newImpersonationToken();assert.match(token,/^[a-f0-9]{64}$/);assert.notEqual(tokenHash(token),token)})

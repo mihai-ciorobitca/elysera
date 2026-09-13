@@ -1,0 +1,6 @@
+'use client'
+import Link from 'next/link'
+import {usePublishedCatalog,ProductPrice,AddButton} from './storefront'
+import {useMerchandising} from './product-merchandising-context'
+import {merchandisingForSlug} from '../lib/product-merchandising.mjs'
+export default function ProductCard({product:initialProduct,active=true}){const published=usePublishedCatalog(),p=published?.find(item=>item.slug===initialProduct.slug)||initialProduct,merch=merchandisingForSlug(useMerchandising(),p.slug);const key=p.step==='01'?'toner':p.step==='02'?'serum':'eye';return <article className="lp-product" data-active={active}><Link href={`/products/${p.slug}`} className="lp-product-photo">{merch?.showNewBadge&&<span className="lp-product-badge">NEU</span>}<img src={`/media/atelier-2026/${key}.webp`} alt={`ELYSERA ${p.name}, ${p.volume}`} loading="lazy" decoding="async"/></Link><div className="lp-product-info"><span className="lp-product-meta">SCHRITT {p.step} · {p.volume}</span><h3><Link href={`/products/${p.slug}`}>{p.name}</Link></h3><p>{p.role}</p><p className="lp-product-price"><ProductPrice slug={p.slug} featured/></p><div className="lp-product-actions"><AddButton slug={p.slug} compact/><Link className="lp-underlink" href={`/products/${p.slug}`}>DAS PRODUKT ENTDECKEN</Link></div></div></article>}

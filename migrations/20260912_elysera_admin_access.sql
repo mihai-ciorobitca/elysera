@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS "ElyseraAdminAccess" (
+ "userId" TEXT PRIMARY KEY REFERENCES "User"("id") ON DELETE CASCADE,
+ "enabled" BOOLEAN NOT NULL DEFAULT TRUE,
+ "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+ALTER TABLE "ElyseraAdminAccess" ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON "ElyseraAdminAccess" FROM anon, authenticated;

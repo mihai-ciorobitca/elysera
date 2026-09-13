@@ -1,0 +1,18 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS public."ElyseraChatGuest"("id" text PRIMARY KEY,"tokenHash" text UNIQUE NOT NULL,"createdAt" timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS public."ElyseraChatRole"("userId" text PRIMARY KEY REFERENCES public."ElyseraAccountProfile"("userId"),"role" text NOT NULL CHECK("role" IN ('MEMBER','MODERATOR','ADMIN')),"version" integer NOT NULL DEFAULT 0 CHECK("version">=0));
+CREATE TABLE IF NOT EXISTS public."ElyseraChatMessage"("id" text PRIMARY KEY,"actorKey" text NOT NULL,"userId" text REFERENCES public."ElyseraAccountProfile"("userId"),"adminId" text REFERENCES public."ElyseraAdminAccess"("userId"),"guestId" text REFERENCES public."ElyseraChatGuest"("id"),"fingerprint" text,"authorName" text NOT NULL,"authorRole" text NOT NULL CHECK("authorRole" IN ('GUEST','MEMBER','MODERATOR','ADMIN')),"body" text NOT NULL CHECK(length("body") BETWEEN 1 AND 500),"version" integer NOT NULL DEFAULT 0 CHECK("version">=0),"createdAt" timestamptz NOT NULL DEFAULT now(),"deletedAt" timestamptz,"deletedBy" text,"deletedReason" text,CHECK(num_nonnulls("userId","adminId","guestId")=1),CHECK("actorKey"=CASE WHEN "guestId" IS NOT NULL THEN 'guest:'||"guestId" ELSE 'user:'||COALESCE("userId","adminId") END));
+CREATE INDEX IF NOT EXISTS "ElyseraChatMessage_actor_time" ON public."ElyseraChatMessage"("actorKey","createdAt");
+CREATE INDEX IF NOT EXISTS "ElyseraChatMessage_fingerprint_time" ON public."ElyseraChatMessage"("fingerprint","createdAt");
+CREATE TABLE IF NOT EXISTS public."ElyseraChatEvent"("id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"messageId" text NOT NULL REFERENCES public."ElyseraChatMessage"("id"),"deleted" boolean NOT NULL DEFAULT false,"createdAt" timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS public."ElyseraChatBan"("id" text PRIMARY KEY,"actorKey" text NOT NULL,"userId" text REFERENCES public."ElyseraAccountProfile"("userId"),"adminId" text REFERENCES public."ElyseraAdminAccess"("userId"),"guestId" text REFERENCES public."ElyseraChatGuest"("id"),"fingerprint" text,"displayName" text NOT NULL,"reason" text NOT NULL,"expiresAt" timestamptz,"createdAt" timestamptz NOT NULL DEFAULT now(),"createdBy" text NOT NULL,"revokedAt" timestamptz,"revokedBy" text,"version" integer NOT NULL DEFAULT 0 CHECK("version">=0),CHECK(num_nonnulls("userId","adminId","guestId")=1),CHECK("actorKey"=CASE WHEN "guestId" IS NOT NULL THEN 'guest:'||"guestId" ELSE 'user:'||COALESCE("userId","adminId") END));
+CREATE INDEX IF NOT EXISTS "ElyseraChatBan_actor" ON public."ElyseraChatBan"("actorKey");
+CREATE TABLE IF NOT EXISTS public."ElyseraChatAudit"("id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"actorKey" text NOT NULL,"requestId" text NOT NULL,"payload" jsonb NOT NULL,"before" jsonb,"after" jsonb NOT NULL,"createdAt" timestamptz NOT NULL DEFAULT now(),UNIQUE("actorKey","requestId"));
+ALTER TABLE public."ElyseraChatGuest" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public."ElyseraChatRole" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public."ElyseraChatMessage" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public."ElyseraChatEvent" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public."ElyseraChatBan" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public."ElyseraChatAudit" ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON public."ElyseraChatGuest",public."ElyseraChatRole",public."ElyseraChatMessage",public."ElyseraChatEvent",public."ElyseraChatBan",public."ElyseraChatAudit" FROM anon,authenticated;
+COMMIT;

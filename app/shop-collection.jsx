@@ -1,0 +1,8 @@
+'use client'
+import {useState} from 'react'
+import {usePublishedCatalog} from './storefront'
+import {products as catalogProducts} from './catalog'
+import ProductCard from './product-card'
+import {useMerchandising} from './product-merchandising-context'
+import {merchandisingForSlug} from '../lib/product-merchandising.mjs'
+export default function ShopCollection(){const products=usePublishedCatalog()||catalogProducts,merch=useMerchandising(),[filter,setFilter]=useState('all'),[sort,setSort]=useState('featured');const categories=[...new Set(products.map(p=>merchandisingForSlug(merch,p.slug)?.category))].filter(Boolean);const list=products.filter(p=>filter==='all'||merchandisingForSlug(merch,p.slug)?.category===filter).toSorted((a,b)=>sort==='routine'?a.step.localeCompare(b.step):sort==='name'?a.name.localeCompare(b.name):(merchandisingForSlug(merch,a.slug)?.displayOrder??0)-(merchandisingForSlug(merch,b.slug)?.displayOrder??0));return <><div className="catalog-bar"><div className="filter-buttons" aria-label="Produktkategorie"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>Alle Produkte</button>{categories.map(category=><button key={category} aria-pressed={filter===category} onClick={()=>setFilter(category)}>{category}</button>)}</div><label className="sort-label">Sortieren<select value={sort} onChange={e=>setSort(e.target.value)}><option value="featured">Empfohlen</option><option value="routine">Pflegereihenfolge</option><option value="name">Name A–Z</option></select></label></div><p className="result-count" aria-live="polite">{list.length} {list.length===1?'Produkt':'Produkte'} · Presale ab 23.09.2026 · 3er-Set 139 €</p><div className="product-grid shop-grid">{list.map(p=><ProductCard product={p} key={p.slug}/>)}</div></>}

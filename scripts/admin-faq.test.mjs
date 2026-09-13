@@ -1,0 +1,8 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {readFile} from 'node:fs/promises'
+import {validateFaq,validateUpdate} from '../app/api/admin/faqs/policy.mjs'
+const valid={question:'Question',answer:'Answer',locale:'de',status:'APPROVED',sortOrder:1}
+test('strict allowlist and approved answer',()=>{assert.ok(validateFaq(valid));for(const v of [{...valid,actorId:'x'},{...valid,status:'INVALID'},{...valid,answer:''},{...valid,locale:'invalidlocale'},{...valid,sortOrder:1.5},{...valid,question:''}])assert.equal(validateFaq(v),null);assert.ok(validateFaq({...valid,status:'PENDING',answer:''}));assert.ok(validateFaq({...valid,locale:'en-US'}))})
+test('expected version required',()=>{assert.ok(validateUpdate({changes:valid,expectedVersion:1}));for(const b of [{changes:valid},{changes:valid,expectedVersion:0},{changes:valid,expectedVersion:1,extra:true}])assert.equal(validateUpdate(b),null)})
+test('route isolation auth conflict and audit readback',async()=>{const mutation=await readFile(new URL('../app/api/admin/faqs/[id]/route.js',import.meta.url),'utf8');assert.match(mutation,/sameOrigin\(request\)/);assert.match(mutation,/currentAdmin\(\)/);assert.match(mutation,/FOR UPDATE/);assert.match(mutation,/before.version!==body.expectedVersion/);assert.match(mutation,/audit.after.version!==after.version/);assert.match(mutation,/409/);assert.doesNotMatch(mutation,/public\."FaqEntries"/);const pub=await readFile(new URL('../app/api/faqs/route.js',import.meta.url),'utf8');assert.match(pub,/SELECT "question","answer"/);assert.match(pub,/"status"='APPROVED'/);assert.doesNotMatch(pub,/submitter|SELECT \*/);})

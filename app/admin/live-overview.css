@@ -1,0 +1,138 @@
+body.prairie-site .eo-overview{color:#183555;min-width:0}
+body.prairie-site .eo-overview h2{font-size:14px;line-height:1.35;margin:0;font-weight:650}
+body.prairie-site .eo-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+body.prairie-site .eo-metrics article{display:flex;gap:14px;padding:18px 15px;background:#fff;border:1px solid #dfe9f2;border-radius:6px;min-width:0;align-items:flex-start}
+body.prairie-site .eo-metric-icon{display:grid;place-items:center;background:#f0f6fb;border-radius:8px;flex:0 0 44px;height:49px}
+body.prairie-site .eo-metrics article>div{min-width:0}
+body.prairie-site .eo-metrics h2{font-size:12px;font-weight:500;min-height:16px}
+body.prairie-site .eo-metrics strong{display:block;font-size:26px;letter-spacing:-.6px;line-height:1.3;margin:5px 0 4px;overflow-wrap:anywhere}
+body.prairie-site .eo-metrics small{display:block;font-size:10px;color:#526a84;line-height:1.4}
+body.prairie-site .eo-layout{display:grid;grid-template-columns:minmax(0,2.15fr) minmax(260px,1fr);gap:14px;align-items:start}
+body.prairie-site .eo-panel{background:white;border:1px solid #dfe9f2;border-radius:6px;min-width:0;overflow:hidden}
+body.prairie-site .eo-panel>header{padding:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+body.prairie-site .eo-panel>header p{font-size:10px;margin:4px 0 0;line-height:1.4}
+body.prairie-site .eo-panel>header>a{display:flex;align-items:center;gap:5px;font-size:11px;white-space:nowrap;min-height:30px}
+body.prairie-site .eo-chart-panel{grid-column:1}
+body.prairie-site .eo-chart-body{display:flex;min-height:191px;padding:0 16px;gap:18px}
+body.prairie-site .eo-chart-area{min-width:0;flex:1}
+body.prairie-site .eo-chart-summary{width:151px;flex-shrink:0;border-left:1px solid #e8eff5;padding:4px 0 0 17px}
+body.prairie-site .eo-chart-summary>div+div{margin-top:18px;padding-top:15px;border-top:1px solid #b39a63}
+body.prairie-site .eo-chart-summary span,body.prairie-site .eo-chart-summary small{font-size:10px;color:#526a84;display:block;line-height:1.4}
+body.prairie-site .eo-chart-summary strong{font-size:22px;display:block;line-height:1.4;margin:3px 0;overflow-wrap:anywhere}
+body.prairie-site .eo-legend{font-size:10px;color:#526a84;white-space:nowrap}
+body.prairie-site .eo-legend i{display:inline-block;background:#203f66;width:7px;height:7px;margin-right:5px}
+body.prairie-site .eo-chart{display:flex;gap:9px;height:185px;padding-top:9px}
+body.prairie-site .eo-axis{display:flex;flex-direction:column;justify-content:space-between;padding-bottom:24px;font-size:10px;text-align:right;color:#526a84}
+body.prairie-site .eo-plot{flex:1;min-width:0}
+body.prairie-site .eo-plot svg{width:100%;height:calc(100% - 24px)}
+body.prairie-site .eo-xaxis{display:flex;justify-content:space-around;font-size:10px;color:#526a84;padding-top:6px}
+body.prairie-site .eo-chart-note{font-size:10px;padding:12px 16px;margin:0;line-height:1.4}
+body.prairie-site .eo-data-state{min-height:175px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;text-align:center;gap:9px}
+body.prairie-site .eo-state-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#f1f7fb;color:#70869d}
+body.prairie-site .eo-data-state strong{font-size:13px;line-height:1.4}
+body.prairie-site .eo-data-state p{font-size:11px;line-height:1.6;max-width:300px;text-align:center;margin:0}
+body.prairie-site .eo-orders{grid-column:1;grid-row:2}
+body.prairie-site .eo-table{padding:0 14px 12px;overflow:auto}
+body.prairie-site .eo-table table{font-size:11px}
+body.prairie-site .eo-table table th{padding:9px 8px;font-size:10px}
+body.prairie-site .eo-table table td{padding:11px 8px;min-width:0;line-height:1.45}
+body.prairie-site .eo-table td:nth-child(2){max-width:210px}
+body.prairie-site .eo-table td:nth-child(3){white-space:nowrap}
+body.prairie-site .eo-status{display:inline-block;font-size:10px;line-height:1.3;padding:3px 7px;border-radius:12px;background:#edf4fb;color:#42627f;white-space:normal}
+body.prairie-site .eo-status.is-good{background:#e5f4ea;color:#247346}
+body.prairie-site .eo-status.is-pending{background:#fcf1de;color:#896726}
+body.prairie-site .eo-side{grid-column:2;grid-row:1 / 3;display:grid;gap:14px;min-width:0}
+body.prairie-site .eo-tasks>a{display:flex;align-items:center;gap:12px;margin:0 16px;padding:15px 0;border-top:1px solid #edf2f7;min-height:69px}
+body.prairie-site .eo-task-icon{color:#a88a47;flex-shrink:0}
+body.prairie-site .eo-tasks>a>span:nth-child(2){flex:1;min-width:0}
+body.prairie-site .eo-tasks strong{display:block;font-size:12px;line-height:1.4}
+body.prairie-site .eo-tasks small{display:block;font-size:10px;color:#526a84;line-height:1.5;margin-top:3px}
+body.prairie-site .eo-product-error{font-size:11px;padding:0 16px 14px}
+body.prairie-site .eo-brand{display:flex;align-items:center;position:relative;min-height:183px;overflow:hidden;border:1px solid #e0e7eb;border-radius:6px;background:#edf1f2;padding:17px 14px;gap:6px}
+body.prairie-site .eo-brand>div:first-child{position:relative;z-index:1;flex:0 0 47%}
+body.prairie-site .eo-brand h2{font-size:17px;line-height:1.25}
+body.prairie-site .eo-brand p{font-size:11px;line-height:1.5;margin:9px 0 14px}
+body.prairie-site .eo-brand span{display:flex;align-items:center;gap:5px;font-size:10px}
+body.prairie-site .eo-montage{display:flex;align-items:flex-end;flex:1;min-width:0;height:145px;gap:2px}
+body.prairie-site .eo-montage img{width:33.333%;height:100%;object-fit:cover;object-position:center;border-radius:3px}
+body.prairie-site .eo-montage img:last-child{height:78%}
+body.prairie-site .eo-data-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:14px}
+body.prairie-site .eo-data-toolbar p{font-size:10px;line-height:1.5;margin:0;max-width:540px}
+body.prairie-site .eo-data-toolbar>div{display:flex;gap:8px;flex-shrink:0}
+body.prairie-site .eo-data-toolbar button{font-size:11px;min-height:36px;padding:7px 10px;display:flex;align-items:center;gap:5px}
+body.prairie-site .eo-order-cards{display:none}
+@media(max-width:1000px){body.prairie-site .eo-metrics article{padding:14px 12px;gap:10px}body.prairie-site .eo-metric-icon{flex-basis:34px;height:40px}body.prairie-site .eo-metrics strong{font-size:23px}body.prairie-site .eo-layout{grid-template-columns:minmax(0,1.7fr) minmax(230px,1fr)}body.prairie-site .eo-chart-summary{width:116px;padding-left:12px}body.prairie-site .eo-chart-summary strong{font-size:19px}body.prairie-site .eo-chart-body{gap:10px}body.prairie-site .eo-data-toolbar{align-items:flex-start;flex-direction:column}}
+@media(max-width:900px){body.prairie-site .eo-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}body.prairie-site .eo-chart-body{flex-direction:column}body.prairie-site .eo-chart-summary{display:flex;width:auto;border-left:0;border-top:1px solid #e8eff5;padding:10px 0;gap:15px}body.prairie-site .eo-chart-summary>div{flex:1}body.prairie-site .eo-chart-summary>div+div{margin:0;padding:0 0 0 12px;border-top:0;border-left:1px solid #b39a63}body.prairie-site .eo-table table{min-width:560px}}
+@media(max-width:600px){body.prairie-site .eo-metrics{gap:9px;margin-bottom:12px}body.prairie-site .eo-metrics article{gap:8px;padding:12px 9px;min-height:100px}body.prairie-site .eo-metrics h2{font-size:10px;min-height:27px}body.prairie-site .eo-metric-icon{flex-basis:28px;height:33px;border-radius:5px}body.prairie-site .eo-metric-icon svg{width:19px;height:19px}body.prairie-site .eo-metrics strong{font-size:21px;margin:2px 0 5px}body.prairie-site .eo-layout{display:flex;flex-direction:column;gap:12px}body.prairie-site .eo-layout>*{width:100%}body.prairie-site .eo-panel>header{padding:13px}body.prairie-site .eo-panel>header h2{font-size:13px}body.prairie-site .eo-panel>header>a{min-height:32px}body.prairie-site .eo-legend{display:none}body.prairie-site .eo-chart-body{padding:0 12px}body.prairie-site .eo-chart{height:155px}body.prairie-site .eo-axis{font-size:10px}body.prairie-site .eo-chart-summary strong{font-size:19px}body.prairie-site .eo-chart-note{padding:8px 12px 12px}body.prairie-site .eo-data-state{min-height:153px;padding:20px 15px}body.prairie-site .eo-table{display:none}body.prairie-site .eo-order-cards{display:grid;padding:0 11px 11px;gap:8px}body.prairie-site .eo-order-cards>a{display:flex;gap:9px;padding:12px 9px;border:1px solid #e1eaf2;border-radius:5px}body.prairie-site .eo-order-icon{align-self:center;color:#a88a47;flex-shrink:0}body.prairie-site .eo-order-cards>a>div{flex:1;min-width:0}body.prairie-site .eo-order-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px;line-height:1.5}body.prairie-site .eo-order-line strong{white-space:nowrap}body.prairie-site .eo-order-line small{font-size:10px;color:#526a84}body.prairie-site .eo-order-line b{overflow-wrap:anywhere}body.prairie-site .eo-order-cards p{font-size:10px;line-height:1.5;margin:3px 0 6px}body.prairie-site .eo-statuses{display:flex;gap:5px;flex-wrap:wrap}body.prairie-site .eo-side{gap:12px}body.prairie-site .eo-brand{display:none}body.prairie-site .eo-data-toolbar>div{width:100%;flex-wrap:wrap}body.prairie-site .eo-data-toolbar button{min-height:44px}body.prairie-site .eo-data-toolbar p{font-size:10px}}
+@media(max-width:350px){body.prairie-site .eo-metrics article{gap:6px;padding:11px 7px}body.prairie-site .eo-metric-icon{flex-basis:23px;height:29px}body.prairie-site .eo-metrics strong{font-size:18px}body.prairie-site .eo-metrics small{font-size:10px}body.prairie-site .eo-metrics h2{font-size:10px}body.prairie-site .eo-order-line{font-size:10px}body.prairie-site .eo-order-icon{display:none}}
+/* Keep storefront alignment rules out of the administration data surface. */
+body.prairie-site .eo-overview .eo-metrics article *,body.prairie-site .eo-overview .eo-chart-summary *,body.prairie-site .eo-overview .eo-tasks a *,body.prairie-site .eo-overview .eo-order-cards *,body.prairie-site .eo-overview .eo-table *{text-align:left}
+/* R2: readable support text and compact mobile information hierarchy. */
+body.prairie-site .eo-metrics small,body.prairie-site .eo-panel>header p,body.prairie-site .eo-tasks small,body.prairie-site .eo-chart-summary span,body.prairie-site .eo-chart-summary small,body.prairie-site .eo-chart-note,body.prairie-site .eo-data-toolbar p{font-size:11px}
+@media(max-width:900px){
+body.prairie-site .eo-table{display:none}
+body.prairie-site .eo-order-cards{display:grid;padding:0 11px 11px;gap:8px}
+body.prairie-site .eo-order-cards>a{display:flex;gap:9px;padding:12px 9px;border:1px solid #e1eaf2;border-radius:5px}
+body.prairie-site .eo-order-icon{align-self:center;color:#a88a47;flex-shrink:0}
+body.prairie-site .eo-order-cards>a>div{flex:1;min-width:0}
+body.prairie-site .eo-order-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12px;line-height:1.5}
+body.prairie-site .eo-order-line strong{white-space:nowrap}
+body.prairie-site .eo-order-line small{font-size:10px;color:#526a84}
+body.prairie-site .eo-order-line b{overflow-wrap:anywhere}
+body.prairie-site .eo-order-cards p{font-size:11px;line-height:1.5;margin:3px 0 6px}
+body.prairie-site .eo-statuses{display:flex;gap:5px;flex-wrap:wrap}
+body.prairie-site .eo-order-cards p{font-size:11px}
+}
+@media(max-width:600px){
+body.prairie-site .eo-metrics article{min-height:81px;padding:10px 8px;gap:7px}
+body.prairie-site .eo-metrics h2{min-height:0;line-height:1.3}
+body.prairie-site .eo-metrics strong{font-size:21px;line-height:1.15;margin:5px 0 3px}
+body.prairie-site .eo-metrics small{font-size:10px}
+body.prairie-site .eo-chart-summary{display:none}
+body.prairie-site .eo-chart-body{min-height:0}
+body.prairie-site .eo-chart{height:132px;padding-top:2px}
+body.prairie-site .eo-chart-note{font-size:10px;padding-top:7px}
+body.prairie-site .eo-data-state{min-height:130px;padding:14px 12px;gap:7px}
+body.prairie-site .eo-state-icon{width:34px;height:34px}
+body.prairie-site .eo-state-icon svg{width:20px;height:20px}
+body.prairie-site .eo-panel>header{padding:12px}
+body.prairie-site .eo-panel>header p{font-size:10px}
+body.prairie-site .eo-order-line{font-size:11px}
+}
+@media(max-width:350px){body.prairie-site .eo-metrics strong{font-size:18px}body.prairie-site .eo-metrics article{min-height:84px}body.prairie-site .eo-order-line{font-size:10px}}
+/* R3: bring recent orders forward and use the tablet width for its content. */
+body.prairie-site .eo-table table td{padding:8px}
+body.prairie-site .eo-ranges{gap:3px}
+body.prairie-site .eo-ranges span{max-width:70px;overflow-wrap:anywhere;text-align:center!important;line-height:1.25}
+@media(min-width:601px) and (max-width:900px){body.prairie-site .eo-layout{grid-template-columns:1fr}body.prairie-site .eo-chart-panel,body.prairie-site .eo-orders,body.prairie-site .eo-side{grid-column:1;grid-row:auto}body.prairie-site .eo-chart-body{flex-direction:row}body.prairie-site .eo-chart-summary{display:block;width:155px;border-left:1px solid #e8eff5;border-top:0;padding:4px 0 0 15px}body.prairie-site .eo-chart-summary>div+div{margin-top:16px;padding:13px 0 0;border-left:0;border-top:1px solid #b39a63}body.prairie-site .eo-side{grid-template-columns:1fr 1fr}body.prairie-site .eo-order-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){body.prairie-site .eo-panel>header{padding:10px 12px}body.prairie-site .eo-orders>header p{display:none}body.prairie-site .eo-chart{height:112px}body.prairie-site .eo-chart-note{padding:4px 12px 8px;font-size:10px}body.prairie-site .eo-order-cards>a{padding:9px}body.prairie-site .eo-chart-panel>header p{margin-top:2px}body.prairie-site .eo-ranges{font-size:10px}body.prairie-site .eo-chart:has(.eo-ranges){height:132px}body.prairie-site .eo-ranges span{max-width:34px}body.prairie-site .eo-data-state{min-height:116px}body.prairie-site .eo-data-state p{line-height:1.4}}
+body.prairie-site .eo-period{font-size:11px;min-height:36px;border:1px solid #dfe9f2;border-radius:5px;padding:6px 9px;color:#183555;background:#fff;max-width:145px}
+@media(max-width:600px){body.prairie-site .eo-period{font-size:10px;min-height:44px;max-width:122px;padding:5px}body.prairie-site .eo-chart-panel>header p{display:none}body.prairie-site .eo-chart-panel>header{gap:6px}body.prairie-site .eo-chart-panel>header h2{font-size:12px}}
+body.prairie-site .ea-app .eo-overview select.eo-period{font-size:12px;width:112px;flex-shrink:0}
+@media(max-width:600px){body.prairie-site .ea-app .eo-overview select.eo-period{font-size:12px;width:98px}}
+/* R4: readable operational details without adding vertical panel padding. */
+body.prairie-site .eo-table table{font-size:12px}
+body.prairie-site .eo-table table th{font-size:11px;font-weight:500}
+body.prairie-site .eo-table table td{font-size:12px;padding:8px;line-height:1.4}
+body.prairie-site .eo-table table td small{font-size:11px;line-height:1.4;color:#526a84}
+body.prairie-site .eo-status{font-size:11px}
+body.prairie-site .eo-axis,body.prairie-site .eo-xaxis{font-size:11px;color:#435e79}
+body.prairie-site .eo-chart-summary span,body.prairie-site .eo-chart-summary small{font-size:12px;color:#435e79}
+body.prairie-site .eo-tasks strong{font-size:13px}
+body.prairie-site .eo-tasks small{font-size:12px;color:#435e79;line-height:1.4}
+body.prairie-site .eo-tasks>a{padding:13px 0;min-height:65px}
+body.prairie-site .eo-panel>header p,body.prairie-site .eo-chart-note{color:#435e79;font-size:12px}
+body.prairie-site .eo-metrics small{font-size:12px;color:#435e79}
+body.prairie-site .eo-brand p,body.prairie-site .eo-brand span{font-size:12px}
+@media(max-width:600px){
+body.prairie-site .eo-metrics h2{font-size:11px}
+body.prairie-site .eo-metrics small{font-size:11px;line-height:1.3}
+body.prairie-site .eo-metrics article{padding:9px 8px;min-height:81px}
+body.prairie-site .eo-axis,body.prairie-site .eo-xaxis{font-size:10px}
+body.prairie-site .eo-chart-note{font-size:11px;line-height:1.3}
+body.prairie-site .eo-order-cards p{font-size:11px}
+body.prairie-site .eo-order-line small{font-size:11px}
+body.prairie-site .eo-order-line{font-size:12px}
+body.prairie-site .eo-panel>header p{font-size:11px}
+}
+@media(max-width:350px){body.prairie-site .eo-metrics article{gap:5px;padding:9px 7px}body.prairie-site .eo-metrics h2{font-size:11px}body.prairie-site .eo-metrics small{font-size:11px}body.prairie-site .eo-order-line{font-size:11px}}

@@ -1,0 +1,15 @@
+import {test} from 'node:test'
+import assert from 'node:assert/strict'
+import {readFileSync} from 'node:fs'
+import {summarize,periodStart} from '../app/api/admin/finance/model.mjs'
+const source=readFileSync(new URL('../app/api/admin/finance/route.js',import.meta.url),'utf8')
+function harness(admin=true,rows=[]){let queries=0,sql='';const route=Function('NextResponse','Prisma','prisma','currentAdmin','ELYSERA_PRODUCTS','periodStart','summarize',source.replace(/^import .*\n/gm,'').replace(/export /g,'')+'\nreturn GET')({json:(body,{status})=>({body,status})},{join:x=>x},{ $queryRaw:async(strings)=>{queries++;sql=strings.join('?');return rows}},async()=>admin,[{id:'elysera-one'}],periodStart,summarize);return {get:p=>route({url:'https://example.com/api/admin/finance?period='+p}),queries:()=>queries,sql:()=>sql}}
+test('unauthorized cannot query shared orders',async()=>{const h=harness(false);assert.equal((await h.get('30')).status,401);assert.equal(h.queries(),0)})
+test('reject invalid periods before querying',async()=>{const h=harness();assert.equal((await h.get('all')).status,400);assert.equal(h.queries(),0)})
+test('scope excludes mixed and unknown-product orders and never queries shared balances',async()=>{const h=harness();assert.equal((await h.get('30')).status,200);assert.match(h.sql(),/EXISTS/);assert.match(h.sql(),/NOT EXISTS/);assert.match(h.sql(),/IS NULL/);assert.match(h.sql(),/NOT IN/);assert.doesNotMatch(h.sql(),/Commission|Payout|Credit/);assert.doesNotMatch(source,/export async function (POST|PATCH|DELETE)/)})
+test('status-based values retain unknown refunds and bank cash',()=>{assert.deepEqual(summarize([{status:'PAID',total:10.1},{status:'DELIVERED',total:0.2},{status:'AWAITING_STRIPE',total:50},{status:'CANCELLED',total:90}]),{count:4,paid:10.3,pending:50,paidCount:2,pendingCount:1,refunds:null,netCash:null})})
+test('seven-day window starts six UTC calendar days before today',()=>assert.equal(periodStart('7',new Date('2026-09-13T15:00:00Z')).toISOString(),'2026-09-07T00:00:00.000Z'))
+test('truncation cannot silently produce incomplete aggregates',async()=>{const h=harness(true,Array(10001).fill({}));assert.equal((await h.get('365')).status,422)})
+
+test('daily values use UTC day across offset midnight and integer cents',async()=>{const {dailyValues}=await import('../app/api/admin/finance/model.mjs');assert.deepEqual(dailyValues([{createdAt:'2026-09-13T00:30:00+07:00',status:'PAID',total:10.1},{createdAt:'2026-09-12T20:00:00Z',status:'DELIVERED',total:0.2},{createdAt:'2026-09-13T01:00:00Z',status:'AWAITING_STRIPE',total:9},{createdAt:'2026-09-13T02:00:00Z',status:'CANCELLED',total:99}]),[{date:'2026-09-12',paid:10.3,pending:0},{date:'2026-09-13',paid:0,pending:9}])})
+test('CSV formula protection preserves first character and complete original identifier',async()=>{const {csvCell}=await import('../app/api/admin/finance/model.mjs');for(const id of ['=order-1','+order-2','-order-3','@order-4'])assert.equal(csvCell(id),'"\''+id+'"');assert.equal(csvCell('elysera-order-1'),'"elysera-order-1"')})

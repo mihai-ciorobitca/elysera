@@ -1,0 +1,24 @@
+.order-details-editor{color:#183555;border-top:1px solid #dfe9f2;padding-top:12px;margin-top:16px;min-width:0}
+body.prairie-site .ea-app .order-details-editor,body.prairie-site .ea-app .order-details-editor *,body.prairie-site .ea-app .ode-actions,body.prairie-site .ea-app .ode-actions *{font-family:Arial,sans-serif!important;box-sizing:border-box}
+body.prairie-site .ea-app .order-details-editor h3{font-size:13px;font-weight:600;color:#183555;text-align:left;letter-spacing:0;text-transform:none;margin:8px 0}
+body.prairie-site .ea-app .order-details-editor p{font-size:12px;line-height:1.6;color:#526a84;margin:8px 0;overflow-wrap:anywhere}
+.order-details-editor fieldset{border:0;margin:14px 0;padding:0;min-width:0}
+.order-details-editor .ode-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.order-details-editor label{display:flex;flex-direction:column;gap:6px;min-width:0;font-size:12px;line-height:1.4}
+.order-details-editor .ode-wide{grid-column:1/-1}
+body.prairie-site .ea-app .order-details-editor input,body.prairie-site .ea-app .order-details-editor select,body.prairie-site .ea-app .order-details-editor textarea{min-height:44px;width:100%;min-width:0;padding:10px;font-size:14px;background:#fff;color:#183555;border:1px solid #dfe9f2;border-radius:5px;resize:vertical}
+.order-details-editor .ode-review{padding:12px;background:#f3f9fd;border:1px solid #dfe9f2;border-radius:5px;margin:12px 0}
+.order-details-editor .ode-review dl{margin:10px 0}
+.order-details-editor .ode-review dl>div{display:block;padding:10px 0;border-bottom:1px solid #dfe9f2}
+.order-details-editor .ode-review dt{font-size:12px;font-weight:600;margin-bottom:6px}
+.order-details-editor .ode-review dd{display:grid;gap:5px;margin:0;font-size:12px;line-height:1.5;text-align:left;overflow-wrap:anywhere;white-space:pre-wrap}
+.order-details-editor .ode-review dd>span{color:#526a84}
+body.prairie-site .ea-app .order-details-editor .ode-error{padding:10px;background:#fff4f3;color:#a13434;border-radius:5px}
+body.prairie-site .ea-app .order-details-editor .ode-auth{padding:10px 12px;background:#f3f9fd;border:1px solid #dfe9f2;border-radius:5px;margin:10px 0}
+body.prairie-site .ea-app .order-details-editor .ode-auth a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;margin-top:4px;border:1px solid #183555;border-radius:5px;color:#183555;background:white;font-size:12px;text-decoration:none}
+body.prairie-site .ea-app .ode-actions{display:flex;flex-wrap:wrap;gap:8px}
+body.prairie-site .ea-app .ode-actions button{min-height:44px;max-width:100%;white-space:normal;font-size:12px;border:1px solid #dfe9f2;border-radius:5px;background:#fff;color:#183555;padding:10px 14px}
+body.prairie-site .ea-app .ode-actions button.ode-primary{background:#183555;color:white;border-color:#183555}
+body.prairie-site .ea-app .ode-actions button.ode-primary:hover:not(:disabled){background:#244b75;border-color:#244b75}
+body.prairie-site .ea-app .ode-actions button:focus-visible,body.prairie-site .ea-app .order-details-editor :focus-visible{outline:2px solid #a88a47;outline-offset:3px}
+@media(max-width:600px){.order-details-editor .ode-fields{grid-template-columns:1fr}body.prairie-site .ea-app .order-details-editor input,body.prairie-site .ea-app .order-details-editor select,body.prairie-site .ea-app .order-details-editor textarea{font-size:16px}body.prairie-site .ea-app .ode-actions button{flex:1 1 110px}}

@@ -1,0 +1,22 @@
+body.prairie-site .ea-app .olk-root{border:1px solid #dfe9f2;border-radius:7px;background:white;margin:14px 0;color:#183555;font:13px Arial,Helvetica,sans-serif;text-align:left}
+body.prairie-site .ea-app .olk-root summary{min-height:44px;box-sizing:border-box;padding:13px 16px;cursor:pointer;font:600 13px Arial,Helvetica,sans-serif;text-align:left}
+body.prairie-site .ea-app .olk-content{padding:0 16px 16px;min-width:0}
+body.prairie-site .ea-app .olk-root p{font:13px/1.5 Arial,Helvetica,sans-serif;color:#526a84;text-align:left;margin:8px 0 12px}
+body.prairie-site .ea-app .olk-root h2{font:700 17px Arial,Helvetica,sans-serif;margin:0}
+body.prairie-site .ea-app .olk-query{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end}
+body.prairie-site .ea-app .olk-filters{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;margin-top:10px}
+body.prairie-site .ea-app .olk-root label{display:grid;gap:5px;min-width:0;font:13px Arial,Helvetica,sans-serif;text-align:left}
+body.prairie-site .ea-app .olk-root input,body.prairie-site .ea-app .olk-root select{min-width:0;max-width:100%;width:100%;min-height:44px;box-sizing:border-box;border:1px solid #bacbdc;border-radius:5px;padding:9px;color:#183555;background:white;font:13px Arial,Helvetica,sans-serif}
+body.prairie-site .ea-app .olk-root button{min-height:44px;border:1px solid #bacbdc;border-radius:5px;background:white;color:#183555;padding:9px 12px;font:600 13px Arial,Helvetica,sans-serif;cursor:pointer}
+body.prairie-site .ea-app .olk-root .olk-primary{background:#183555;color:white;border-color:#183555}
+body.prairie-site .ea-app .olk-root button:disabled{opacity:.5;cursor:default}
+body.prairie-site .ea-app .olk-root :focus-visible{outline:3px solid #a88a47;outline-offset:2px}
+body.prairie-site .ea-app .olk-result-title,body.prairie-site .ea-app .olk-pagination{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px}
+body.prairie-site .ea-app .olk-result-title>span{color:#526a84;font-size:12px}
+body.prairie-site .ea-app .olk-results{display:grid;gap:7px;margin-top:10px}
+body.prairie-site .ea-app .olk-root .olk-order{display:flex;justify-content:space-between;gap:12px;text-align:left;background:#f8fbfe;border-color:#dfe9f2}
+body.prairie-site .ea-app .olk-order>span{display:grid;gap:5px;min-width:0}
+body.prairie-site .ea-app .olk-order small{font:12px Arial,Helvetica,sans-serif;color:#526a84;overflow-wrap:anywhere}
+body.prairie-site .ea-app .olk-error{padding:10px;background:#fff3f0;border:1px solid #edccc4;border-radius:5px}
+body.prairie-site .ea-app .olk-root .olk-hint{color:#886818}
+@media(max-width:600px){body.prairie-site .ea-app .olk-content{padding:0 12px 12px}body.prairie-site .ea-app .olk-filters{grid-template-columns:1fr 1fr}body.prairie-site .ea-app .olk-filters>label:first-child{grid-column:1/-1}body.prairie-site .ea-app .olk-root input,body.prairie-site .ea-app .olk-root select{font-size:16px}body.prairie-site .ea-app .olk-result-title{align-items:flex-start;flex-direction:column}body.prairie-site .ea-app .olk-order>span:last-child{flex-shrink:0}}

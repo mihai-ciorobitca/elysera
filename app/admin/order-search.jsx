@@ -1,0 +1,12 @@
+'use client'
+import {useId,useRef,useState} from 'react'
+
+export default function OrderSearch({orders,value,onChange}){
+ const id=useId(),root=useRef(null),[open,setOpen]=useState(false),[active,setActive]=useState(-1)
+ const term=value.trim().toLocaleLowerCase('de-DE'),customers=new Map()
+ for(const order of orders){const name=[order.firstName,order.secondName].filter(Boolean).join(' ')||'Name nicht erfasst',key=order.userId||order.email||name;if(![name,order.email,order.id,...order.items.map(i=>i.name)].join(' ').toLocaleLowerCase('de-DE').includes(term))continue;const found=customers.get(key);if(found)found.count++;else customers.set(key,{key,name,email:order.email,count:1})}
+ const matches=[...customers.values()],shown=open&&!!term
+ function choose(item){onChange(item.name);setOpen(false);setActive(-1)}
+ function navigate(e){if(e.key==='Escape'){setOpen(false);setActive(-1);return}if(['ArrowDown','ArrowUp'].includes(e.key)&&matches.length){e.preventDefault();setOpen(true);const next=e.key==='ArrowDown'?(active+1)%matches.length:(active<=0?matches.length-1:active-1);setActive(next);requestAnimationFrame(()=>document.getElementById(id+'-'+next)?.scrollIntoView({block:'nearest'}))}if(e.key==='Enter'&&shown&&active>=0&&matches[active]){e.preventDefault();choose(matches[active])}}
+ return <div className="ow-search" ref={root} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget)){setOpen(false);setActive(-1)}}}><label><span className="ow-sr">Bestellungen suchen</span><input type="search" role="combobox" aria-label="Bestellungen suchen" aria-autocomplete="list" aria-expanded={shown} aria-controls={shown?id:undefined} aria-activedescendant={shown&&active>=0?id+'-'+active:undefined} autoComplete="off" placeholder="Bestellungen suchen …" value={value} onFocus={()=>setOpen(true)} onChange={e=>{onChange(e.target.value);setOpen(true);setActive(-1)}} onKeyDown={navigate}/></label>{shown&&<div className="ow-search-popup"><div className="ow-search-caption">{matches.length} passende Kunden</div><ul id={id} role="listbox" aria-label="Passende Kunden">{matches.map((item,index)=><li key={item.key} id={id+'-'+index} role="option" aria-selected={active===index} onPointerDown={e=>e.preventDefault()} onClick={()=>choose(item)}><strong>{item.name}</strong><span>{item.email||'E-Mail nicht erfasst'}</span><small>{item.count} {item.count===1?'Bestellung':'Bestellungen'}</small></li>)}</ul>{!matches.length&&<p role="status">Keine passenden Kunden gefunden.</p>}</div>}</div>
+}

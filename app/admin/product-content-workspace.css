@@ -1,0 +1,51 @@
+body.prairie-site .ea-app .product-content-workspace,body.prairie-site .ea-app .product-content-workspace *{font-family:Arial,sans-serif!important;box-sizing:border-box;text-align:left}
+.product-content-workspace{max-width:1360px;margin:auto;color:#183555;min-width:0}
+.product-content-workspace .pcw-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.product-content-workspace .pcw-heading span{font-size:11px;color:#526a84}
+body.prairie-site .ea-app .product-content-workspace h1{font-size:30px;margin:5px 0 8px;text-align:left;color:#183555}
+body.prairie-site .ea-app .product-content-workspace h2{font-size:18px;margin:6px 0;color:#183555;line-height:1.35;text-align:left}
+.product-content-workspace p{font-size:12px;line-height:1.6;color:#526a84;overflow-wrap:anywhere}
+.product-content-workspace .pcw-summary{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 14px;background:white;border:1px solid #dfe9f2;border-radius:6px;font-size:12px;margin:14px 0}
+.product-content-workspace .pcw-products{display:grid;gap:12px}
+.product-content-workspace .pcw-products article{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:16px;padding:16px;background:white;border:1px solid #dfe9f2;border-radius:6px;min-width:0}
+.product-content-workspace .pcw-products article>div{min-width:0}
+.product-content-workspace .pcw-products img{width:64px;height:90px;object-fit:contain}
+.product-content-workspace .pcw-source{font-size:11px;color:#526a84}
+.product-content-workspace .pcw-erp{font-size:11px;margin-top:5px!important}
+.product-content-workspace .pcw-note{margin:14px 0!important;font-size:11px}
+.product-content-workspace .pcw-state{padding:40px 20px;text-align:center;border:1px solid #dfe9f2;border-radius:6px;background:white}
+.product-content-workspace .pcw-state a{display:inline-flex;min-height:44px;align-items:center;padding:10px;margin-left:10px}
+body.prairie-site .ea-app .product-content-workspace button{min-height:44px;white-space:normal;font-size:12px;text-align:center}
+body.prairie-site .ea-app dialog.pcw-dialog[open]{display:flex;flex-direction:column;width:min(720px,calc(100vw - 28px));height:min(910px,calc(100dvh - 40px));max-height:calc(100dvh - 40px);padding:20px;overflow:clip;margin:auto;border:1px solid #dfe9f2;border-radius:8px;background:white;color:#183555}
+body.prairie-site .ea-app dialog.pcw-dialog>header{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid #dfe9f2}
+body.prairie-site .ea-app dialog.pcw-dialog>header>div{min-width:0}
+body.prairie-site .ea-app dialog.pcw-dialog>header>div>span{font-size:11px;color:#526a84}
+body.prairie-site .ea-app dialog.pcw-dialog>header h2{font-size:23px;line-height:1.25;margin:6px 0;overflow-wrap:anywhere}
+body.prairie-site .ea-app dialog.pcw-dialog>header>button{height:48px;min-height:48px;width:48px;min-width:48px;flex:0 0 48px;padding:0}
+body.prairie-site .ea-app dialog.pcw-dialog .pcw-dialog-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:10px 5px 12px 0;scroll-behavior:auto}
+body.prairie-site .ea-app dialog.pcw-dialog p{font-size:12px;line-height:1.6;margin:8px 0;color:#526a84;overflow-wrap:anywhere}
+body.prairie-site .ea-app dialog.pcw-dialog .pcw-identity{font-size:12px;font-weight:600;color:#183555}
+.product-content-workspace .pcw-dialog fieldset{padding:0;border:0;margin:16px 0;min-width:0}
+.product-content-workspace .pcw-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.product-content-workspace .pcw-fields label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#183555;min-width:0}
+.product-content-workspace .pcw-wide{grid-column:1/-1}
+.product-content-workspace .pcw-fields small{font-size:10px;color:#526a84}
+body.prairie-site .ea-app dialog.pcw-dialog input,body.prairie-site .ea-app dialog.pcw-dialog textarea{font-size:14px;min-height:44px;width:100%;min-width:0;padding:10px;border:1px solid #dfe9f2;border-radius:5px;background:white;color:#183555;resize:vertical}
+body.prairie-site .ea-app dialog.pcw-dialog>footer{flex:none;position:static;width:auto;min-height:0;margin:0;padding:12px 0 0;display:flex;align-items:center;gap:8px;border-top:1px solid #dfe9f2;background:white}
+.product-content-workspace .pcw-actions{flex:1;display:flex;gap:8px;flex-wrap:wrap;min-width:0}
+body.prairie-site .ea-app dialog.pcw-dialog .pcw-actions>a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border:1px solid #dfe9f2;border-radius:5px;font-size:12px;text-align:center;text-decoration:none}
+body.prairie-site .ea-app dialog.pcw-dialog .pcw-actions>a.pcw-primary{background:#183555;color:#fff;border-color:#183555}
+body.prairie-site .ea-app dialog.pcw-dialog button.pcw-primary{background:#183555;color:white;border-color:#183555}
+body.prairie-site .ea-app dialog.pcw-dialog button.pcw-primary:hover:not(:disabled){background:#244b75;border-color:#244b75}
+.product-content-workspace .pcw-review{padding:12px;background:#f3f9fd;border:1px solid #dfe9f2;border-radius:5px;margin:12px 0}
+body.prairie-site .ea-app dialog.pcw-dialog .pcw-review h3{font-size:13px;margin:0 0 8px;font-weight:600;color:#183555;text-align:left;text-transform:none;letter-spacing:0}
+.product-content-workspace .pcw-review dl{margin:10px 0}
+.product-content-workspace .pcw-review dl>div{padding:10px 0;border-bottom:1px solid #dfe9f2}
+.product-content-workspace .pcw-review dt{font-size:12px;font-weight:600;margin-bottom:6px}
+.product-content-workspace .pcw-review dd{display:grid;gap:6px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.5}
+.product-content-workspace .pcw-review dd>span{color:#526a84}
+body.prairie-site .ea-app dialog.pcw-dialog .pcw-error{padding:10px;background:#fff4f3;color:#a13434;border-radius:5px}
+.product-content-workspace .pcw-auth{padding:10px 12px;background:#f3f9fd;border:1px solid #dfe9f2;border-radius:5px;margin:10px 0}
+.product-content-workspace .pcw-auth a{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px;border:1px solid #183555;border-radius:5px;font-size:12px;background:white;color:#183555}
+@media(max-width:600px){body.prairie-site .ea-app dialog.pcw-dialog .pcw-actions>a{flex:1 1 110px}}
+@media(max-width:600px){body.prairie-site .ea-app .product-content-workspace h1{font-size:25px}.product-content-workspace .pcw-heading{align-items:flex-start;gap:10px}.product-content-workspace .pcw-heading p{display:none}.product-content-workspace .pcw-products article{grid-template-columns:48px 1fr;gap:10px;padding:12px}.product-content-workspace .pcw-products img{width:48px;height:70px}.product-content-workspace .pcw-products article>button{grid-column:2;justify-self:start}body.prairie-site .ea-app dialog.pcw-dialog[open]{padding:16px}body.prairie-site .ea-app dialog.pcw-dialog input,body.prairie-site .ea-app dialog.pcw-dialog textarea{font-size:16px}.product-content-workspace .pcw-fields{grid-template-columns:1fr}body.prairie-site .ea-app dialog.pcw-dialog>footer{flex-wrap:wrap;align-items:stretch}.product-content-workspace .pcw-actions{flex-basis:100%}.product-content-workspace .pcw-actions button{flex:1 1 110px}body.prairie-site .ea-app dialog.pcw-dialog>footer>button{margin-left:auto}}

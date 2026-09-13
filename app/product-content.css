@@ -1,0 +1,12 @@
+/* Published copy can contain long names and ingredient terms. */
+.detail-copy,.lp-product-info,.mini-product>div,.cart-product>div,
+.atelier-checkout-items article>div,.presale-selection-price,.lp-footer nav,
+.product-application>div,.ingredients-strip>div,.breadcrumbs>span{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.prairie-site .lp-product .featured-price{display:flex;flex-direction:column;align-items:center;gap:5px;color:#14264d}
+.prairie-site .lp-product .featured-price strong{font-size:32px;font-weight:650;line-height:1.2;letter-spacing:-.025em}
+.prairie-site .lp-product .featured-price-context{font-size:11px;line-height:1.5;font-weight:500}
+.prairie-site .lp-product .featured-price-date{font-size:10px;line-height:1.5;color:#59667c;margin-top:2px}
+.prairie-site .lp-product .lp-product-price{margin-top:15px;margin-bottom:20px}

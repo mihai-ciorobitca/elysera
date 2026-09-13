@@ -2,10 +2,10 @@
 import Link from 'next/link'
 import {useEffect,useRef,useState} from 'react'
 import {usePathname} from 'next/navigation'
-import {products} from './catalog'
+import {products as defaultProducts} from './catalog'
 function Glyph({name}){return <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{name==='search'?<><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></>:name==='account'?<><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></>:name==='bag'?<><path d="M5 8h14l1 13H4L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></>:<path d="M3 6h18M3 12h18M3 18h18"/>}</svg>}
 const notices=['PRESALE AB 23. SEPTEMBER 2026','DREI PFLEGESCHRITTE. EIN TÄGLICHES RITUAL.','DIE ELYSERA KOLLEKTION ENTDECKEN']
-export default function Navigation({count,openPanel}){
+export default function Navigation({count,openPanel,products=defaultProducts}){
  const [menu,setMenu]=useState(null),[notice,setNotice]=useState(0),pathname=usePathname(),header=useRef(null),trigger=useRef(null)
  useEffect(()=>setMenu(null),[pathname])
  useEffect(()=>{if(!menu)return;const close=e=>{if(!header.current?.contains(e.target))setMenu(null)};document.addEventListener('pointerdown',close);return()=>document.removeEventListener('pointerdown',close)},[menu])
