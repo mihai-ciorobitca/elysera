@@ -1,0 +1,4 @@
+/* Reserve a separate row so new labels never overlap the packshots. */
+.prairie-site .lp-product .lp-product-photo{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:30px minmax(0,1fr);gap:18px;justify-items:center;align-items:center;padding:6px 0 0;box-sizing:border-box}
+.prairie-site .lp-product .lp-product-photo img{grid-column:1;grid-row:2;height:100%;max-height:100%;min-height:0;align-self:center}
+.prairie-site .lp-product .lp-product-badge{position:static;grid-column:1;grid-row:1;transform:none;justify-self:center;align-self:center;line-height:16px;padding:5px 12px;margin:0}
