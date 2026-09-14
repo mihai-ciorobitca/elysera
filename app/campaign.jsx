@@ -6,6 +6,7 @@ import ScrollMedia from './scroll-media'
 import {mediaRoot,mediaName,mediaImage,mediaVideo,mediaSrcSet} from './media-library'
 export {mediaRoot}
 export function CampaignImage({name,alt='',className='',priority=false,sizes='(max-width: 600px) 100vw, 50vw',animate=true}){
+ if(name.startsWith('usage-'))return <img className={className} src={`/media/product-application/${name.slice(6)}.webp`} alt={alt} loading={priority?'eager':'lazy'} decoding="async"/>
  if(['serum','toner','eye'].includes(name))return <img className={`lp-gallery-packshot ${className}`} src={`/media/atelier-2026/${name}.webp`} alt={alt} loading={priority?'eager':'lazy'} decoding="async"/>
  const picture=<img className={className} src={mediaImage(name)} srcSet={mediaSrcSet(name)} sizes={sizes} alt={alt} loading={priority?'eager':'lazy'} fetchPriority={priority?'high':'auto'} decoding="async"/>
  return animate&&sizes!=='90px'?<ScrollMedia name={name} source={mediaVideo(name)}>{picture}</ScrollMedia>:picture
@@ -15,7 +16,8 @@ export function Gallery({product:p}){
  const [index,setIndex]=useState(0),[open,setOpen]=useState(false)
  const modal=useRef(null),start=useRef(null),trigger=useRef(null)
  const key=p.step==='01'?'toner':p.step==='02'?'serum':'eye'
- const images=[{name:key,label:'Produkt',alt:`${p.name}, ${p.volume}`},{name:`${key}-texture`,label:'Textur',alt:`Illustrative Texturaufnahme: ${p.short}`},{name:`${key}-application`,label:'Anwendung',alt:`Illustrative Anwendung: ${p.short}`},{name:'hero-mobile',label:'Kollektion',alt:'Die drei ELYSERA Pflegeprodukte'}]
+ const labels=key==='toner'?['Aufsprühen','Sanft verteilen','Morgenroutine']:key==='serum'?['Dosieren','Auftragen','Sanft einarbeiten']:['Sparsam dosieren','Sanft einklopfen','Pflege im Alltag']
+ const images=[{name:key,label:'Produkt',alt:`${p.name}, ${p.volume}`},...labels.map((label,i)=>({name:`usage-${key}-${i+1}`,label,alt:`${p.short}: ${label} – illustrative Anwendung`}))]
  const change=n=>setIndex(i=>(i+n+images.length)%images.length)
  useEffect(()=>{if(open){modal.current?.showModal();document.body.style.overflow='hidden'}else{modal.current?.close();document.body.style.overflow=''}return()=>{document.body.style.overflow=''}},[open])
  const close=()=>{modal.current?.close();setOpen(false);trigger.current?.focus({preventScroll:true})}
