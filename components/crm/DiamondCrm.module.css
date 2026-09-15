@@ -253,3 +253,7 @@
  .reviewTable td:last-child { grid-column:2; grid-row:1; max-width:100px; }
  .reviewFooter { padding:18px 16px; }
 }
+
+.memberFilter { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 24px; background:#f5efe5; border-block:1px solid #e7d9c1; font-size:13px; }
+.memberFilter span { overflow-wrap:anywhere; }
+@media(max-width:600px) { .memberFilter { padding:14px 16px; } }
