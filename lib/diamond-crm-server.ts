@@ -83,7 +83,7 @@ export async function crmSnapshot(identity: Awaited<ReturnType<typeof crmIdentit
     ...(status ? { status } : {}),
     ...(params.get('scope') === 'today' ? { assignedDay: day } : {}),
     ...(params.get('scope') === 'followup' ? { followUpAt: { lte: new Date() }, AND: [{ status: { notIn: ['DO_NOT_CONTACT', 'WON', 'NOT_INTERESTED'] } }] } : {}),
-    ...(q ? { OR: ['fullName', 'username', 'email', 'phone', 'country'].map(field => ({ [field]: { contains: q, mode: 'insensitive' as const } })) } : {}),
+    ...(q ? { OR: ['fullName', 'username', 'email', 'phone', 'country', 'source'].map(field => ({ [field]: { contains: q, mode: 'insensitive' as const } })) } : {}),
   }
   const [leads, total, pool, assignedToday, grouped, members] = await Promise.all([
     prisma.crmLead.findMany({ where, take: 50, skip: (page - 1) * 50, orderBy: [{ assignedAt: 'desc' }, { createdAt: 'desc' }, { id: 'asc' }], include: { activities: { take: 5, orderBy: { createdAt: 'desc' } } } }),
@@ -96,6 +96,7 @@ export async function crmSnapshot(identity: Awaited<ReturnType<typeof crmIdentit
   const memberStats = identity.admin ? await prisma.crmLead.groupBy({ by: ['assignedToId', 'assignedDay', 'status'], where: { assignedToId: { in: members.map(m => m.userId) } }, _count: true }) : []
   const workedToday = identity.admin ? await prisma.crmLead.groupBy({ by: ['assignedToId'], where: { assignedDay: day, assignedToId: { in: members.map(m => m.userId) }, OR: [{ status: { not: 'NEW' } }, { calledAt: { not: null } }] }, _count: true }) : []
   return {
+    viewerId: identity.userId,
     passwordConfigured: identity.admin ? Boolean((await prisma.crmSettings.findUnique({ where: { id: 1 }, select: { passwordHash: true } }))?.passwordHash) : true,
     day, total, page, pool, assignedToday, counts: Object.fromEntries(grouped.map(group => [group.status, group._count])),
     leads: leads.map(lead => ({ ...lead, status: lead.status as CrmStatus, calledAt: lead.calledAt?.toISOString() ?? null, followUpAt: lead.followUpAt?.toISOString() ?? null, activities: lead.activities.map(a => ({ id: a.id, status: a.status, note: a.note, createdAt: a.createdAt.toISOString() })) })),

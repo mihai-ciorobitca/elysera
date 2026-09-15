@@ -6,13 +6,13 @@ import { crmUnlockToken, verifyCrmUnlock } from './diamond-crm-token'
 test('HarvestMyData headers, quoted commas/newlines, BOM and phone normalization', () => {
   const parsed = parseHarvestCsv('\uFEFFsource_username,username,full_name,public_email,phone,category_name,biography,external_url\r\nsource,coach.one,"Coach, One",ONE@example.com,+49 (123) 456789,Fitness,"First line\nSays ""hello""",https://example.com\r\n')
   assert.equal(parsed.rows.length, 1)
-  assert.deepEqual(parsed.rows[0], { username: 'coach.one', fullName: 'Coach, One', email: 'one@example.com', phone: '+49123456789', category: 'Fitness', biography: 'First line\nSays "hello"', website: 'https://example.com', country: '' })
+  assert.deepEqual(parsed.rows[0], { source: 'source', username: 'coach.one', fullName: 'Coach, One', email: 'one@example.com', phone: '+49123456789', category: 'Fitness', biography: 'First line\nSays "hello"', website: 'https://example.com', country: '' })
 })
-test('contactless and malformed rows excluded; duplicates detected across every contact key', () => {
-  const result = parseHarvestCsv('username,email,phone\nfirst,a@example.com,+49123456789\nsecond,a@example.com,\nFIRST,b@example.com,\nthird,,49123456789\nempty,,\nbad,bad-email,\nextra,x@example.com,,oops')
+test('blank and malformed rows excluded; duplicates detected across every contact key', () => {
+  const result = parseHarvestCsv('username,email,phone\nfirst,a@example.com,+49123456789\nsecond,a@example.com,\nFIRST,b@example.com,\nthird,,49123456789\n,,\nbad,bad-email,\nextra,x@example.com,,oops')
   assert.equal(result.rows.length, 1)
   assert.equal(result.duplicates, 3)
-  assert.equal(result.errors.length, 3)
+  assert.equal(result.errors.length, 2)
 })
 test('invalid links are removed and malformed CSV rejected', () => {
   assert.equal(parseHarvestCsv('email,website\nx@example.com,javascript:alert(1)').rows[0].website, '')

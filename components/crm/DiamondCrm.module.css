@@ -58,7 +58,7 @@
 .avatar { display:grid; place-items:center; width:42px; height:42px; flex-shrink:0; border:1px solid var(--crm-border); border-radius:12px; color:var(--crm-accent); background:var(--crm-surface); font-weight:600; }
 .identity div,.contact { min-width:0; }
 .identity strong { display:block; overflow-wrap:anywhere; }
-.identity small { color:var(--crm-muted); overflow-wrap:anywhere; }
+.identity small { display:block; margin-top:3px; color:var(--crm-muted); overflow-wrap:anywhere; }
 .contact { display:grid; gap:4px; font-size:12px; color:var(--crm-muted); overflow-wrap:anywhere; }
 .copyContact { display:grid; grid-template-columns:minmax(0,1fr) 44px; column-gap:8px; align-items:center; }
 .copyValue { display:grid; gap:2px; min-width:0; text-align:left; }
@@ -176,3 +176,29 @@
 .workspace input,.workspace textarea,.workspace input::placeholder,.workspace textarea::placeholder { text-align:left; }
 
 .portal { min-height:100svh; background:#f3f6fa; color:#132448; }
+
+/* Contact import and outreach tools */
+.importColumns { border:1px solid var(--crm-border); border-radius:8px; padding:16px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.importColumns legend { padding:0 6px; font-weight:600; }
+.workspace .importColumns label,.workspace .emailSelect { display:flex; flex-direction:row; align-items:center; gap:8px; font-size:12px; }
+.workspace .importColumns input,.workspace .emailSelect input { width:18px; height:18px; min-height:18px; flex:none; accent-color:var(--crm-accent); }
+.templateGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.contactTools { display:grid; gap:12px; }
+.contactTools details { border:1px solid var(--crm-border); border-radius:6px; padding:12px; }
+.contactTools summary { cursor:pointer; font-size:13px; }
+.messagePreview { white-space:pre-wrap; overflow-wrap:anywhere; padding:12px 0; }
+.bulkEmail { padding:18px 24px; border-top:1px solid var(--crm-border); border-bottom:1px solid var(--crm-border); background:var(--crm-surface); }
+.bulkEmail .panelBody { padding:20px 0 0; }
+.bulkEmail li { overflow-wrap:anywhere; }
+.leadRow { grid-template-columns:65px minmax(0,1.25fr) minmax(0,1fr) 135px 85px; }
+@media(max-width:1000px) { .leadRow { grid-template-columns:55px minmax(0,1fr) 120px 85px; } .leadRow>.contact { grid-column:2; grid-row:2; } }
+@media(max-width:600px) {
+ .templateGrid,.importColumns { grid-template-columns:1fr; }
+ .bulkEmail { padding:18px 16px; }
+ .leadRow { grid-template-columns:minmax(0,1fr) auto; }
+ .leadRow>.identity { grid-column:1; grid-row:1; }
+ .leadRow>.emailSelect { grid-column:1; grid-row:2; }
+ .leadRow>.badge { grid-column:1 / -1; grid-row:3; }
+ .leadRow>.contact { grid-column:1 / -1; grid-row:4; }
+ .leadRow>button { grid-column:2; grid-row:1; }
+}

@@ -17,7 +17,7 @@ export function isCrmStatus(value: unknown): value is CrmStatus {
 }
 export type CrmImportRow = {
   username: string | null; fullName: string; email: string | null; phone: string | null
-  biography: string; country: string; category: string; website: string
+  source?: string; biography: string; country: string; category: string; website: string
 }
 export type CrmLeadView = CrmImportRow & {
   id: string; status: CrmStatus; assignedToId: string | null; assignedDay: string | null
@@ -25,6 +25,7 @@ export type CrmLeadView = CrmImportRow & {
   activities?: { id: string; status: string; note: string; createdAt: string }[]
 }
 export type CrmSnapshot = {
+  viewerId?: string
   passwordConfigured: boolean
   day: string; leads: CrmLeadView[]; total: number; page: number; pool: number; assignedToday: number
   counts: Record<string, number>; members: { userId: string; name: string; email: string; enabled: boolean; assignedToday: number; workedToday: number; interested: number }[]
@@ -62,7 +63,10 @@ export function readCrmCsv(text: string): string[][] {
   return rows
 }
 
-export function parseHarvestCsv(text: string) {
+export const CRM_IMPORT_FIELDS = ['fullName', 'phone', 'email', 'username', 'source', 'country', 'category', 'biography', 'website'] as const
+export type CrmImportField = typeof CRM_IMPORT_FIELDS[number]
+export const CRM_DEFAULT_IMPORT_FIELDS: CrmImportField[] = ['fullName', 'phone', 'email', 'username', 'source']
+export function parseHarvestCsv(text: string, selectedFields: readonly CrmImportField[] = CRM_IMPORT_FIELDS) {
   const [header, ...data] = readCrmCsv(text)
   if (!header || !data.length) throw new Error('Include a header row and at least one lead.')
   const names = header.map(value => value.trim().toLowerCase().replace(/[\s-]+/g, '_'))
@@ -71,13 +75,13 @@ export function parseHarvestCsv(text: string) {
     username: index(['username', 'user_name', 'instagram_username']), fullName: index(['full_name', 'name']),
     email: index(['public_email', 'email', 'email_address']), phone: index(['phone', 'phone_number', 'public_phone_number']),
     biography: index(['biography', 'bio']), country: index(['country']), category: index(['category_name', 'category']),
-    website: index(['external_url', 'website', 'url']),
+    website: index(['external_url', 'website', 'url']), source: index(['source_username', 'keyword', 'source']),
   }
-  if (columns.email < 0 && columns.phone < 0) throw new Error('A public_email/email or phone column is required.')
+  if (!(['email', 'phone', 'username'] as const).some(key => selectedFields.includes(key) && columns[key] >= 0)) throw new Error('Select an email, phone or Instagram username column.')
   const rows: CrmImportRow[] = []; const errors: { row: number; message: string }[] = []
   const seen = new Set<string>(); let duplicates = 0
   data.forEach((values, i) => {
-    const value = (key: keyof typeof columns) => (values[columns[key]] ?? '').trim()
+    const value = (key: keyof typeof columns) => selectedFields.includes(key) ? (values[columns[key]] ?? '').trim() : ''
     const reject = (message: string) => { errors.push({ row: i + 2, message }) }
     if (values.length !== header.length) return reject('Column count does not match the header.')
     if (values.some(v => v.length > 10000)) return reject('A field exceeds 10,000 characters.')
@@ -85,7 +89,7 @@ export function parseHarvestCsv(text: string) {
     const email = value('email').toLowerCase() || null
     const rawPhone = value('phone')
     const phone = rawPhone ? rawPhone.replace(/[\s().-]/g, '').replace(/^00/, '+') : null
-    if (!email && !phone) return reject('No email or phone; excluded from daily allocations.')
+    if (!email && !phone && !username) return reject('No email, phone or Instagram username.')
     if (email && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)) return reject('Invalid email address.')
     if (phone && !/^\+?\d{7,15}$/.test(phone)) return reject('Invalid phone number; use the full country code.')
     if (username && !/^[a-z0-9._]{1,30}$/.test(username)) return reject('Invalid Instagram username.')
@@ -97,7 +101,7 @@ export function parseHarvestCsv(text: string) {
     const keys = [username && `u:${username}`, email && `e:${email}`, phone && `p:${phone.replace(/^\+/, '')}`].filter(Boolean) as string[]
     if (keys.some(key => seen.has(key))) { duplicates++; return }
     keys.forEach(key => seen.add(key))
-    rows.push({ username, email, phone: phone ? `+${phone.replace(/^\+/, '')}` : null, fullName: value('fullName'), biography: value('biography'), country: value('country'), category: value('category'), website })
+    rows.push({ source: value('source'), username, email, phone: phone ? `+${phone.replace(/^\+/, '')}` : null, fullName: value('fullName'), biography: value('biography'), country: value('country'), category: value('category'), website })
   })
   return { rows, errors, duplicates, total: data.length }
 }

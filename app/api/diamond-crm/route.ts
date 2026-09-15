@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { compare, hash } from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 import { allocateCrmLeads, CrmError, CRM_COOKIE, crmIdentity, crmSnapshot, requireCrmAccess } from '@/lib/diamond-crm-server'
-import { isCrmStatus, parseHarvestCsv } from '@/lib/diamond-crm'
+import { CRM_IMPORT_FIELDS, CRM_DEFAULT_IMPORT_FIELDS, type CrmImportField, isCrmStatus, parseHarvestCsv } from '@/lib/diamond-crm'
 import { crmUnlockToken } from '@/lib/diamond-crm-token'
 import { isSameOriginMutation } from '@/lib/same-origin-request'
 import { checkDistributedRateLimit } from '@/lib/distributed-rate-limit'
@@ -93,6 +93,13 @@ export async function POST(request: NextRequest) {
       })
       return json({ ok: true })
     }
+    if (body.action === 'email-draft') {
+      if (!Array.isArray(body.ids) || !body.ids.length || body.ids.length > 30 || body.ids.some(id => typeof id !== 'string')) throw new CrmError('Select between 1 and 30 leads.')
+      const ids = [...new Set(body.ids as string[])]
+      const leads = await prisma.crmLead.findMany({ where: { id: { in: ids }, ...(identity.admin ? {} : { assignedToId: identity.userId }), status: { not: 'DO_NOT_CONTACT' }, email: { not: null } }, select: { id: true, email: true, fullName: true } })
+      if (leads.length !== ids.length) throw new CrmError('Some selected leads are no longer available for email. Refresh your selection.', 409)
+      return json({ recipients: leads })
+    }
     if (!identity.admin) throw new CrmError('Administrator access required.', 403)
     if (body.action === 'password') {
       if (typeof body.password !== 'string' || body.password.length < 12 || Buffer.byteLength(body.password) > 72) throw new CrmError('Use a CRM password of at least 12 characters and at most 72 bytes.')
@@ -113,7 +120,8 @@ export async function POST(request: NextRequest) {
     if (body.action === 'preview-import' || body.action === 'import') {
       if (typeof body.csv !== 'string' || typeof body.filename !== 'string' || body.filename.length > 200) throw new CrmError('Choose a CSV file.')
       let parsed: ReturnType<typeof parseHarvestCsv>
-      try { parsed = parseHarvestCsv(body.csv) } catch (error) { throw new CrmError(error instanceof Error ? error.message : 'Invalid CSV.') }
+      if (body.fields !== undefined && (!Array.isArray(body.fields) || body.fields.some(field => !CRM_IMPORT_FIELDS.includes(field as CrmImportField)))) throw new CrmError('Invalid import columns.')
+      try { parsed = parseHarvestCsv(body.csv, (body.fields ?? CRM_DEFAULT_IMPORT_FIELDS) as CrmImportField[]) } catch (error) { throw new CrmError(error instanceof Error ? error.message : 'Invalid CSV.') }
       if (body.action === 'preview-import') return json({ total: parsed.total, valid: parsed.rows.length, duplicates: parsed.duplicates, invalid: parsed.errors.length, errors: parsed.errors.slice(0, 20), sample: parsed.rows.slice(0, 5) })
       const result = await prisma.crmLead.createMany({ data: parsed.rows.map(row => ({ ...row, importName: body.filename as string })), skipDuplicates: true })
       return json({ imported: result.count, duplicates: parsed.duplicates + parsed.rows.length - result.count, invalid: parsed.errors.length })

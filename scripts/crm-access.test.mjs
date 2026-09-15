@@ -37,3 +37,21 @@ test('login endpoint redirects anonymous users to native login and signed-in use
   assert.equal(response.location,'https://www.elysera.org'+(signedIn?path:helpers.crmSignInPath(path)))
  }
 })
+
+test('email draft caps requests and rechecks member ownership and do-not-contact status',async()=>{
+ const identity={userId:'member',admin:false}
+ let queries=0,where
+ class CrmError extends Error {constructor(message,status=400){super(message);this.status=status}}
+ const {POST}=load('app/api/diamond-crm/route.ts',{
+  CrmError,isSameOriginMutation:()=>true,crmIdentity:async()=>identity,requireCrmAccess:async()=>identity,
+  prisma:{crmLead:{findMany:async(args)=>{queries++;where=args.where;return [{id:'own',email:'lead@example.test',fullName:'Lead'}]}}},
+  NextResponse:{json:(body,options)=>({body,status:options.status})},
+ },'POST')
+ const send=ids=>POST(new Request('https://www.elysera.org/api/diamond-crm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'email-draft',ids})}))
+ assert.equal((await send(Array.from({length:31},(_,i)=>String(i)))).status,400)
+ assert.equal(queries,0)
+ assert.equal((await send(['own'])).status,200)
+ assert.equal(where.assignedToId,'member')
+ assert.equal(where.status.not,'DO_NOT_CONTACT')
+ assert.equal((await send(['own','foreign'])).status,409)
+})

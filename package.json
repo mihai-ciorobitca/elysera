@@ -7,7 +7,7 @@
     "build": "next build --webpack",
     "start": "next start -p 3001",
     "postinstall": "prisma generate",
-    "test:crm": "tsx --test lib/diamond-crm.test.ts lib/crm-login.test.ts",
+    "test:crm": "tsx --test lib/diamond-crm.test.ts lib/crm-login.test.ts lib/crm-contact.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

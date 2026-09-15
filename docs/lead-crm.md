@@ -26,3 +26,11 @@ The optional `/api/cron/allocate-crm-leads` endpoint requires `CRON_SECRET`; no 
 - Live checks must confirm the start endpoint redirects to Elysera login, both CRM pages load, and anonymous data requests return 401.
 
 The earlier local PeptiKing handoff implementation is superseded. Do not activate `ELYSERA_CRM_URL` or deploy that handoff for this release.
+
+## CSV fields and contact drafts
+
+Full HarvestMyData exports are accepted, including extra and empty columns. Name, phone, email, username and source keyword are checked by default. Country, category, biography and website can be added explicitly. The keyword is stored in the existing CrmLead.source column; old HarvestMyData source labels display as an unknown keyword. Valid Instagram-only contacts can now be imported and allocated. Imports remain preview-first and skip duplicates without changing existing conversations.
+
+Each accessible lead offers call, WhatsApp, email, Instagram profile and Instagram DM links. Individual templates support {name}, {username} and {keyword}. Templates are saved per account in browser local storage; they do not sync between devices. WhatsApp and email open populated drafts. Instagram messages are copied for pasting into the DM.
+
+Email selection is limited to 30 leads on the current page and clears when the view refreshes or changes. The email-draft API rechecks account access, lead ownership, email availability and do-not-contact status before returning recipients. Bulk compose opens a BCC draft in the user's mail application with an editable shared subject and body. The CRM does not send these drafts itself.
