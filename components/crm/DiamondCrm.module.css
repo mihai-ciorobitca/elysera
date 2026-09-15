@@ -257,3 +257,37 @@
 .memberFilter { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 24px; background:#f5efe5; border-block:1px solid #e7d9c1; font-size:13px; }
 .memberFilter span { overflow-wrap:anywhere; }
 @media(max-width:600px) { .memberFilter { padding:14px 16px; } }
+
+/* Compact lead workspace */
+.detail { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start; background:#f8fafc; }
+.detailInfo { display:grid; gap:12px; }
+.detail .sectionLabel { margin:0; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#73542e; }
+.detail .edit { gap:14px; }
+.detail .formRow { grid-template-columns:1fr; }
+.detail .formRow:has(>label) { grid-template-columns:1fr 1fr; }
+.detail textarea { min-height:86px; }
+.optionalLabel { color:var(--crm-muted); font-size:11px; font-weight:400; }
+.quickContact { display:grid; grid-template-columns:repeat(auto-fit,minmax(90px,1fr)); gap:8px; }
+.quickContact .button { padding:10px 8px; min-height:46px; justify-content:center; background:#fff; font-size:13px; }
+.contactTools { gap:10px; }
+.contactTools .messageDrawer { background:#fff; padding:0; border:1px solid var(--crm-border); border-radius:8px; }
+.contactTools .messageDrawer>summary { padding:12px 14px; min-height:44px; font-size:12px; cursor:pointer; }
+.messageDrawer .messagePreview { margin:0; padding:0 14px 12px; font-size:13px; line-height:1.65; }
+.messageDrawer>button { margin:0 14px 14px; min-height:40px; font-size:12px; }
+.copyNotice { font-size:12px; color:var(--crm-muted); }
+.detail .saveLead { min-height:46px; width:100%; justify-content:center; }
+.leadMore { grid-column:1 / -1; border-top:1px solid var(--crm-border); }
+.leadMore>summary { padding:12px 0 0; min-height:44px; cursor:pointer; font-size:12px; color:var(--crm-muted); }
+.moreBody { padding:12px 0 0; display:grid; gap:10px; font-size:12px; }
+.moreBody p { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
+.moreBody a { display:inline-flex; gap:4px; align-items:center; }
+@media(max-width:600px) {
+ .detail { grid-template-columns:1fr; gap:20px; padding:16px; }
+ .detail .formRow:has(>label) { grid-template-columns:1fr; }
+ .detail .edit { gap:12px; }
+ .quickContact:has(>a:nth-child(4)) { grid-template-columns:1fr 1fr; }
+ .leadRow .avatar { display:none; }
+ .detail .saveLead { min-height:48px; }
+}
+
+@media(max-width:600px) { .leadRow>.emailSelect { grid-column:2; grid-row:2; justify-self:end; } .leadRow>.badge { grid-column:1; grid-row:2; justify-self:start; } .leadRow>.contact { grid-column:1 / -1; grid-row:3; } }

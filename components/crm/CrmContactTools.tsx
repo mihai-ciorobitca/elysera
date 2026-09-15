@@ -17,7 +17,7 @@ export function MessageTemplates({ viewerId, templates, onChange }: { viewerId?:
   return <details className={s.panel}><summary>Message templates</summary><div className={s.panelBody}>
     <p className={s.muted}>Edit your WhatsApp, Instagram and email messages. Use {'{name}'}, {'{username}'} and {'{keyword}'} for individual leads. Saved templates belong to your account in this browser.</p>
     <div className={s.templateGrid}>{(Object.keys(DEFAULT_CONTACT_TEMPLATES) as (keyof ContactTemplates)[]).map(key => <div key={key}><label htmlFor={'crm-template-' + key}>{({ whatsapp: 'WhatsApp message', instagram: 'Instagram message', emailSubject: 'Email subject', emailBody: 'Email message' })[key]}</label>{key === 'emailSubject' ? <input id={'crm-template-' + key} value={templates[key]} maxLength={200} onChange={e => { onChange({ ...templates, [key]: e.target.value }); setNotice('Unsaved changes') }} /> : <textarea id={'crm-template-' + key} rows={4} value={templates[key]} maxLength={4000} onChange={e => { onChange({ ...templates, [key]: e.target.value }); setNotice('Unsaved changes') }} />}</div>)}</div>
-    <div className={s.actions}><button type="button" disabled={!viewerId} onClick={() => { try { localStorage.setItem(`elysera-crm-templates:${viewerId}`, JSON.stringify(templates)); setNotice('Templates saved.') } catch { setNotice('Browser storage is unavailable. Templates remain usable for this session.') } }}>Save templates</button><button type="button" onClick={() => { onChange({ ...DEFAULT_CONTACT_TEMPLATES }); setNotice('Defaults restored. Save to keep them.') }}>Restore defaults</button><span role="status">{notice}</span></div>
+    <div className={s.actions}><button type="button" disabled={!viewerId} onClick={() => { try { localStorage.setItem(`elysera-crm-templates:${viewerId}`, JSON.stringify(templates)); setNotice('Templates saved.') } catch { setNotice('Browser storage is unavailable. Templates remain usable for this session.') } }}>Save templates</button><button type="button" onClick={() => { onChange({ ...DEFAULT_CONTACT_TEMPLATES }); setNotice('Defaults restored. Save to keep them.') }}>Restore defaults</button>{notice && <span role="status" className={s.copyNotice}>{notice}</span>}</div>
   </div></details>
 }
 
@@ -25,13 +25,12 @@ export function ContactActions({ lead, templates }: { lead: CrmLeadView; templat
   const [notice, setNotice] = useState('')
   if (lead.status === 'DO_NOT_CONTACT') return <p className={s.muted}>Do not contact this lead.</p>
   const links = contactLinks(lead, templates)
-  return <div className={s.contactTools}><div className={s.actions}>
+  return <div className={s.contactTools}><div className={s.quickContact}>
     {links.call && <a className={s.button} href={links.call}>Call</a>}
     {links.whatsapp && <a className={s.button} href={links.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
     {links.email && <a className={s.button} href={links.email}>Email</a>}
-    {links.instagram && <a className={s.button} href={links.instagram} target="_blank" rel="noopener noreferrer">Instagram profile</a>}
-    {links.instagramDm && <a className={s.button} href={links.instagramDm} target="_blank" rel="noopener noreferrer">Instagram DM</a>}
-  </div>{links.instagramDm && <details><summary>Instagram preset message</summary><p className={s.messagePreview}>{contactMessage(templates.instagram, lead)}</p><button type="button" onClick={async () => { try { await navigator.clipboard.writeText(contactMessage(templates.instagram, lead)); setNotice('Message copied. Open Instagram DM and paste it.') } catch { setNotice('Select and copy the message above.') } }}>Copy Instagram message</button><p className={s.muted}>Paste this message after opening the DM. If Instagram cannot open the conversation, use the profile’s Message button.</p></details>}<span role="status">{notice}</span></div>
+    {links.instagramDm && <a className={s.button} href={links.instagramDm} target="_blank" rel="noopener noreferrer">Instagram</a>}
+  </div>{links.instagramDm && <details className={s.messageDrawer}><summary>Instagram message</summary><p className={s.messagePreview}>{contactMessage(templates.instagram, lead)}</p><button type="button" onClick={async () => { try { await navigator.clipboard.writeText(contactMessage(templates.instagram, lead)); setNotice('Copied. Paste into Instagram.') } catch { setNotice('Select and copy the message above.') } }}>Copy message</button></details>}<span role="status">{notice}</span></div>
 }
 
 type Recipient = { id: string; email: string; fullName: string }

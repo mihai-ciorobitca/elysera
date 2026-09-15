@@ -30,18 +30,22 @@ function LeadEditor({ lead, admin, busy, onSave, templates }: { lead: CrmLeadVie
   const suppressed = lead.status === 'DO_NOT_CONTACT'
   return <div className={s.detail}>
     <div className={s.detailInfo}>
-      <div><p className={s.eyebrow}>Contact details</p><h3>{lead.fullName || lead.username || 'Lead'}</h3><p className={s.muted}>{[lead.category, lead.country].filter(Boolean).join(' · ') || 'No category provided'}</p></div>
-      <p className={s.muted}>Keyword: {lead.source && lead.source !== 'HarvestMyData' ? lead.source : 'Not provided'}</p>
+      <p className={s.sectionLabel}>Start a conversation</p>
       <ContactActions lead={lead} templates={templates} />
-      <p className={s.muted}>{lead.biography || 'No biography provided.'}</p>
-      <p className={s.muted}>{lead.assignedDay ? `Assigned ${lead.assignedDay}` : 'Waiting for allocation'}{lead.calledAt ? ` · Called ${new Date(lead.calledAt).toLocaleDateString()}` : ''}</p>
-      {!!lead.activities?.length && <div className={s.history}><h3>Recent activity</h3>{lead.activities.map(a => <p key={a.id}><strong>{CRM_STATUS_LABELS[a.status as CrmStatus] ?? a.status}</strong> · {new Date(a.createdAt).toLocaleString()}<br />{a.note || 'Status updated'}</p>)}</div>}
     </div>
     <form className={s.edit} onSubmit={async e => { e.preventDefault(); await onSave({ action: 'update', id: lead.id, version: lead.version, status, notes, called: Boolean(lead.calledAt), followUpAt: followUp ? new Date(followUp).toISOString() : null }) }}>
-      <div className={s.formRow}><CrmOutcomeSelect value={status} onChange={setStatus} disabled={busy || (suppressed && !admin)} /><label>Follow-up date (your local time)<input type="datetime-local" value={followUp} onChange={e => setFollowUp(e.target.value)} required={status === 'FOLLOW_UP'} disabled={busy || ['DO_NOT_CONTACT', 'WON', 'NOT_INTERESTED'].includes(status)} /></label></div>
-      <label>Conversation notes<textarea value={notes} maxLength={5000} onChange={e => setNotes(e.target.value)} placeholder="What was discussed? What happens next?" disabled={busy} /></label>
-      <div className={s.actions}><button className={s.primary} disabled={busy} type="submit"><Check />{busy ? 'Saving…' : 'Save outcome'}</button><span className={s.muted}>Saved to the lead’s activity history.</span></div>
+      <p className={s.sectionLabel}>Log the result</p>
+      <div className={s.formRow}><CrmOutcomeSelect value={status} onChange={setStatus} disabled={busy || (suppressed && !admin)} />{(status === 'FOLLOW_UP' || followUp) && <label>Follow-up date<input type="datetime-local" value={followUp} onChange={e => setFollowUp(e.target.value)} required={status === 'FOLLOW_UP'} disabled={busy || ['DO_NOT_CONTACT', 'WON', 'NOT_INTERESTED'].includes(status)} /></label>}</div>
+      <div><label htmlFor={'lead-notes-' + lead.id}>Notes (optional)</label><textarea id={'lead-notes-' + lead.id} rows={3} value={notes} maxLength={5000} onChange={e => setNotes(e.target.value)} placeholder="Add a short note or next step…" disabled={busy} /></div>
+      <button className={s.primary + ' ' + s.saveLead} disabled={busy} type="submit"><Check />{busy ? 'Saving…' : 'Save outcome'}</button>
     </form>
+    <details className={s.leadMore}><summary>Lead details & activity</summary><div className={s.moreBody}>
+      {!![lead.category, lead.country].filter(Boolean).length && <p>{[lead.category, lead.country].filter(Boolean).join(' · ')}</p>}
+      {lead.biography && <p>{lead.biography}</p>}
+      {lead.username && <a href={'https://www.instagram.com/' + encodeURIComponent(lead.username) + '/'} target="_blank" rel="noopener noreferrer">Open Instagram profile <ArrowUpRight size={14} /></a>}
+      {lead.assignedDay && <p>Assigned {lead.assignedDay}</p>}{lead.calledAt && <p>Called {new Date(lead.calledAt).toLocaleDateString()}</p>}
+      {!!lead.activities?.length && <div className={s.history}><strong>Recent activity</strong>{lead.activities.map(a => <p key={a.id}><strong>{CRM_STATUS_LABELS[a.status as CrmStatus] ?? a.status}</strong> · {new Date(a.createdAt).toLocaleString()}{a.note && <><br />{a.note}</>}</p>)}</div>}
+    </div></details>
   </div>
 }
 
