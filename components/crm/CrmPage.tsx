@@ -5,9 +5,14 @@ export async function CrmPage({ admin = false }: { admin?: boolean; loginError?:
   let gate = ''; let error = ''; let signedIn = false
   try { await requireCrmAccess(admin); signedIn = true }
   catch (e) {
-    gate = e instanceof CrmError && e.status === 423 ? 'password' : e instanceof CrmError && e.status === 401 ? 'signin' : 'denied'
+    gate = e instanceof CrmError ? (e.status === 423 ? 'password' : e.status === 401 ? 'signin' : 'denied') : 'unavailable'
     signedIn = e instanceof CrmError && e.status !== 401
     error = e instanceof CrmError && ![401,423].includes(e.status) ? e.message : e instanceof CrmError ? '' : 'CRM is temporarily unavailable. Please try again.'
+    if (!(e instanceof CrmError)) {
+      const missingAuth = e instanceof Error && e.message === 'AUTH_NOT_CONFIGURED'
+      console.error('[CRM] Access check failed:', missingAuth ? 'AUTH_NOT_CONFIGURED: Set ELYSERA_SUPABASE_URL and ELYSERA_SUPABASE_ANON_KEY.' : 'Unexpected service error')
+      if (missingAuth && process.env.NODE_ENV === 'development') error = 'Local sign-in is not configured. Set ELYSERA_SUPABASE_URL and ELYSERA_SUPABASE_ANON_KEY in .env.local.'
+    }
   }
   return <div lang="en" className={s.portal}>
     <nav className={s.portalNav} aria-label="CRM navigation"><a className={s.brand} href="/">ELYSERA<span>SKINCARE</span></a><div><a href={admin ? '/admin' : '/dashboard'}>Back to {admin ? 'administration' : 'dashboard'}</a>{signedIn ? <form action="/api/crm-auth/logout" method="post"><button>Sign out</button></form> : <a href={`/api/crm-auth/start?returnTo=${admin ? '/admin/crm' : '/dashboard/crm'}`}>Sign in</a>}</div></nav>
