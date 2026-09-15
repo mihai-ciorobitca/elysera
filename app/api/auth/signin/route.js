@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server'
-import {authClient,principalFor} from '@/lib/auth/server'
+import {authClient,principalFor,adminPrincipalFor} from '@/lib/auth/server'
 import {sameOrigin,validCredentials} from '@/lib/auth/policy.mjs'
 import {loginRateLimit} from '@/lib/auth/rate-limit'
 export const dynamic='force-dynamic'
@@ -18,6 +18,7 @@ export async function POST(request){
   const {data:assurance,error:mfaError}=await client.auth.mfa.getAuthenticatorAssuranceLevel()
   if(mfaError){await client.auth.signOut({scope:'local'});return reply({error:'Anmeldung derzeit nicht möglich.'},503)}
   if(assurance?.nextLevel==='aal2'&&assurance.currentLevel!=='aal2')return reply({mfaRequired:true},200)
+  if(await adminPrincipalFor(client))return reply({ok:true,redirect:'/admin'})
   if(!await principalFor(client)){await client.auth.signOut({scope:'local'});return reply({error:'Dieses Konto kann hier nicht angemeldet werden.'},403)}
   return reply({ok:true,redirect:'/dashboard'})
  }catch{return reply({error:'Die Anmeldung ist vorübergehend nicht verfügbar. Bitte später erneut versuchen.'},503)}
