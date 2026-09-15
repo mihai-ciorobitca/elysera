@@ -291,3 +291,6 @@
 }
 
 @media(max-width:600px) { .leadRow>.emailSelect { grid-column:2; grid-row:2; justify-self:end; } .leadRow>.badge { grid-column:1; grid-row:2; justify-self:start; } .leadRow>.contact { grid-column:1 / -1; grid-row:3; } }
+
+.loadingSpin { animation:crmLoadingSpin 1s linear infinite; transform-origin:center; }
+@keyframes crmLoadingSpin { to { transform:rotate(360deg); } }
