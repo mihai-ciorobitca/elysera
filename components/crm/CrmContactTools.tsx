@@ -26,10 +26,13 @@ export function ContactActions({ lead, templates }: { lead: CrmLeadView; templat
   if (lead.status === 'DO_NOT_CONTACT') return <p className={s.muted}>Do not contact this lead.</p>
   const links = contactLinks(lead, templates)
   return <div className={s.contactTools}><div className={s.quickContact}>
-    {links.call && <a className={s.button} href={links.call}>Call</a>}
-    {links.whatsapp && <a className={s.button} href={links.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
-    {links.email && <a className={s.button} href={links.email}>Email</a>}
-    {links.instagramDm && <a className={s.button} href={links.instagramDm} target="_blank" rel="noopener noreferrer">Instagram</a>}
+    {([
+      { label: 'Call', href: links.call, external: false, missing: 'No phone number available' },
+      { label: 'WhatsApp', href: links.whatsapp, external: true, missing: 'No international phone number available' },
+      { label: 'Email', href: links.email, external: false, missing: 'No email address available' },
+      { label: 'Instagram profile', href: links.instagram, external: true, missing: 'No Instagram username available' },
+      { label: 'Instagram DM', href: links.instagramDm, external: true, missing: 'No Instagram username available' },
+    ]).map(action => action.href ? <a key={action.label} className={s.button} href={action.href} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener noreferrer' : undefined}>{action.label}</a> : <button key={action.label} type="button" disabled title={action.missing}>{action.label}</button>)}
   </div>{links.instagramDm && <details className={s.messageDrawer}><summary>Instagram message</summary><p className={s.messagePreview}>{contactMessage(templates.instagram, lead)}</p><button type="button" onClick={async () => { try { await navigator.clipboard.writeText(contactMessage(templates.instagram, lead)); setNotice('Copied. Paste into Instagram.') } catch { setNotice('Select and copy the message above.') } }}>Copy message</button></details>}<span role="status">{notice}</span></div>
 }
 
