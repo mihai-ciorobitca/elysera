@@ -304,3 +304,7 @@
 .leadRow[data-selecting="false"] { grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) 135px 85px; }
 @media(min-width:601px) and (max-width:1000px) { .leadRow[data-selecting="false"] { grid-template-columns:minmax(0,1fr) 120px 85px; } .leadRow[data-selecting="false"]>.contact { grid-column:1; } }
 @media(max-width:600px) { .emailMode { padding:0 16px 14px; } .leadRow[data-selecting="false"] { grid-template-columns:minmax(0,1fr) auto; } }
+
+.messageDrawer .instagramCopyText { width:calc(100% - 28px); margin:0 14px 12px; font-size:13px; min-height:110px; }
+.messageDrawer>.button { margin:0 14px 14px 0; font-size:12px; }
+.messageDrawer .instagramHint { margin:0; padding:0 14px 14px; font-size:12px; color:var(--crm-muted); }

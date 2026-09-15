@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { contactLinks, contactMessage, DEFAULT_CONTACT_TEMPLATES, emailDraft, type ContactTemplates } from '@/lib/crm-contact'
 import type { CrmLeadView } from '@/lib/diamond-crm'
 import s from './DiamondCrm.module.css'
@@ -29,8 +29,27 @@ export function MessageTemplates({ viewerId, templates, onChange }: { viewerId?:
 
 export function ContactActions({ lead, templates }: { lead: CrmLeadView; templates: ContactTemplates }) {
   const [notice, setNotice] = useState('')
+  const messageDrawer = useRef<HTMLDetailsElement>(null)
   if (lead.status === 'DO_NOT_CONTACT') return <p className={s.muted}>Do not contact this lead.</p>
   const links = contactLinks(lead, templates)
+  async function copyInstagram(openChat = false) {
+    const text = contactMessage(templates.instagram, lead)
+    let copied = false
+    try { await navigator.clipboard.writeText(text); copied = true } catch {
+      // Local phone testing uses HTTP, where the Clipboard API is unavailable.
+      const field = document.createElement('textarea')
+      field.value = text; field.setAttribute('readonly', ''); field.style.position = 'fixed'; field.style.opacity = '0'
+      document.body.appendChild(field); field.focus(); field.select(); field.setSelectionRange(0, text.length)
+      try { copied = document.execCommand('copy') } catch { copied = false } finally { field.remove() }
+    }
+    if (copied) {
+      setNotice('Message copied. Paste it into Instagram to send.')
+      if (openChat && links.instagramDm) window.location.assign(links.instagramDm)
+    } else {
+      setNotice('Select and copy the message below, then open Instagram DM.')
+      if (messageDrawer.current) messageDrawer.current.open = true
+    }
+  }
   return <div className={s.contactTools}><div className={s.quickContact}>
     {([
       { label: 'Call', href: links.call, external: false, missing: 'No phone number available' },
@@ -38,8 +57,8 @@ export function ContactActions({ lead, templates }: { lead: CrmLeadView; templat
       { label: 'Email', href: links.email, external: false, missing: 'No email address available' },
       { label: 'Instagram profile', href: links.instagram, external: true, missing: 'No Instagram username available' },
       { label: 'Instagram DM', href: links.instagramDm, external: true, missing: 'No Instagram username available' },
-    ]).map(action => action.href ? <a key={action.label} className={s.button} href={action.href} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener noreferrer' : undefined}>{action.label}</a> : <button key={action.label} type="button" disabled title={action.missing}>{action.label}</button>)}
-  </div>{links.instagramDm && <details className={s.messageDrawer}><summary>Instagram message</summary><p className={s.messagePreview}>{contactMessage(templates.instagram, lead)}</p><button type="button" onClick={async () => { try { await navigator.clipboard.writeText(contactMessage(templates.instagram, lead)); setNotice('Copied. Paste into Instagram.') } catch { setNotice('Select and copy the message above.') } }}>Copy message</button></details>}<span role="status">{notice}</span></div>
+    ]).map(action => action.href ? <a key={action.label} className={s.button} href={action.href} onClick={action.label === 'Instagram DM' ? e => { e.preventDefault(); void copyInstagram(true) } : undefined} title={action.label === 'Instagram DM' ? 'Copy preset message and open Instagram — paste to send' : undefined} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener noreferrer' : undefined}>{action.label}</a> : <button key={action.label} type="button" disabled title={action.missing}>{action.label}</button>)}
+  </div>{links.instagramDm && <details ref={messageDrawer} className={s.messageDrawer}><summary>Instagram message · copy & paste</summary><textarea className={s.instagramCopyText} aria-label="Instagram message to copy" readOnly rows={4} value={contactMessage(templates.instagram, lead)} onFocus={e => e.currentTarget.select()} /><button type="button" onClick={() => void copyInstagram()}>Copy message</button><a className={s.button} href={links.instagramDm} target="_blank" rel="noopener noreferrer">Open Instagram DM</a><p className={s.instagramHint}>Paste the copied message into the chat.</p></details>}<span role="status">{notice}</span></div>
 }
 
 type Recipient = { id: string; email: string; fullName: string }
