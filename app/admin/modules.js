@@ -16,6 +16,7 @@ const definitions=[
  ['profit-forecast','Gewinnprognose',2,'chart','Szenarien für die weitere Geschäftsentwicklung planen.','Szenario,Bestellungen,Umsatz,Kosten,Ergebnis'],
  ['leaderboard','Rangliste',2,'chart','Partnerleistung und Qualifikationen vergleichen.','Platz,Partner,Umsatz,Rang,Status'],
  ['diamond-case','Diamond Case',2,'bag','Prämien, Gewinnchancen und Einlösungen verwalten.','Prämie,Typ,Gewinnchance,Bestand,Status'],
+ ['crm','Lead CRM',2,'team','Leads importieren, verteilen und Gespräche nachverfolgen.','Name,Status'],
  ['diamond-club-invites','Club-Einladungen',2,'link','Kampagnen und Empfänger für Club-Einladungen verwalten.','Empfänger,Kampagne,Versandstatus'],
  ['events','Events',3,'bell','Veranstaltungen, Anmeldungen und Turnierabläufe verwalten.','Titel,Datum,Teilnehmer,Warteliste,Status'],
  ['emails','E-Mails',3,'bell','E-Mail-Inhalte und Kampagnen vorbereiten.','Betreff,Zielgruppe,Geplant am,Status'],

@@ -20,3 +20,100 @@ model Product {
 
   @@map("Products")
 }
+
+// Projection of existing PeptiKing tables. Do not db push this partial schema.
+model User {
+ id String @id
+ email String @unique
+ firstName String?
+ secondName String?
+ role Role @default(USER)
+ membership Membership @default(NONE)
+ membership_expires_at DateTime?
+ blocked Boolean @default(false)
+ updateDate DateTime?
+ crmMembership CrmMember?
+}
+
+model AppConfig {
+ id Int @id
+ updateDate DateTime?
+}
+
+enum Role {
+  USER
+  AFFILIATE
+  AFFILIATE_TEST
+  AFFILIATE_TRIAL
+  TEST
+  SUPER_USER
+  ULTRA_USER
+  MASTER_USER
+  ADMIN
+  STAFF
+}
+
+enum Membership {
+  NONE
+  /// Staff-only test tier (not offered to customers)
+  ADMIN_TEST
+  STANDARD // access levels 1-2
+  PREMIUM // access levels 1-5
+  DIAMOND // access levels 1-10
+}
+
+model CrmMember {
+  userId String @id
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  enabled Boolean @default(true)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  leads CrmLead[]
+}
+
+model CrmSettings {
+  id Int @id @default(1)
+  passwordHash String?
+  updatedAt DateTime @updatedAt
+}
+
+model CrmLead {
+  id String @id @default(cuid())
+  username String? @unique
+  fullName String @default("")
+  email String? @unique
+  phone String? @unique
+  biography String @default("") @db.Text
+  country String @default("")
+  category String @default("")
+  website String @default("") @db.Text
+  source String @default("HarvestMyData")
+  importName String
+  assignedToId String?
+  assignedTo CrmMember? @relation(fields: [assignedToId], references: [userId], onDelete: SetNull)
+  assignedDay String?
+  assignedAt DateTime?
+  status String @default("NEW")
+  calledAt DateTime?
+  notes String @default("") @db.Text
+  followUpAt DateTime?
+  version Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  activities CrmActivity[]
+
+  @@index([assignedToId, assignedDay])
+  @@index([assignedToId, followUpAt])
+  @@index([status, createdAt])
+}
+
+model CrmActivity {
+  id String @id @default(cuid())
+  leadId String
+  lead CrmLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  actorId String
+  status String
+  note String @db.Text
+  createdAt DateTime @default(now())
+  @@index([leadId, createdAt])
+}
