@@ -10,7 +10,13 @@ export function MessageTemplates({ viewerId, templates, onChange }: { viewerId?:
     if (!viewerId) return
     try {
       const saved = JSON.parse(localStorage.getItem(`elysera-crm-templates:${viewerId}`) || 'null')
-      if (saved && Object.keys(DEFAULT_CONTACT_TEMPLATES).every(key => typeof saved[key] === 'string' && saved[key].length <= 4000)) onChange(saved)
+      if (saved && Object.keys(DEFAULT_CONTACT_TEMPLATES).every(key => typeof saved[key] === 'string' && saved[key].length <= 4000)) {
+        if (saved.whatsapp === 'Hallo {name}, ich bin auf dein Profil über {keyword} aufmerksam geworden. Darf ich dir ELYSERA vorstellen?') {
+          saved.whatsapp = DEFAULT_CONTACT_TEMPLATES.whatsapp
+          localStorage.setItem('elysera-crm-templates:' + viewerId, JSON.stringify(saved))
+        }
+        onChange(saved)
+      }
       else onChange({ ...DEFAULT_CONTACT_TEMPLATES })
     } catch { setNotice('Saved templates could not be loaded. You can still edit messages for this session.') }
   }, [viewerId, onChange])

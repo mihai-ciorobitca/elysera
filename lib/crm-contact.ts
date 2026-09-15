@@ -3,7 +3,7 @@ import type { CrmLeadView } from './diamond-crm'
 export const CRM_EMAIL_LIMIT = 30
 export type ContactTemplates = { whatsapp: string; instagram: string; emailSubject: string; emailBody: string }
 export const DEFAULT_CONTACT_TEMPLATES: ContactTemplates = {
-  whatsapp: 'Hallo {name}, ich bin auf dein Profil über {keyword} aufmerksam geworden. Darf ich dir ELYSERA vorstellen?',
+  whatsapp: 'Hallo {name},\n\nich bin auf dein Profil über {keyword} aufmerksam geworden.\n\nDarf ich dir ELYSERA vorstellen?\n\nLiebe Grüße',
   instagram: 'Hallo {name}, ich habe dein Profil über {keyword} entdeckt. Darf ich dir mehr über ELYSERA erzählen?',
   emailSubject: 'ELYSERA · Eine persönliche Einladung',
   emailBody: 'Hallo {name},\n\nich möchte dir ELYSERA vorstellen. Hast du Interesse an weiteren Informationen?\n\nLiebe Grüße',

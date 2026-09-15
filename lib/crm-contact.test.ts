@@ -20,6 +20,7 @@ const lead = { fullName: 'Anna & Co', username: 'anna.beauty', source: '#kosmeti
 test('contact links encode personalized messages and suppress do-not-contact actions', () => {
   const links = contactLinks(lead, DEFAULT_CONTACT_TEMPLATES)
   assert.equal(links.call, 'tel:+491234567890')
+  assert.equal(new URL(links.whatsapp!).searchParams.get('text'), 'Hallo Anna & Co,\n\nich bin auf dein Profil über #kosmetik aufmerksam geworden.\n\nDarf ich dir ELYSERA vorstellen?\n\nLiebe Grüße')
   assert.equal(new URL(links.whatsapp!).hostname, 'wa.me')
   assert.match(new URL(links.whatsapp!).searchParams.get('text')!, /Anna & Co/)
   assert.equal(links.instagramDm, 'https://ig.me/m/anna.beauty')
