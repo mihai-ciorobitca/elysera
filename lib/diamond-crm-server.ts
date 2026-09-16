@@ -41,7 +41,8 @@ export async function requireCrmAccess(adminOnly = false) {
 }
 
 /** Serializes allocation across cron, admins and member claims, including multiple instances. */
-export async function allocateCrmLeads(onlyUserId?: string, adminOverride = false) {
+export async function allocateCrmLeads(onlyUserId?: string, adminOverride = false, quantity?: number) {
+  if (quantity !== undefined && (!adminOverride || !onlyUserId || !Number.isSafeInteger(quantity) || quantity < 1 || quantity > 2147483647)) throw new CrmError('Enter a valid lead quantity.')
   return prisma.$transaction(async tx => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(73190452)`
     const day = crmDay()
@@ -52,14 +53,15 @@ export async function allocateCrmLeads(onlyUserId?: string, adminOverride = fals
     })
     const eligible = members.filter(m => isDiamondClubCandidateRole(m.user.role) && canAccessDiamondClub({ role: m.user.role, membership: m.user.membership, membershipExpiresAt: m.user.membership_expires_at }))
     const counts = await tx.crmLead.groupBy({ by: ['assignedToId'], where: { assignedToId: { in: eligible.map(m => m.userId) }, status: 'NEW' }, _count: true })
-    const remaining = new Map(eligible.map(member => [member.userId, allocationBatchSize(counts.find(c => c.assignedToId === member.userId)?._count ?? 0, adminOverride)]))
+    const remaining = new Map(eligible.map(member => [member.userId, (quantity ?? allocationBatchSize(counts.find(c => c.assignedToId === member.userId)?._count ?? 0, adminOverride))]))
     const totalNeeded = Array.from(remaining.values()).reduce((sum, count) => sum + count, 0)
     if (!totalNeeded) return { day, allocated: 0 }
     const pool = await tx.crmLead.findMany({ where: { assignedToId: null, assignedDay: null, status: 'NEW' }, select: { id: true }, orderBy: [{ createdAt: 'asc' }, { id: 'asc' }], take: totalNeeded })
+    if (quantity !== undefined && pool.length < quantity) throw new CrmError('Only ' + pool.length + ' unassigned leads are available.', 409)
     const assignments = new Map(eligible.map(member => [member.userId, [] as string[]]))
     let cursor = 0
     // Share a short pool evenly instead of exhausting it for the first user.
-    for (let round = 0; round < CRM_BATCH_SIZE && cursor < pool.length; round++) {
+    for (let round = 0; round < (quantity ?? CRM_BATCH_SIZE) && cursor < pool.length; round++) {
       for (const [userId, needed] of Array.from(remaining)) {
         if (round < needed && cursor < pool.length) assignments.get(userId)!.push(pool[cursor++].id)
       }

@@ -77,11 +77,12 @@ export async function POST(request: NextRequest) {
     }
     await requireCrmAccess()
     if (body.action === 'allocate') {
-      if (!identity.admin && (body.userId !== undefined || body.override !== undefined)) throw new CrmError('Administrator access required.', 403)
+      if (!identity.admin && (body.userId !== undefined || body.override !== undefined || body.quantity !== undefined)) throw new CrmError('Administrator access required.', 403)
       if (body.userId !== undefined && (typeof body.userId !== 'string' || !body.userId.trim())) throw new CrmError('Select a member.')
       if (body.override !== undefined && typeof body.override !== 'boolean') throw new CrmError('Invalid allocation option.')
       if (body.override === true && !body.userId) throw new CrmError('Select a member for extra leads.')
-      const result = await allocateCrmLeads(identity.admin ? body.userId as string | undefined : identity.userId, identity.admin && body.override === true)
+      if (body.quantity !== undefined && (!Number.isSafeInteger(body.quantity) || (body.quantity as number) < 1 || (body.quantity as number) > 2147483647 || body.override !== true || !body.userId)) throw new CrmError('Enter a valid lead quantity and select a member.')
+      const result = await allocateCrmLeads(identity.admin ? body.userId as string | undefined : identity.userId, identity.admin && body.override === true, body.quantity as number | undefined)
       return json(result)
     }
     if (body.action === 'update') {

@@ -324,3 +324,7 @@
 @media(prefers-reduced-motion:reduce) {
   .workspace .loadingSpin, .routeLoading .loadingSpin { animation-duration:2.5s!important; }
 }
+
+.allocateForm { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; }
+.allocateForm label { display:grid; gap:5px; font-size:12px; }
+.allocateForm input { width:130px; min-height:44px; }
