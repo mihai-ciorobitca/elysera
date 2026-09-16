@@ -82,6 +82,7 @@ export async function crmSnapshot(identity: Awaited<ReturnType<typeof crmIdentit
   const base = identity.admin ? (assignee ? { assignedToId: assignee === 'unassigned' ? null : assignee } : {}) : { assignedToId: identity.userId }
   const where = {
     ...base,
+    ...(params.get('emailOnly') === 'true' ? { email: { not: null, notIn: [''] } } : {}),
     ...(status ? { status } : {}),
     ...(params.get('scope') === 'today' ? { assignedDay: day } : {}),
     ...(params.get('scope') === 'followup' ? { followUpAt: { lte: new Date() }, AND: [{ status: { notIn: ['DO_NOT_CONTACT', 'WON', 'NOT_INTERESTED'] } }] } : {}),
