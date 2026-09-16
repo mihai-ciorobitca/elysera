@@ -308,3 +308,9 @@
 .messageDrawer .instagramCopyText { width:calc(100% - 28px); margin:0 14px 12px; font-size:13px; min-height:110px; }
 .messageDrawer>.button { margin:0 14px 14px 0; font-size:12px; }
 .messageDrawer .instagramHint { margin:0; padding:0 14px 14px; font-size:12px; color:var(--crm-muted); }
+
+.routeLoading { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; min-height:100dvh; padding:24px; box-sizing:border-box; background:#fff; color:#132448; text-align:center; }
+.routeLoading>div { width:100%; max-width:520px; }
+.routeLoading svg { display:block; width:30px; height:30px; margin:0 auto 16px; color:#aa8955; }
+.routeLoading h1 { margin:0 0 12px; font-size:clamp(24px,4vw,36px); line-height:1.25; }
+.routeLoading p { margin:0; font-size:14px; line-height:1.6; text-align:center; }
