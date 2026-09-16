@@ -6,8 +6,8 @@ assert.equal(referralLink('https://www.elysera.org','ABC123'),'https://www.elyse
 assert.equal(referralCode('../bad?ref=123'),null)
 let code='ABC123',parent={id:'parent-id',level:3},queries=[],writes=[]
 const tx={$queryRaw:async(s,...v)=>{queries.push([s.join('?'),v]);return parent?[parent]:[]},$executeRaw:async(s,...v)=>{writes.push([s.join('?'),v]);return 1}}
-globalThis.refFixture={cookies:async()=>({get:()=>({value:code})}),randomUUID,prisma:{$transaction:async fn=>fn(tx)},referralCookie:'elysera-referral',referralInput}
-let source=readFileSync('lib/auth/referral-account.js','utf8').replace(/^import .*\r?\n/gm,'');source='const {cookies,randomUUID,prisma,referralCookie,referralInput}=globalThis.refFixture;\n'+source
+globalThis.refFixture={cookies:async()=>({get:()=>({value:code})}),randomUUID,prisma:{$transaction:async fn=>fn(tx)},referralCookie:'elysera-referral',referralInput,storeDetails:async()=>{}}
+let source=readFileSync('lib/auth/referral-account.js','utf8').replace(/^import .*\r?\n/gm,'');source='const {cookies,randomUUID,prisma,referralCookie,referralInput,storeDetails}=globalThis.refFixture;\n'+source
 const {insertReferralAccount}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'))
 const input={id:'new',email:'new@example.test',name:'New',last:'Partner',identityId:randomUUID(),verified:true}
 await insertReferralAccount(input);assert.ok(writes[0][0].includes('pg_advisory_xact_lock'));assert.equal(writes[1][1][7],'parent-id');assert.equal(writes[1][1][8],4);assert.match(writes[1][1][9],/^[A-F0-9]{12}$/);assert.ok(writes[1][0].includes('ON CONFLICT ("email") DO NOTHING'));assert.ok(queries[0][0].includes('lower("email")<>'));assert.ok(queries[0][0].includes('"blocked"=false'))

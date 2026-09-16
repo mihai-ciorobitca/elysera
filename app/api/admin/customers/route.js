@@ -19,8 +19,8 @@ export async function GET(request){
    const orders=await prisma.$queryRaw`SELECT o."id",o."createdAt",o."status"::text AS status,o."total",json_agg(json_build_object('name',p."name",'quantity',i."quantity")) AS items FROM public."Order" o JOIN public."OrderItem" i ON i."orderId"=o."id" JOIN public."Products" p ON p."id"=i."productId" WHERE o."userId"=${id} AND EXISTS(SELECT 1 FROM public."OrderItem" own WHERE own."orderId"=o."id" AND own."productId" IN (${Prisma.join(ids)})) AND NOT EXISTS(SELECT 1 FROM public."OrderItem" other WHERE other."orderId"=o."id" AND (other."productId" IS NULL OR other."productId" NOT IN (${Prisma.join(ids)}))) GROUP BY o."id" ORDER BY o."createdAt" DESC LIMIT 101`
    return reply({customer:rows[0],orders:orders.slice(0,100),limited:orders.length>100})
   }
-  const customers=await prisma.$queryRaw`SELECT u."id",u."firstName",u."secondName",u."email",jsonb_build_object('street',p."details"->>'street','houseNumber',p."details"->>'houseNumber','postalCode',p."details"->>'postalCode','city',p."details"->>'city','country',p."details"->>'country','phone',p."details"->>'phone') AS details,p."updatedAt" FROM public."User" u JOIN public."ElyseraAccountProfile" p ON p."userId"=u."id" ORDER BY p."updatedAt" DESC,u."id" LIMIT 1001`
-  return reply({customers:customers.slice(0,1000),limited:customers.length>1000})
+  const customers=await prisma.$queryRaw`SELECT u."id",u."firstName",u."secondName",u."email",jsonb_build_object('street',p."details"->>'street','houseNumber',p."details"->>'houseNumber','postalCode',p."details"->>'postalCode','city',p."details"->>'city','country',p."details"->>'country','phone',p."details"->>'phone') AS details,p."updatedAt" FROM public."User" u JOIN public."ElyseraAccountProfile" p ON p."userId"=u."id" ORDER BY p."updatedAt" DESC,u."id"`
+  return reply({customers,limited:false})
  }catch{return reply({error:'Kunden konnten nicht geladen werden. Bitte erneut versuchen.'},503)}
 }
 export async function PATCH(request){

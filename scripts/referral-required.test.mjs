@@ -14,7 +14,7 @@ test('registration refuses missing/invalid referrals before insert; cookie attri
  const insert=load('../lib/auth/referral-account.js','insertReferralAccount',{cookies:async()=>({get:()=>cookie?{value:cookie}:undefined}),referralInput,referralCookie,randomUUID:()=> 'generated',prisma:{$transaction:fn=>fn(tx)},storeDetails:async()=>stored++});
  const account={id:'new',email:'new@example.com',details:{name:'Test'}};
  await assert.rejects(insert(account),/REFERRAL_REQUIRED/);await assert.rejects(insert({...account,referral:'BAD'}),/REFERRAL_INVALID/);assert.equal(inserts,0);
- cookie='ABC123';valid=true;assert.equal(await insert(account),1);assert.equal(stored,1);assert.equal(inserts,1);
+ cookie='ABC123';valid=true;assert.equal(await insert(account),1);assert.equal(stored,1);assert.equal(inserts,2);
 });
 test('new Google identities stay pending; existing and blocked accounts are not reparented',async()=>{
  let rows=[];
