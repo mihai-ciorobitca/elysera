@@ -328,3 +328,8 @@
 .allocateForm { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; }
 .allocateForm label { display:grid; gap:5px; font-size:12px; }
 .allocateForm input { width:130px; min-height:44px; }
+
+/* Give longer filter labels room and wrap safely on narrow phones. */
+.workspace .tabs { width:390px; max-width:100%; grid-template-columns:1fr 1.35fr 1fr; flex-shrink:0; }
+.workspace .tabs button { min-width:0; height:auto; min-height:44px; padding:10px 12px; white-space:normal; text-align:center; line-height:1.3; }
+@media(max-width:600px) { .workspace .tabs { width:100%; } .workspace .tabs button { padding:10px 8px; font-size:12px; } }
