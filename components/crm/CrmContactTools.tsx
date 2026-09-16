@@ -15,6 +15,10 @@ export function MessageTemplates({ viewerId, templates, onChange }: { viewerId?:
           saved.whatsapp = DEFAULT_CONTACT_TEMPLATES.whatsapp
           localStorage.setItem('elysera-crm-templates:' + viewerId, JSON.stringify(saved))
         }
+        if (saved.instagram === 'Hallo {name}, ich habe dein Profil über {keyword} entdeckt. Darf ich dir mehr über ELYSERA erzählen?') {
+          saved.instagram = DEFAULT_CONTACT_TEMPLATES.instagram
+          localStorage.setItem('elysera-crm-templates:' + viewerId, JSON.stringify(saved))
+        }
         onChange(saved)
       }
       else onChange({ ...DEFAULT_CONTACT_TEMPLATES })
