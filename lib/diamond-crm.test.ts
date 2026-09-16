@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { crmDay, parseHarvestCsv, readCrmCsv, remainingDailyLeads } from './diamond-crm'
+import { crmDay, parseHarvestCsv, readCrmCsv, allocationBatchSize } from './diamond-crm'
 import { crmUnlockToken, verifyCrmUnlock } from './diamond-crm-token'
 
 test('HarvestMyData headers, quoted commas/newlines, BOM and phone normalization', () => {
@@ -21,11 +21,12 @@ test('invalid links are removed and malformed CSV rejected', () => {
   assert.throws(() => parseHarvestCsv('full_name\nName'))
   assert.throws(() => readCrmCsv('x'.repeat(5 * 1024 * 1024 + 1)))
 })
-test('daily limit and Berlin day boundary handle daylight saving time', () => {
-  assert.equal(remainingDailyLeads(0), 50)
-  assert.equal(remainingDailyLeads(49), 1)
-  assert.equal(remainingDailyLeads(50), 0)
-  assert.equal(remainingDailyLeads(100), 0)
+test('batch gate and Berlin assignment dates handle daylight saving time', () => {
+  assert.equal(allocationBatchSize(0), 50)
+  assert.equal(allocationBatchSize(49), 0)
+  assert.equal(allocationBatchSize(50), 0)
+  assert.equal(allocationBatchSize(100), 0)
+  assert.equal(allocationBatchSize(100, true), 50)
   assert.equal(crmDay(new Date('2026-09-14T21:59:59Z')), '2026-09-14')
   assert.equal(crmDay(new Date('2026-09-14T22:00:00Z')), '2026-09-15')
   assert.equal(crmDay(new Date('2026-12-14T23:00:00Z')), '2026-12-15')

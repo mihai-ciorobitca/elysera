@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { currentAdmin, currentUser } from '@/lib/auth/server'
 import { canAccessDiamondClub, isDiamondClubCandidateRole } from '@/lib/diamond-club-access'
-import { crmDay, CRM_DAILY_LIMIT, remainingDailyLeads, type CrmSnapshot, type CrmStatus } from '@/lib/diamond-crm'
+import { crmDay, CRM_BATCH_SIZE, allocationBatchSize, type CrmSnapshot, type CrmStatus } from '@/lib/diamond-crm'
 import { verifyCrmUnlock } from '@/lib/diamond-crm-token'
 
 export const CRM_COOKIE = 'elysera-crm-unlock'
@@ -41,7 +41,7 @@ export async function requireCrmAccess(adminOnly = false) {
 }
 
 /** Serializes allocation across cron, admins and member claims, including multiple instances. */
-export async function allocateCrmLeads(onlyUserId?: string) {
+export async function allocateCrmLeads(onlyUserId?: string, adminOverride = false) {
   return prisma.$transaction(async tx => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(73190452)`
     const day = crmDay()
@@ -51,15 +51,15 @@ export async function allocateCrmLeads(onlyUserId?: string) {
       orderBy: { userId: 'asc' },
     })
     const eligible = members.filter(m => isDiamondClubCandidateRole(m.user.role) && canAccessDiamondClub({ role: m.user.role, membership: m.user.membership, membershipExpiresAt: m.user.membership_expires_at }))
-    const counts = await tx.crmLead.groupBy({ by: ['assignedToId'], where: { assignedDay: day }, _count: true })
-    const remaining = new Map(eligible.map(member => [member.userId, remainingDailyLeads(counts.find(c => c.assignedToId === member.userId)?._count ?? 0)]))
+    const counts = await tx.crmLead.groupBy({ by: ['assignedToId'], where: { assignedToId: { in: eligible.map(m => m.userId) }, status: 'NEW' }, _count: true })
+    const remaining = new Map(eligible.map(member => [member.userId, allocationBatchSize(counts.find(c => c.assignedToId === member.userId)?._count ?? 0, adminOverride)]))
     const totalNeeded = Array.from(remaining.values()).reduce((sum, count) => sum + count, 0)
     if (!totalNeeded) return { day, allocated: 0 }
     const pool = await tx.crmLead.findMany({ where: { assignedToId: null, assignedDay: null, status: 'NEW' }, select: { id: true }, orderBy: [{ createdAt: 'asc' }, { id: 'asc' }], take: totalNeeded })
     const assignments = new Map(eligible.map(member => [member.userId, [] as string[]]))
     let cursor = 0
     // Share a short pool evenly instead of exhausting it for the first user.
-    for (let round = 0; round < CRM_DAILY_LIMIT && cursor < pool.length; round++) {
+    for (let round = 0; round < CRM_BATCH_SIZE && cursor < pool.length; round++) {
       for (const [userId, needed] of Array.from(remaining)) {
         if (round < needed && cursor < pool.length) assignments.get(userId)!.push(pool[cursor++].id)
       }
@@ -103,6 +103,8 @@ export async function crmSnapshot(identity: Awaited<ReturnType<typeof crmIdentit
     members: members.map(m => {
       const stats = memberStats.filter(s => s.assignedToId === m.userId)
       return { userId: m.userId, email: m.user.email, name: [m.user.firstName, m.user.secondName].filter(Boolean).join(' ') || m.user.email, enabled: m.enabled,
+        assignedTotal: stats.reduce((sum, s) => sum + s._count, 0),
+        pending: stats.filter(s => s.status === 'NEW').reduce((sum, s) => sum + s._count, 0),
         assignedToday: stats.filter(s => s.assignedDay === day).reduce((sum, s) => sum + s._count, 0),
         workedToday: workedToday.find(s => s.assignedToId === m.userId)?._count ?? 0,
         interested: stats.filter(s => s.status === 'INTERESTED').reduce((sum, s) => sum + s._count, 0) }

@@ -55,3 +55,49 @@ test('email draft caps requests and rechecks member ownership and do-not-contact
  assert.equal(where.status.not,'DO_NOT_CONTACT')
  assert.equal((await send(['own','foreign'])).status,409)
 })
+
+test('allocation persists across days, gates unfinished leads and supports targeted admin extras',async()=>{
+ const rules=load('lib/diamond-crm.ts',{},'allocationBatchSize,CRM_BATCH_SIZE')
+ let day='2026-09-15',locked=false
+ const rows=Array.from({length:160},(_,i)=>({id:String(i),assignedToId:null,assignedDay:null,status:'NEW'}))
+ const tx={
+  $executeRaw:async()=>{locked=true},
+  crmMember:{findMany:async({where})=>['member','other'].filter(id=>!where.userId||where.userId===id).map(userId=>({userId,user:{}}))},
+  crmLead:{
+   groupBy:async({where})=>{assert.ok(locked);assert.equal(where.assignedDay,undefined);return ['member','other'].map(id=>({assignedToId:id,_count:rows.filter(r=>r.assignedToId===id&&r.status===where.status).length}))},
+   findMany:async({take})=>rows.filter(r=>!r.assignedToId&&!r.assignedDay&&r.status==='NEW').slice(0,take),
+   updateMany:async({where,data})=>{let count=0;for(const row of rows)if(where.id.in.includes(row.id)&&!row.assignedToId){Object.assign(row,data);count++}return {count}}
+  }
+ }
+ const {allocateCrmLeads}=load('lib/diamond-crm-server.ts',{...rules,crmDay:()=>day,isDiamondClubCandidateRole:()=>true,canAccessDiamondClub:()=>true,prisma:{$transaction:async f=>f(tx)}},'allocateCrmLeads')
+ assert.equal((await allocateCrmLeads('member')).allocated,50)
+ const original=rows.filter(r=>r.assignedToId==='member').map(r=>r.id)
+ day='2026-09-16'
+ assert.equal((await allocateCrmLeads('member')).allocated,0)
+ assert.deepEqual(rows.filter(r=>r.assignedToId==='member').map(r=>r.id),original)
+ rows.filter(r=>r.assignedToId==='member').forEach(r=>r.status='CONTACTED')
+ assert.equal((await allocateCrmLeads('member')).allocated,50)
+ assert.equal((await allocateCrmLeads('member')).allocated,0)
+ assert.equal((await allocateCrmLeads('member',true)).allocated,50)
+ assert.equal(rows.filter(r=>r.assignedToId==='member').length,150)
+ assert.equal(rows.filter(r=>r.assignedToId==='other').length,0)
+ assert.equal((await allocateCrmLeads()).allocated,10)
+ assert.equal(rows.filter(r=>r.assignedToId==='other').length,10)
+ assert.equal((await allocateCrmLeads('member',true)).allocated,0)
+})
+
+test('member allocation cannot override completion or choose another member',async()=>{
+ let calls=[];let identity={userId:'member',admin:false}
+ class CrmError extends Error {constructor(message,status=400){super(message);this.status=status}}
+ const {POST}=load('app/api/diamond-crm/route.ts',{CrmError,isSameOriginMutation:()=>true,crmIdentity:async()=>identity,requireCrmAccess:async()=>identity,allocateCrmLeads:async(...args)=>{calls.push(args);return {allocated:50}},NextResponse:{json:(body,options)=>({body,status:options.status})}},'POST')
+ const send=body=>POST(new Request('https://www.elysera.org/api/diamond-crm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'allocate',...body})}))
+ assert.equal((await send({override:true})).status,403)
+ assert.equal((await send({userId:'other'})).status,403)
+ assert.equal(calls.length,0)
+ assert.equal((await send({})).status,200)
+ assert.deepEqual(calls.pop(),['member',false])
+ identity={userId:'admin',admin:true}
+ assert.equal((await send({override:true})).status,400)
+ assert.equal((await send({userId:'other',override:true})).status,200)
+ assert.deepEqual(calls.pop(),['other',true])
+})

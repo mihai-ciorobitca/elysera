@@ -1,16 +1,16 @@
-export const CRM_DAILY_LIMIT = 50
+export const CRM_BATCH_SIZE = 50
+export function allocationBatchSize(pending: number, adminOverride = false): number {
+  return adminOverride || pending === 0 ? CRM_BATCH_SIZE : 0
+}
 export const CRM_TIMEZONE = 'Europe/Berlin'
-export const CRM_STATUSES = ['NEW', 'CALLED', 'NO_ANSWER', 'INTERESTED', 'FOLLOW_UP', 'NOT_INTERESTED', 'WON', 'DO_NOT_CONTACT'] as const
+export const CRM_STATUSES = ['NEW', 'CONTACTED', 'CALLED', 'NO_ANSWER', 'INTERESTED', 'FOLLOW_UP', 'NOT_INTERESTED', 'WON', 'DO_NOT_CONTACT'] as const
 export type CrmStatus = typeof CRM_STATUSES[number]
 export const CRM_STATUS_LABELS: Record<CrmStatus, string> = {
-  NEW: 'New', CALLED: 'Called', NO_ANSWER: 'No answer', INTERESTED: 'Interested',
+  NEW: 'New', CONTACTED: 'Contacted', CALLED: 'Called', NO_ANSWER: 'No answer', INTERESTED: 'Interested',
   FOLLOW_UP: 'Follow-up', NOT_INTERESTED: 'Not interested', WON: 'Converted', DO_NOT_CONTACT: 'Do not contact',
 }
 export function crmDay(now = new Date()): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: CRM_TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
-}
-export function remainingDailyLeads(assigned: number): number {
-  return Math.max(0, CRM_DAILY_LIMIT - Math.max(0, Math.floor(assigned)))
 }
 export function isCrmStatus(value: unknown): value is CrmStatus {
   return typeof value === 'string' && CRM_STATUSES.includes(value as CrmStatus)
@@ -28,7 +28,7 @@ export type CrmSnapshot = {
   viewerId?: string
   passwordConfigured: boolean
   day: string; leads: CrmLeadView[]; total: number; page: number; pool: number; assignedToday: number
-  counts: Record<string, number>; members: { userId: string; name: string; email: string; enabled: boolean; assignedToday: number; workedToday: number; interested: number }[]
+  counts: Record<string, number>; members: { userId: string; name: string; email: string; enabled: boolean; assignedTotal?: number; pending?: number; assignedToday: number; workedToday: number; interested: number }[]
 }
 
 /** RFC 4180 quoting, including newlines in Instagram biographies. */

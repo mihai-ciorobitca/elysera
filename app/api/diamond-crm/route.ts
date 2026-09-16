@@ -76,7 +76,14 @@ export async function POST(request: NextRequest) {
       return json({ ok: true })
     }
     await requireCrmAccess()
-    if (body.action === 'allocate') return json(await allocateCrmLeads(identity.admin ? undefined : identity.userId))
+    if (body.action === 'allocate') {
+      if (!identity.admin && (body.userId !== undefined || body.override !== undefined)) throw new CrmError('Administrator access required.', 403)
+      if (body.userId !== undefined && (typeof body.userId !== 'string' || !body.userId.trim())) throw new CrmError('Select a member.')
+      if (body.override !== undefined && typeof body.override !== 'boolean') throw new CrmError('Invalid allocation option.')
+      if (body.override === true && !body.userId) throw new CrmError('Select a member for extra leads.')
+      const result = await allocateCrmLeads(identity.admin ? body.userId as string | undefined : identity.userId, identity.admin && body.override === true)
+      return json(result)
+    }
     if (body.action === 'update') {
       if (typeof body.id !== 'string' || !isCrmStatus(body.status) || !Number.isInteger(body.version) || typeof body.notes !== 'string' || body.notes.length > 5000 || typeof body.called !== 'boolean') throw new CrmError('Invalid lead update.')
       const followUpAt = body.followUpAt === null || body.followUpAt === '' ? null : typeof body.followUpAt === 'string' ? new Date(body.followUpAt) : undefined
