@@ -1,5 +1,8 @@
-export const presale = {start:'23.09.2026',setPrice:139,serumPrice:59}
-export const presalePriceLabel = slug => slug === 'renewal-serum' ? '59 € einzeln' : 'Im 3er-Set für 139 €'
+import {prices} from '../lib/storefront-pricing.mjs'
+export {prices}
+export const ritualSet={slug:'peptide-ritual-set',short:'The Peptide Ritual Set',name:'The Peptide Ritual Set',volume:'100 ml + 30 ml + 15 ml',step:'SET',ingredients:[],image:'/media/wavespeed-4k/hero-mobile.webp'}
+export const presale = {start:'23.09.2026',setPrice:139,serumPrice:69}
+export const presalePriceLabel = slug => `${prices[slug]} € ${slug==='peptide-ritual-set'?'für das 3er-Set':'einzeln'}`
 export const products = [
   {slug:'renewal-serum',short:'Renewal Serum',name:'GHK-Cu Renewal Serum',volume:'30 ml',format:'Pipette',step:'02',role:'Der zentrale Peptidschritt.',image:'/media/wavespeed-4k/serum.webp',description:'Eine leichte Textur. Ein durchdachtes Peptidkonzept. Das Renewal Serum steht im Zentrum deiner ELYSERA Routine und verbindet GHK-Cu mit ergänzenden Pflegewirkstoffen.',ingredients:['GHK-Cu','Acetyl Hexapeptide-8','Zwei-Stufen-Hyaluron','Niacinamid','Ectoin','Panthenol'],use:'Nach dem Toner dünn auftragen und sanft verteilen. Kurz einziehen lassen, bevor du die nächste Pflegeschicht oder Make-up aufträgst.',texture:'Leichtes Serum mit natürlich blauer Farbe durch den kupfergebundenen GHK-Cu-Komplex.',delivery:'Auslieferung für Mitte Oktober 2026 geplant.'},
   {slug:'balance-toner',short:'Balance Toner',name:'Balance Prepeptide Toner',volume:'100 ml',format:'Spray',step:'01',role:'Ein frischer Anfang für deine Haut.',image:'/media/wavespeed-4k/toner.webp',description:'Der erste Schritt nach der Reinigung. Eine leichte, feuchtigkeitsspendende Vorbereitung, die sich direkt aufsprühen lässt und die Haut auf dein Serum vorbereitet.',ingredients:['Polyglutaminsäure','Hyaluron','Betaine','Sodium PCA','Trehalose','Niacinamid','Ectoin'],use:'Nach der Reinigung direkt aufsprühen. Mit sauberen Händen sanft verteilen und kurz einziehen lassen. Anschließend folgt das Serum.',texture:'Feiner Sprühnebel und eine leichte, fettarme Textur. Ohne Wattepad auftragen.',delivery:'Der Liefertermin wird vor Bestellstart bekannt gegeben.'},
@@ -13,7 +16,7 @@ export const faqs = [
  ['In welcher Reihenfolge verwende ich die Produkte?','Nach der Reinigung beginnt die Routine mit dem Balance Prepeptide Toner. Danach folgt das Renewal Serum. Die Contour Lift Eye Cream wird zum Schluss lokal an der Augenpartie sanft eingeklopft.'],
  ['Warum ist das Serum blau?','Die blaue Farbe gehört zum kupfergebundenen GHK-Cu-Komplex, einem charakteristischen Bestandteil der ELYSERA Serie.'],
  ['Kann ich danach Make-up verwenden?','Die Routine ist auf leichte Schichten ausgelegt. Dünn auftragen und jede Schicht kurz einziehen lassen. Zu viel Produkt oder starkes Reiben kann Röllchenbildung begünstigen.'],
- ['Wie funktioniert der Presale?','Der Presale startet am 23.09.2026. Das 3er-Set kostet 139 €, das Renewal Serum einzeln 59 €. Toner und Eye Cream sind im Presale im 3er-Set erhältlich. Für das Renewal Serum ist die Auslieferung Mitte Oktober 2026 geplant. Die Liefertermine von Toner und Eye Cream werden separat bekannt gegeben.'],
+ ['Wie funktioniert der Presale?','Der Presale startet am 23.09.2026. Das 3er-Set kostet 139 €, das Renewal Serum einzeln 69 €, der Toner 29 € und die Eye Cream 59 €. Alle Produkte sind auch einzeln erhältlich. Für das Renewal Serum ist die Auslieferung Mitte Oktober 2026 geplant. Die Liefertermine von Toner und Eye Cream werden separat bekannt gegeben.'],
  ['Kann ich mein Konto verwenden?','Dein bestehendes Konto bleibt der Zugang zu deiner Bestellübersicht. Über „Mein Konto“ gelangst du zum bestehenden Login.'],
  ['Wo finde ich die vollständigen Inhaltsstoffe?','Die Produktseiten zeigen die Wirkstoffschwerpunkte aus dem Marken-Coaching. Die vollständigen INCI-Listen werden vor der Bestellfreigabe ergänzt.'],
 ]

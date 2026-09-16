@@ -1,33 +1,7 @@
 'use client'
 import Link from 'next/link'
-import {products as defaultProducts,presale,presalePriceLabel} from './catalog'
-
-export default function Checkout({ cart = {}, liveProducts = [],catalogProducts=defaultProducts }) {
-  const products=catalogProducts
-  const selected = Object.entries(cart)
-  const available = selected.length > 0 && selected.every(([slug, quantity]) => {
-    const product = liveProducts.find((item) => item.slug === slug)
-    return product && product.price > 0 && product.stock >= quantity
-  })
-  const sets = Math.min(...products.map(p => cart[p.slug] || 0))
-  const extraSerums = (cart['renewal-serum'] || 0) - sets
-  const serumLabel = products.find(p=>p.slug==='renewal-serum')?.short || 'Renewal Serum'
-  const hasSetOnlyRemainder = ['balance-toner','contour-eye-cream'].some(slug => (cart[slug] || 0) > sets)
-  const previewTotal = sets * presale.setPrice + extraSerums * presale.serumPrice
-  const handoff = encodeURIComponent(JSON.stringify(cart))
-
-  return <section className="section checkout"><div className="page-heading">
-    <h1>Deine Elysera<br/><em>Auswahl.</em></h1>
-    <p>Deine vorgemerkten Pflegeprodukte auf einen Blick. Der Presale startet am {presale.start}.</p>
-    {selected.length > 0 ? <div className="atelier-checkout-items">{selected.map(([slug, quantity]) => {
-      const product = liveProducts.find((item) => item.slug === slug)
-      const catalog=products.find(item=>item.slug===slug)
-      return <article key={slug}><img src={catalog?.image} alt={catalog?.name||slug}/><div><h2>{catalog?.name||product?.name||slug}</h2><p>{catalog?.volume} · Menge {quantity}</p><span>{product ? `EUR ${(product.price*quantity).toFixed(2)}` : presalePriceLabel(slug)}</span></div></article>
-    })}</div>:<div className="atelier-empty"><p>Deine Auswahl ist noch leer.</p><Link href="/shop/" className="button">Kollektion entdecken</Link></div>}
-    {selected.length > 0 && <div className="presale-selection-price"><p>Presale ab {presale.start}</p>{sets > 0 && <p>{sets} × 3er-Set · {sets * presale.setPrice} €</p>}{extraSerums > 0 && <p>{extraSerums} × {serumLabel} · {extraSerums * presale.serumPrice} €</p>}{hasSetOnlyRemainder ? <p>Toner und Eye Cream sind im Presale nur im vollständigen 3er-Set erhältlich.</p> : <p><strong>Presale-Produktgesamtpreis: {previewTotal} €</strong><br/>Versandkosten werden vor dem Kauf angezeigt.</p>}</div>}
-    {selected.length > 0 && <>
-      <Link className="text-link checkout-edit" href="/shop/">AUSWAHL ERGÄNZEN →</Link>
-      <p className="checkout-availability">Deine Auswahl ist vorgemerkt. Die Bestellung direkt bei ELYSERA wird noch eingerichtet.</p><button className="button" disabled>BESTELLUNG BALD MÖGLICH</button>
-    </>}
-  </div></section>
-}
+import {products as defaultProducts,presale,prices,ritualSet} from './catalog'
+import {selectionTotal} from '../lib/storefront-pricing.mjs'
+export default function Checkout({cart={},catalogProducts=defaultProducts}){
+const products=[...catalogProducts.filter(p=>p.slug!==ritualSet.slug),ritualSet],selected=Object.entries(cart).filter(([slug])=>prices[slug]);
+return <section className="section checkout"><div className="page-heading"><h1>Deine Elysera<br/><em>Auswahl.</em></h1><p>Deine vorgemerkten Pflegeprodukte auf einen Blick. Der Presale startet am {presale.start}.</p>{selected.length?<><div className="atelier-checkout-items">{selected.map(([slug,quantity])=>{const p=products.find(p=>p.slug===slug);return <article key={slug}><img src={p?.image} alt={p?.name||slug}/><div><h2>{p?.name}</h2><p>{p?.volume} · Menge {quantity}</p><span>{quantity} × {prices[slug]} € = {quantity*prices[slug]} €</span></div></article>})}</div><div className="presale-selection-price"><strong>Presale-Produktgesamtpreis: {selectionTotal(cart)} €</strong><p>Versandkosten werden vor dem Kauf angezeigt.</p></div><Link className="text-link" href="/shop">AUSWAHL ERGÄNZEN →</Link><p>Deine Auswahl ist vorgemerkt. Die Bestellung direkt bei ELYSERA wird noch eingerichtet.</p><button className="button" disabled>BESTELLUNG BALD MÖGLICH</button><p><Link href="/agb">AGB</Link> · <Link href="/widerruf">Widerrufsbelehrung</Link> · <Link href="/datenschutz">Datenschutz</Link></p></>:<><p>Deine Auswahl ist noch leer.</p><Link className="button" href="/shop">Kollektion entdecken</Link></>}</div></section>}
