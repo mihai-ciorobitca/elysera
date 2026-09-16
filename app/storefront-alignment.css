@@ -1,0 +1,37 @@
+/* Shared storefront alignment: keep the presale action on the same centerline. */
+.prairie-site .lp-presale-band > .routine-set-button{margin-inline:auto;width:min(100%,360px)}
+@media(max-width:700px){
+ .prairie-site .lp-home :is(.lp-heading,.lp-hero-copy,.lp-split-copy,.lp-product-info,.lp-editorial-grid>a,.lp-texture-grid>a,.lp-presale-band,.lp-faq){text-align:center;align-items:center}
+ .prairie-site .lp-home :is(h1,h2,h3){text-align:center;text-wrap:balance;overflow-wrap:normal}
+ .prairie-site .lp-home :is(.lp-heading,.lp-hero-copy,.lp-split-copy,.lp-product-info,.lp-presale-band)>p{margin-inline:auto;max-width:36ch;font-size:14px;line-height:1.8;text-align:center;text-wrap:pretty}
+ .prairie-site .lp-home :is(.lp-heading,.lp-split-copy,.lp-presale-band)>h2{font-size:clamp(22px,6vw,28px);line-height:1.35;letter-spacing:.04em}
+ .prairie-site .lp-home :is(.lp-heading,.lp-hero-copy,.lp-split-copy,.lp-presale-band)>:is(.button,.lp-button,.lp-underlink){margin-inline:auto;max-width:100%;white-space:normal;text-align:center}
+ .prairie-site .lp-home .lp-split-copy{padding-inline:24px}
+ .prairie-site .lp-home .lp-heading{padding-inline:0}
+ .prairie-site .lp-home .lp-kicker{font-size:11px;line-height:1.7;text-wrap:balance}
+ .prairie-site .lp-home .lp-product-info{width:100%}
+ .prairie-site .lp-home .lp-product-actions{width:100%;align-items:center}
+ .prairie-site .lp-home :is(.lp-button,.lp-underlink){font-size:12px;min-height:44px}
+ .prairie-site .lp-home .lp-presale-band{padding:40px 24px}
+ .prairie-site .lp-home .lp-presale-band>p{margin-block:22px 26px}
+ .prairie-site .lp-home .lp-presale-band>.routine-set-button{min-height:54px;font-size:12px;padding-inline:42px}
+ .prairie-site .lp-home .lp-faq .faq-list{width:100%;text-align:center}
+ .prairie-site .lp-home .lp-faq .faq-list summary{position:relative;justify-content:center;padding-inline:25px;text-align:center;font-size:14px;line-height:1.6}
+ .prairie-site .lp-home .lp-faq .faq-list summary .plus{position:absolute;right:0}
+ .prairie-site .lp-home .lp-faq .faq-list p{text-align:center;font-size:14px;line-height:1.8}
+ .prairie-site :is(.lp-services,.lp-stay,.lp-footer){text-align:center}
+ .prairie-site .lp-services>a{align-items:center}
+ .prairie-site .lp-services h2{font-size:11px;line-height:1.6}
+ .prairie-site .lp-services p{font-size:12px;margin-inline:auto}
+ .prairie-site .lp-stay>p{font-size:14px;max-width:36ch;margin-inline:auto;line-height:1.8}
+ .prairie-site .lp-footer-columns{grid-template-columns:1fr;gap:30px}
+ .prairie-site .lp-footer-columns nav{align-items:center;text-align:center}
+ .prairie-site .lp-footer-columns nav>a{font-size:13px;min-height:44px;padding:10px 0}
+ .prairie-site .lp-footer h2{font-size:12px;text-align:center}
+ .prairie-site .lp-footer-brand{display:flex;flex-direction:column;align-items:center;text-align:center}
+ .prairie-site .lp-footer-brand p{font-size:13px;text-align:center}
+ .prairie-site .lp-footer-brand .lp-underlink{font-size:12px;text-align:center}
+ .prairie-site .lp-footer-bottom{justify-content:center;flex-direction:column;font-size:11px;text-align:center}
+ .prairie-site .lp-footer-bottom nav{justify-content:center}
+ .prairie-site .lp-footer-bottom nav a{display:flex;align-items:center;min-height:44px}
+}

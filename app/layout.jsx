@@ -1,4 +1,5 @@
 import './site.css'
+import './storefront-alignment.css'
 import ImpersonationBanner from './impersonation-banner'
 import {CardMotion} from './motion'
 
