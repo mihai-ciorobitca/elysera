@@ -1,6 +1,6 @@
 import {prices} from '../lib/storefront-pricing.mjs'
 export {prices}
-export const ritualSet={slug:'peptide-ritual-set',short:'The Peptide Ritual Set',name:'The Peptide Ritual Set',volume:'100 ml + 30 ml + 15 ml',step:'SET',ingredients:[],image:'/media/wavespeed-4k/hero-mobile.webp'}
+export const ritualSet={slug:'peptide-ritual-set',short:'The Peptide Ritual Set',name:'The Peptide Ritual Set',volume:'100 ml + 30 ml + 15 ml',step:'SET',ingredients:[],image:'/media/atelier-2026/collection.webp'}
 export const presale = {start:'23.09.2026',setPrice:139,serumPrice:69}
 export const presalePriceLabel = slug => `${prices[slug]} € ${slug==='peptide-ritual-set'?'für das 3er-Set':'einzeln'}`
 export const products = [
