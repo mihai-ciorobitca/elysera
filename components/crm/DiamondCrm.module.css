@@ -314,3 +314,13 @@
 .routeLoading svg { display:block; width:30px; height:30px; margin:0 auto 16px; color:#aa8955; }
 .routeLoading h1 { margin:0 0 12px; font-size:clamp(24px,4vw,36px); line-height:1.25; }
 .routeLoading p { margin:0; font-size:14px; line-height:1.6; text-align:center; }
+
+/* Keep the loading indicator visible even when decorative motion is disabled. */
+.workspace .loadingSpin, .routeLoading .loadingSpin {
+  animation:crmLoadingSpin 1s linear infinite!important;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+@media(prefers-reduced-motion:reduce) {
+  .workspace .loadingSpin, .routeLoading .loadingSpin { animation-duration:2.5s!important; }
+}
