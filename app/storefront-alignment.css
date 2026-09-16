@@ -1,4 +1,10 @@
 /* Shared storefront alignment: keep the presale action on the same centerline. */
+.prairie-site .lp-presale-band .lp-presale-price{display:flex;flex-direction:column;align-items:center;gap:8px;margin:24px auto;color:#132448}
+.prairie-site .lp-presale-price>span{font-size:13px;letter-spacing:.04em}
+.prairie-site .lp-presale-price>strong{font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-.02em}
+.prairie-site .lp-presale-band>p.lp-presale-singles{font-size:13px;line-height:1.9;margin:20px auto 28px;color:#465775}
+.prairie-site .lp-presale-singles>span{display:inline-block;white-space:nowrap;margin-inline:6px}
+.prairie-site .lp-presale-band>.routine-set-button>span{white-space:nowrap}
 .prairie-site .lp-ritual-panel{background:#edf4f8;align-items:center;grid-template-columns:minmax(0,1fr) min(46%,480px)}
 .prairie-site .lp-ritual-panel .lp-split-image{height:auto;min-height:0;aspect-ratio:4/5;width:100%;max-width:none;justify-self:stretch;margin:0}
 .prairie-site .lp-ritual-panel .lp-split-image>img{position:relative;display:block;width:100%;height:auto;object-fit:contain}
