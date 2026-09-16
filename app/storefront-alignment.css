@@ -18,6 +18,15 @@
 .lp-ritual-labels strong{font-size:11px;font-weight:400;letter-spacing:.06em;text-transform:uppercase}
 .prairie-site .lp-presale-band > .routine-set-button{margin-inline:auto;width:min(100%,360px)}
 @media(max-width:700px){
+ .prairie-site .lp-home .lp-presale-band{padding:28px 22px}
+ .prairie-site .lp-home .lp-presale-band>h2{margin-block:18px 14px}
+ .prairie-site .lp-home .lp-presale-band>p{margin-block:12px 16px}
+ .prairie-site .lp-home .lp-presale-band .lp-presale-price{flex-direction:row;justify-content:center;gap:16px;margin:16px auto}
+ .prairie-site .lp-home .lp-presale-price>strong{font-size:32px}
+ .prairie-site .lp-home .lp-presale-band>.lp-presale-singles{margin:18px auto 20px}
+ .prairie-site .lp-home .lp-presale-singles>p{margin-bottom:6px}
+ .prairie-site .lp-home .lp-presale-singles dl>div{padding:8px 0}
+ .prairie-site .lp-home .lp-presale-band>.lp-underlink{margin-top:20px}
  .prairie-site .lp-home>.lp-feature:has(+.lp-ritual-panel){margin-bottom:0}
  .prairie-site .lp-home :is(.lp-heading,.lp-hero-copy,.lp-split-copy,.lp-product-info,.lp-editorial-grid>a,.lp-texture-grid>a,.lp-presale-band,.lp-faq){text-align:center;align-items:center}
  .prairie-site .lp-home :is(h1,h2,h3){text-align:center;text-wrap:balance;overflow-wrap:normal}
@@ -30,8 +39,6 @@
  .prairie-site .lp-home .lp-product-info{width:100%}
  .prairie-site .lp-home .lp-product-actions{width:100%;align-items:center}
  .prairie-site .lp-home :is(.lp-button,.lp-underlink){font-size:12px;min-height:44px}
- .prairie-site .lp-home .lp-presale-band{padding:40px 24px}
- .prairie-site .lp-home .lp-presale-band>p{margin-block:22px 26px}
  .prairie-site .lp-home .lp-presale-band>.routine-set-button{min-height:54px;font-size:12px;padding-inline:42px}
  .prairie-site .lp-home .lp-faq .faq-list{width:100%;text-align:center}
  .prairie-site .lp-home .lp-faq .faq-list summary{position:relative;justify-content:center;padding-inline:25px;text-align:center;font-size:14px;line-height:1.6}
