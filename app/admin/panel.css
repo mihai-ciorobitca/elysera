@@ -127,3 +127,10 @@ body.prairie-site .ea-app .ea-content-link{display:flex;align-items:center;min-h
  body.prairie-site .ea-main .ea-footer {justify-content:center;gap:10px;flex-wrap:wrap;text-align:center}
  body.prairie-site .ea-main .ea-page-heading[hidden] {display:none}
 }
+
+.ea-app .ea-logout{margin:0;flex-shrink:0}
+.ea-app .ea-logout button{min-height:44px;padding:10px 14px;white-space:nowrap}
+.ea-topbar .ea-logout button{color:white;background:transparent;border:1px solid #ffffff60;border-radius:6px}
+.ea-menu-dialog .ea-logout{margin:16px 0}
+.ea-menu-dialog .ea-logout button{width:100%}
+@media(max-width:700px){.ea-topbar .ea-logout{display:none}}
