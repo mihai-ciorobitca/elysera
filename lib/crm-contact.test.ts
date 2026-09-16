@@ -41,3 +41,24 @@ test('email drafts enforce 30 recipients, deduplicate and keep recipients in BCC
   assert.throws(() => emailDraft([], '', ''))
   assert.equal(new URL(emailDraft(['A@example.test', 'a@example.test'], '', '')).searchParams.get('bcc'), 'a@example.test')
 })
+
+test('single and bulk mailto drafts preserve spaces, literal plus signs and paragraphs', () => {
+  const subject = 'ELYSERA · Persönliche Einladung + Infos'
+  const body = 'Hallo LENTOQ Cosmetics Melaka,\n\nich möchte dir ELYSERA vorstellen.\n\nLiebe Grüße + Team & Co'
+  for (const bulk of [false, true]) {
+    const href = emailDraft(['lead+beauty@example.test'], subject, body, bulk)
+    assert.ok(!href.includes('+'), 'mailto must not use literal + for spaces')
+    // Mail apps can percent-decode without applying HTML form + decoding.
+    const fields = Object.fromEntries(href.split('?')[1].split('&').map(part => {
+      const [key, value] = part.split('=')
+      return [key, decodeURIComponent(value)]
+    }))
+    assert.equal(fields.subject, subject)
+    assert.equal(fields.body, body)
+    if (bulk) assert.equal(fields.bcc, 'lead+beauty@example.test')
+    else assert.equal(decodeURIComponent(new URL(href).pathname), 'lead+beauty@example.test')
+  }
+  const href = contactLinks(lead, DEFAULT_CONTACT_TEMPLATES).email!
+  assert.ok(!href.includes('+'))
+  assert.equal(decodeURIComponent(href.split('body=')[1]), contactMessage(DEFAULT_CONTACT_TEMPLATES.emailBody, lead))
+})

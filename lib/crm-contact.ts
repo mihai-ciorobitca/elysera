@@ -28,6 +28,7 @@ export function emailDraft(emails: string[], subject: string, body: string, bulk
   const recipients = [...new Set(emails.map(email => email.trim().toLowerCase()))]
   if (!recipients.length || recipients.length > CRM_EMAIL_LIMIT) throw new Error('Select between 1 and 30 email recipients.')
   if (recipients.some(email => !/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(email))) throw new Error('Invalid recipient email.')
+  // mailto clients may treat form-encoded + as literal text; use %20 for spaces.
   const params = new URLSearchParams({ ...(bulk ? { bcc: recipients.join(',') } : {}), subject: subject.replace(/[\r\n]/g, ' '), body })
-  return `mailto:${bulk ? '' : encodeURIComponent(recipients[0])}?${params.toString()}`
+  return `mailto:${bulk ? '' : encodeURIComponent(recipients[0])}?${params.toString().replace(/\+/g, '%20')}`
 }
