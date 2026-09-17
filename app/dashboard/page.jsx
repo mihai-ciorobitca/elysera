@@ -1,3 +1,4 @@
+import {canViewFullNetwork} from '@/lib/auth/network-access.mjs'
 import {accountProfile} from '@/lib/auth/details-store'
 import {detailsComplete} from '@/lib/auth/details-policy.mjs'
 import Dashboard from './workspace'
@@ -8,4 +9,4 @@ import {redirect} from 'next/navigation'
 import {currentUser,publicProfile} from '@/lib/auth/server'
 export const metadata={title:'Partner Dashboard'}
 export const dynamic='force-dynamic'
-export default async function Page(){let user;try{user=await currentUser()}catch{}if(!user)redirect('/auth/signin');const profile=await accountProfile(user);if(!detailsComplete(profile)&&!user.impersonatedBy)redirect('/auth/complete-profile');return <Dashboard initialProfile={profile}/>}
+export default async function Page(){let user;try{user=await currentUser()}catch{}if(!user)redirect('/auth/signin');const profile=await accountProfile(user);if(!detailsComplete(profile)&&!user.impersonatedBy)redirect('/auth/complete-profile');return <Dashboard initialProfile={profile} fullNetworkAccess={canViewFullNetwork(user)}/>}
