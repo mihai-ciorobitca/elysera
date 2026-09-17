@@ -7,7 +7,7 @@
 .prairie-site main .ritual-set-feature h2{font-family:PrairieSans,Arial,sans-serif;font-size:clamp(32px,3.4vw,50px);font-weight:300;line-height:1.13;letter-spacing:-.035em;text-transform:none;margin:0 0 22px;color:#17243c;text-align:center}
 .prairie-site .ritual-set-feature .ritual-set-intro{font-size:15px;line-height:1.8;color:#526075;margin:0 0 27px;text-align:center}
 .prairie-site .ritual-set-contents{list-style:none;padding:0;margin:0 0 28px;border-top:1px solid #deded8}
-.prairie-site .ritual-set-contents li{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:12px;padding:17px 0;border-bottom:1px solid #deded8}
+.prairie-site .ritual-set-contents li{display:grid;grid-template-columns:86px minmax(0,1fr) 44px;align-items:center;gap:12px;padding:17px 0;border-bottom:1px solid #deded8}
 .prairie-site .ritual-set-step{font-size:12px;color:#70624e;letter-spacing:.08em}
 .prairie-site .ritual-set-role{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#606b72;margin-bottom:3px}
 .prairie-site .ritual-set-name{display:block;font-size:14px;font-weight:500;line-height:1.5;letter-spacing:0}
@@ -23,9 +23,13 @@
 .prairie-site .ritual-set-details{display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:.03em;min-height:30px;width:fit-content;margin:0 auto;gap:18px;border-bottom:1px solid #b1b4b9;color:#17243c}
 .prairie-site .ritual-set-details span{font-size:17px}
 @media(max-width:1000px){.prairie-site .ritual-set-copy{padding:32px}.prairie-site .ritual-set-photo{min-height:640px}.prairie-site .ritual-set-price .ritual-set-saving{margin-left:0}}
-@media(max-width:700px){.prairie-site .ritual-set-feature{grid-template-columns:1fr;margin:12px auto 42px}.prairie-site .ritual-set-photo{min-height:0;width:100%;aspect-ratio:auto}.prairie-site .ritual-set-photo img{position:relative;inset:auto;height:auto;aspect-ratio:4/5;object-position:center 30%}.prairie-site .ritual-set-image-label{bottom:18px;font-size:8px}.prairie-site .ritual-set-copy{padding:30px 24px 28px}.prairie-site main .ritual-set-feature h2{font-size:38px;margin-bottom:18px}.prairie-site .ritual-set-eyebrow{font-size:10px;margin-bottom:18px}.prairie-site .ritual-set-feature .ritual-set-intro{font-size:14px;margin-bottom:24px}.prairie-site .ritual-set-price strong{font-size:36px}.prairie-site .ritual-set-price{gap:9px 11px}.prairie-site .ritual-set-price .ritual-set-saving{margin-left:0}.prairie-site .ritual-set-name{font-size:13px}.prairie-site .ritual-set-contents li{gap:8px;grid-template-columns:38px minmax(0,1fr) 38px}.prairie-site .ritual-set-volume{font-size:11px}.prairie-site .ritual-set-note{overflow-wrap:anywhere}}
+@media(max-width:700px){.prairie-site .ritual-set-feature{grid-template-columns:1fr;margin:12px auto 42px}.prairie-site .ritual-set-photo{min-height:0;width:100%;aspect-ratio:auto}.prairie-site .ritual-set-photo img{position:relative;inset:auto;height:auto;aspect-ratio:4/5;object-position:center 30%}.prairie-site .ritual-set-image-label{bottom:18px;font-size:8px}.prairie-site .ritual-set-copy{padding:30px 24px 28px}.prairie-site main .ritual-set-feature h2{font-size:38px;margin-bottom:18px}.prairie-site .ritual-set-eyebrow{font-size:10px;margin-bottom:18px}.prairie-site .ritual-set-feature .ritual-set-intro{font-size:14px;margin-bottom:24px}.prairie-site .ritual-set-price strong{font-size:36px}.prairie-site .ritual-set-price{gap:9px 11px}.prairie-site .ritual-set-price .ritual-set-saving{margin-left:0}.prairie-site .ritual-set-name{font-size:13px}.prairie-site .ritual-set-contents li{gap:8px;grid-template-columns:70px minmax(0,1fr) 38px}.prairie-site .ritual-set-volume{font-size:11px}.prairie-site .ritual-set-note{overflow-wrap:anywhere}}
 @media(max-width:360px){.prairie-site .ritual-set-copy{padding:27px 18px}.prairie-site .ritual-set-price .ritual-set-saving{margin-left:0}}
 
 /* Override the existing global primary-button palette only within this feature. */
 .prairie-site main .ritual-set-feature .routine-set-button:not(.outline){background:#17243c!important;border-color:#17243c!important}
 .prairie-site main .ritual-set-feature .routine-set-button:hover:not(:disabled){background:#293c5b!important;border-color:#293c5b!important}
+
+.prairie-site .ritual-set-product{display:flex;align-items:center;gap:8px}
+.prairie-site .ritual-set-product img{display:block;width:60px;height:76px;object-fit:contain;flex-shrink:0}
+@media(max-width:700px){.prairie-site .ritual-set-product{gap:5px}.prairie-site .ritual-set-product img{width:46px;height:64px}}
