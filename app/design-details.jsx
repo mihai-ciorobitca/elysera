@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {products} from './catalog'
+import {products,ritualSet} from './catalog'
 
 export function DetailIcon({name='ritual',className=''}) {
  const shapes={
@@ -15,7 +15,7 @@ export function DetailIcon({name='ritual',className=''}) {
  return <svg className={`detail-icon ${className}`} width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{shapes[name]||shapes.ritual}</svg>
 }
 
-export function DeliveryOverview(){return <div className="delivery-overview" aria-label="Geplante Auslieferung der Produkte"><ul>{products.map(p=><li key={p.slug} className="delivery-entry"><div className="delivery-product"><img src={p.image} alt="" width="64" height="80" loading="lazy"/><div><h3>{p.short}</h3><span>{p.volume}</span></div></div><div className="delivery-status"><span className="delivery-label"><DetailIcon name="calendar"/>Geplante Auslieferung</span><p>{p.delivery}</p></div><Link className="delivery-link" href={`/products/${p.slug}/`} aria-label={`${p.short} entdecken`}><span>Produkt entdecken</span><DetailIcon name="arrow"/></Link></li>)}</ul></div>}
+export function DeliveryOverview(){return <div className="delivery-overview" aria-label="Geplante Auslieferung der Produkte"><ul>{[...products,ritualSet].map(p=><li key={p.slug} className="delivery-entry"><div className="delivery-product"><img src={p.image} alt="" width="64" height="80" loading="lazy"/><div><h3>{p.short}</h3><span>{p.volume}</span></div></div><div className="delivery-status"><span className="delivery-label"><DetailIcon name="calendar"/>Geplante Auslieferung</span><p>{p.delivery}</p></div><Link className="delivery-link" href={`/products/${p.slug}/`} aria-label={`${p.short} entdecken`}><span>{p.slug===ritualSet.slug?'Set entdecken':'Produkt entdecken'}</span><DetailIcon name="arrow"/></Link></li>)}</ul></div>}
 
 const stories=[
  {image:'glass-texture',title:'Texturen entdecken',copy:'Leichte Schichten. Ein besonderes Hautgefühl.',href:'/science/',icon:'texture',alt:'Illustrative Stillleben-Aufnahme: bläulicher Geltropfen und Glas auf hellem Stein'},
