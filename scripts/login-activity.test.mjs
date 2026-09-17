@@ -5,10 +5,10 @@ import {recordFirstLogin} from '../lib/auth/login-activity.mjs'
 
 const source=readFileSync(new URL('../lib/auth/server.js',import.meta.url),'utf8')
   .replace(/^import .*\r?\n/gm,'').replace(/export /g,'')
-function harness({identity=true,mfa=true,eligible=true,admin=false,impersonating=false}={}) {
+function harness({identity=true,mfa=true,eligible=true,admin=false,impersonating=false,returning=false}={}) {
   const recorded=[]
   const client={auth:{getUser:async()=>({data:{user:identity?{id:'auth',email:'test@example.test'}:null}}),mfa:{getAuthenticatorAssuranceLevel:async()=>({data:{nextLevel:'aal2',currentLevel:mfa?'aal2':'aal1'}})}}}
-  const db={$queryRaw:async strings=>strings.join('').includes('ElyseraAdminAccess')?[{enabled:admin}]:[{id:'actor',email:'test@example.test'}]}
+  const db={$queryRaw:async()=>[{id:'actor',email:'test@example.test',adminAccess:admin,firstLoginAt:returning?'2026-09-01':null}]}
   const api=Function('prisma','recordFirstLogin','eligibleAccount','eligibleAdmin','cookies','createServerClient','authConfig','cookieOptions','impersonationCookie','impersonatedUser','headers',source+';return {principalFor,adminPrincipalFor,currentUser}')(
     db,async(_,id)=>recorded.push(id),()=>eligible,()=>admin,
     async()=>({get:()=>impersonating?{value:'token'}:null,getAll:()=>[]}),()=>client,
@@ -37,3 +37,5 @@ test('first-login write uses a conditional atomic upsert without changing contac
   assert.match(query,/WHERE "ElyseraAccountProfile"\."firstLoginAt" IS NULL/)
   assert.doesNotMatch(query,/updatedAt|details/)
 })
+
+test('returning visits do not rewrite first login',async()=>{const h=harness({returning:true});assert.equal((await h.api.principalFor(h.client)).id,'actor');assert.deepEqual(h.recorded,[])})

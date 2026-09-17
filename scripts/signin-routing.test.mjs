@@ -20,8 +20,7 @@ for (const method of ['signin', 'mfa']) {
    const scope = vm.createContext({
     NextResponse: {json: (body, options) => ({body, status: options.status})},
     authClient: async () => client,
-    adminPrincipalFor: async () => kind === 'admin' ? {id: 'admin'} : null,
-    principalFor: async () => kind === 'member' ? {id: 'member'} : null,
+    loginPrincipalFor: async () => kind === 'denied' ? null : {id:kind,role:kind==='admin'?'ADMIN':'AFFILIATE'},
     sameOrigin: () => true, validCredentials: () => true, loginRateLimit: async () => true
    })
    const source = readFileSync(`app/api/auth/${method}/route.js`, 'utf8').replace(/^import .*$/mg, '').replaceAll('export ', '')

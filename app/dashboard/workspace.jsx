@@ -3,11 +3,18 @@ import {useEffect,useState} from 'react'
 import Link from 'next/link'
 import {CrmLink} from '../../components/crm/CrmLink'
 import Overview from './overview'
-import Support from './support'
-import {ReviewEvidenceCustomer} from '../components/review-evidence-workspace'
-import ProfileDetails from '../auth/profile-details'
+import dynamic from 'next/dynamic'
+
+
 import '../auth/signin/signin.css'
-import {PartnerNetwork,ReferralPlan,WorldBonus,CareerPlan} from './partner-program'
+function SectionLoading(){return <p className="ew-data-message" role="status">Bereich wird geladen …</p>}
+const Support=dynamic(()=>import('./support'),{loading:SectionLoading})
+const ProfileDetails=dynamic(()=>import('../auth/profile-details'),{loading:SectionLoading})
+const ReviewEvidenceCustomer=dynamic(()=>import('../components/review-evidence-workspace').then(m=>m.ReviewEvidenceCustomer),{loading:SectionLoading})
+const PartnerNetwork=dynamic(()=>import('./partner-program').then(m=>m.PartnerNetwork),{loading:SectionLoading})
+const ReferralPlan=dynamic(()=>import('./partner-program').then(m=>m.ReferralPlan),{loading:SectionLoading})
+const WorldBonus=dynamic(()=>import('./partner-program').then(m=>m.WorldBonus),{loading:SectionLoading})
+const CareerPlan=dynamic(()=>import('./partner-program').then(m=>m.CareerPlan),{loading:SectionLoading})
 import {DashboardIcon,sectionIcons} from './design-icons'
 import {orderStatus,commissionStatus,productNames} from './live-data.mjs'
 const sections=['Übersicht','Provisionen','Bestellungen','Partnernetzwerk','Marketing','Auszahlungen','Profil','Hilfe','Referral-Plan','World Bonus','Karriereplan','Bewertungsnachweise']
@@ -33,7 +40,7 @@ export default function Dashboard({initialProfile,fullNetworkAccess=false}){
  {fullNetworkAccess&&section==='Referral-Plan'&&<ReferralPlan/>}
  {fullNetworkAccess&&section==='World Bonus'&&<WorldBonus/>}
  {fullNetworkAccess&&section==='Karriereplan'&&<CareerPlan/>}
- {section==='Marketing'&&<><section className="ed-panel"><h2>Für deine nächste Empfehlung.</h2><p>Original ELYSERA Bildmaterial und Produktwissen, an einem Ort.</p><div className="ed-assets">{[['Kampagnenmotiv','/media/wavespeed-4k/hero-desktop.webp'],['Renewal Serum','/media/atelier-2026/serum.webp'],['Jessica · Markenportrait','/media/jessica/portrait-confident-1122.webp']].map(([title,src])=><article key={src}><img src={src} alt={title}/><h3>{title}</h3><a href={src} download>Bild herunterladen ↓</a></article>)}</div></section><section className="ed-panel"><h2>Die Routine kennenlernen</h2><Link href="/routine">Produktwissen öffnen <Arrow/></Link></section></>}
+ {section==='Marketing'&&<><section className="ed-panel"><h2>Für deine nächste Empfehlung.</h2><p>Original ELYSERA Bildmaterial und Produktwissen, an einem Ort.</p><div className="ed-assets">{[['Kampagnenmotiv','/media/wavespeed-4k/hero-desktop.webp'],['Renewal Serum','/media/atelier-2026/serum.webp']].map(([title,src])=><article key={src}><img src={src} alt={title}/><h3>{title}</h3><a href={src} download>Bild herunterladen ↓</a></article>)}</div></section><section className="ed-panel"><h2>Die Routine kennenlernen</h2><Link href="/routine">Produktwissen öffnen <Arrow/></Link></section></>}
  {section==='Auszahlungen'&&<section className="ed-panel"><h2>Deine Auszahlungen</h2><p>Die eigene Auszahlungsfunktion wird noch eingerichtet. Es werden hier keine Auszahlungen ausgelöst.</p>{data.commissions.filter(c=>c.status==='PAID').map(c=><div className="ed-payment" key={c.id}><span>{date(c.createdAt)}<small>Ausgezahlte ELYSERA-Provision</small></span><strong>{money(c.amount)}</strong></div>)}</section>}
  {section==='Profil'&&<section className="ed-panel"><h2>Deine persönlichen Angaben</h2><p>Deine Angaben werden sicher für dein bestehendes Konto gespeichert.</p><ProfileDetails initialProfile={profile}/><Link className="ew-signout" href="/auth/change-password">Passwort ändern</Link><button className="ew-signout" onClick={logout}>Abmelden</button></section>}
  {section==='Hilfe'&&<Support/>}

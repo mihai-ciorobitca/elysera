@@ -19,7 +19,8 @@ export async function proxy(request){
   }catch{/* Keep the storefront reachable if the settings database is unavailable. */}
  }
  let response=NextResponse.next({request:{headers:requestHeaders}});const {url,key}=authConfig()
- if(url&&key&&request.cookies.getAll().some(c=>c.name.startsWith('elysera-auth'))){
+ // Handlers verify identity and refresh their own cookies; pages need the proxy.
+ if(!request.nextUrl.pathname.startsWith('/api/')&&url&&key&&request.cookies.getAll().some(c=>c.name.startsWith('elysera-auth'))){
   const client=createServerClient(url,key,{cookieOptions:cookieOptions(),cookies:{getAll:()=>request.cookies.getAll(),setAll:items=>{for(const {name,value}of items)request.cookies.set(name,value);requestHeaders.set('cookie',request.cookies.toString());response=NextResponse.next({request:{headers:requestHeaders}});for(const {name,value,options}of items)response.cookies.set(name,value,storageCookieOptions(options))}}})
   await client.auth.getUser()
  }

@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server'
-import {authClient,principalFor,adminPrincipalFor} from '@/lib/auth/server'
+import {authClient,loginPrincipalFor} from '@/lib/auth/server'
 import {sameOrigin} from '@/lib/auth/policy.mjs'
 import {loginRateLimit} from '@/lib/auth/rate-limit'
 export async function POST(request){
@@ -13,8 +13,8 @@ export async function POST(request){
   if(error||!factor)return reply({error:'Diese zusätzliche Anmeldemethode ist hier noch nicht verfügbar.'},403)
   const {error:verifyError}=await client.auth.mfa.challengeAndVerify({factorId:factor.id,code:body.code})
   if(verifyError)return reply({error:'Der Code ist ungültig oder abgelaufen.'},401)
-  if(await adminPrincipalFor(client))return reply({ok:true,redirect:'/admin'})
-  if(!await principalFor(client)){await client.auth.signOut({scope:'local'});return reply({error:'Dieses Konto kann hier nicht angemeldet werden.'},403)}
-  return reply({ok:true,redirect:'/dashboard'})
+  const user=await loginPrincipalFor(client)
+  if(!user){await client.auth.signOut({scope:'local'});return reply({error:'Dieses Konto kann hier nicht angemeldet werden.'},403)}
+  return reply({ok:true,redirect:user.role==='ADMIN'?'/admin':'/dashboard'})
  }catch{return reply({error:'Anmeldung vorübergehend nicht verfügbar.'},503)}
 }
