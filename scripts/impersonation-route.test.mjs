@@ -1,0 +1,8 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {readFileSync} from 'node:fs'
+import {eligibleImpersonationTarget,tokenHash,newImpersonationToken} from '../lib/auth/impersonation.mjs'
+const source=readFileSync(new URL('../app/api/admin/impersonation/route.js',import.meta.url),'utf8').replace(/^import .*$/gm,'').replaceAll('export ','')
+function harness(actor={id:'admin'}){const writes=[],jar={get:()=>null,set:()=>{}};const tx={$queryRaw:async()=>[{id:'customer',role:'AFFILIATE',emailVerified:true,blocked:false}],$executeRaw:async(strings,...values)=>{writes.push({sql:strings.join('?'),values});return 1}};const POST=Function('NextResponse','cookies','prisma','authClient','adminPrincipalFor','sameOrigin','impersonationCookie','tokenHash','newImpersonationToken','impersonatedUser','eligibleImpersonationTarget',source+';return POST')({json:(body,options)=>({body,...options})},async()=>jar,{$transaction:async fn=>fn(tx)},async()=>({}),async()=>actor,()=>true,'test',tokenHash,newImpersonationToken,()=>null,eligibleImpersonationTarget);return {POST,writes}}
+test('admin starts an audited session without a reason',async()=>{const h=harness();const r=await h.POST({text:async()=>JSON.stringify({customerId:'customer'})});assert.equal(r.status,200);assert.equal(h.writes.length,1);assert.ok(h.writes[0].values.includes('Admin-Kontoansicht'));assert.ok(h.writes[0].values.includes('admin'));assert.ok(h.writes[0].values.includes('customer'))})
+test('anonymous and empty target still fail',async()=>{assert.equal((await harness(null).POST({text:async()=>'{"customerId":"customer"}'})).status,401);assert.equal((await harness().POST({text:async()=>'{"customerId":""}'})).status,400)})

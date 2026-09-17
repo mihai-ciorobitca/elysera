@@ -1,0 +1,15 @@
+# Dashboard team and commission access
+
+The current member’s sponsor is neither returned by the dashboard APIs nor displayed. All authenticated members see the aggregate paid ELYSERA order total of their descendants, excluding their own purchases. The aggregate spans all levels; individual records are restricted to direct referrals. Only the two verified founder account IDs can view descendants through level 10. Impersonated sessions do not gain founder privileges. Foreign and mixed-catalog orders are excluded.
+
+Admin impersonation no longer requests a reason. Authentication, target eligibility, session expiration and action logging remain enforced. The audit stores the neutral event label Admin-Kontoansicht.
+
+The admin order form now explicitly selects an ELYSERA set (the catalog Ritual Set or an active configured package). The server validates its constituent products and quantities and records a frozen package snapshot in ElyseraOrderCreateAudit. Selecting individual products without selecting a set is not set-purchase evidence. Unpaid, cancelled, free, mixed-catalog or incomplete orders do not qualify. Legacy orders without evidence are not silently reclassified.
+
+A set must have been paid strictly before the referred order's payment time. A later set purchase does not unlock older commissions. Lost commissions are displayed separately and excluded from the commission balance. Where an unqualified direct sale has no commission record, the dashboard shows a lost amount using the existing level-1 rate on the product value less discounts and noncommissionable credits, excluding bonus products. Existing paid commission records remain historical facts.
+
+The applied Supabase migration elysera_commission_set_eligibility installs the SQL in scripts/elysera-commission-eligibility.sql. Its Commission trigger is limited to ELYSERA-only orders and prevents ineligible approval, payout status and credit conversion; MISSED cannot be promoted. It does not send money, create a payment provider integration, or change unrelated catalog rules. The existing storefront checkout and payout initiation remain unimplemented; future checkout must persist validated package evidence before accepting payment.
+
+Validation: application tests, rendered component checks, and a local in-memory PostgreSQL instance with synthetic data. The local SQL checks cover paid-set timing, earlier lost purchases, denied payouts and credit conversion, revoked eligibility, 12-level team aggregation, sponsor privacy and derived lost commissions. No test orders were written to production. Read-only production checks confirmed installed functions and enabled trigger.
+
+To repeat the isolated database checks from the project root, install @electric-sql/pglite@0.5.8 under .local-qa/commission-db with install scripts disabled, then run node scripts/run-commission-db-check.cjs. This test runner creates a fresh in-memory database and never reads DATABASE_URL. Application changes still require deployment.

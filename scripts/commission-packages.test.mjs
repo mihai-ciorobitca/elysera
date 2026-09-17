@@ -1,0 +1,6 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {ritualPackage,validatePurchasedPackage} from '../lib/commission-packages.mjs'
+import {buildStats,commissionStatus} from '../app/dashboard/live-data.mjs'
+test('a package requires every product and correct quantities',()=>{const items=ritualPackage.items.map(i=>({id:i.productId,quantity:i.quantity}));assert.equal(validatePurchasedPackage(ritualPackage,items).id,ritualPackage.id);assert.throws(()=>validatePurchasedPackage(ritualPackage,items.slice(1)));assert.throws(()=>validatePurchasedPackage({...ritualPackage,items:[{productId:'foreign',quantity:1}]},[{id:'foreign',quantity:1}]));assert.throws(()=>validatePurchasedPackage(null,items));const multiple={...ritualPackage,items:[{...ritualPackage.items[0],quantity:3}]};assert.throws(()=>validatePurchasedPackage(multiple,items))})
+test('lost commissions are separate from available and paid balances',()=>{const stats=buildStats({commissions:[{status:'MISSED',amount:20},{status:'PENDING',amount:10},{status:'PAID',amount:5}]});assert.equal(stats.lostCommission,20);assert.equal(stats.commission,15);assert.equal(stats.paidCommission,5);assert.equal(commissionStatus.MISSED,'Verlorene Provision')})
