@@ -1,4 +1,6 @@
 /* Shared storefront alignment: keep the presale action on the same centerline. */
+.prairie-site .lp-presale-band>.lp-presale-photo{display:block;width:100%;max-width:360px;margin:28px auto 24px;overflow:hidden;background:#091629}
+.prairie-site .lp-presale-photo>img{display:block;width:100%;height:auto}
 .prairie-site .lp-home .lp-portrait-split{align-items:center}
 .prairie-site .lp-home .lp-portrait-split .lp-split-image{height:auto;min-height:0;width:100%;max-width:448px;aspect-ratio:4/5;justify-self:center}
 .prairie-site .lp-home .lp-portrait-split .lp-split-image>img{position:relative;display:block;width:100%;height:auto;object-fit:contain}
