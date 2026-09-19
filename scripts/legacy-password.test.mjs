@@ -54,6 +54,6 @@ test('shared password changes write identical hashes atomically and refuse ineli
   const set=vm.runInNewContext(source+'\nsetSharedPassword',{bcrypt,prisma:db})
   const action=set({id:'customer',supabaseUserId:'identity'},password)
   if(!allowed){await assert.rejects(action,/UNAVAILABLE/);assert.equal(writes.length,0);continue}
-  await action;assert.equal(writes.length,2);assert.equal(writes[0].values[0],writes[1].values[0]);assert.ok(await bcrypt.compare(password,writes[0].values[0]));assert.ok(!writes[0].values.includes(password))
+  await action;assert.equal(writes.length,3);assert.equal(writes[0].values[0],writes[1].values[0]);assert.ok(await bcrypt.compare(password,writes[0].values[0]));assert.ok(!writes[0].values.includes(password));assert.match(writes[2].sql,/DELETE FROM auth.sessions WHERE user_id=/);assert.equal(writes[2].values[0],'identity')
  }
 })
