@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import {createContext,useContext,useEffect,useRef,useState} from 'react'
 import {usePathname} from 'next/navigation'
+import {loadPublicCatalog} from '../lib/public-catalog-request.mjs'
 import {products as catalogProducts,faqs,presalePriceLabel,prices,ritualSet} from './catalog'
 import DynamicFAQ from './dynamic-faq'
 import {Gallery,CampaignImage,CampaignMotion,TextureLibrary} from './campaign'
@@ -20,9 +21,9 @@ export function ProductPrice({slug,featured=false}){return featured?<span classN
 export function Icon({name}){const paths={bag:<><path d="M5 8h14l1 13H4L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></>,search:<><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></>,user:<><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></>,menu:<path d="M3 6h18M3 12h18M3 18h18"/>,close:<path d="m5 5 14 14M5 19 19 5"/>,arrow:<path d="M3 12h18m-7-7 7 7-7 7"/>};return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">{paths[name]||paths.arrow}</svg>}
 const navGroups=[['SHOP',[['/shop/','Die Kollektion'],['/products/peptide-ritual-set','Das Ritual Set'],['/presale/','Presale & Lieferung']]],['PFLEGERITUAL',[['/routine/','Die drei Pflegeschritte'],['/quiz/','Deine Pflege finden'],['/science/','Peptidwissen']]],['DIE MARKE',[['/about/','Über ELYSERA'],['/faq/','Fragen & Antworten'],['/contact/','Kontakt & Hilfe']]],['DEIN KONTO',[['/account/','Mein Konto']]]]
 export function Shell({children}){
- const pathname=usePathname(),[contentState,setContentState]=useState({path:null,products:null})
- const contentProducts=contentState.path===pathname?contentState.products:null,products=[...(contentProducts||catalogProducts),ritualSet]
- useEffect(()=>{const controller=new AbortController();fetch("/api/product-content",{cache:"no-store",signal:controller.signal}).then(r=>r.ok?r.json():Promise.reject()).then(data=>{if(Array.isArray(data.products)&&data.products.length===catalogProducts.length)setContentState({path:pathname,products:data.products})}).catch(()=>{});return()=>controller.abort()},[pathname])
+ const pathname=usePathname(),[contentProducts,setContentProducts]=useState(null)
+ const products=[...(contentProducts||catalogProducts),ritualSet]
+ useEffect(()=>{let active=true;loadPublicCatalog('/api/product-content').then(data=>{if(active&&Array.isArray(data.products)&&data.products.length===catalogProducts.length)setContentProducts(data.products)}).catch(()=>{});return()=>{active=false}},[pathname])
  const [liveProducts,setLiveProducts]=useState([])
  useEffect(()=>{fetch('/api/products',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(data=>setLiveProducts(data.products)).catch(()=>{})},[])
  const [cart,setCart]=useState({}),[ready,setReady]=useState(false),[panel,setPanel]=useState(null),[query,setQuery]=useState('')
@@ -53,7 +54,7 @@ export function AddButton({slug,quantity=1,compact=false}){const {add,ready}=use
 export function FAQ({limit}){return <DynamicFAQ limit={limit}/>}
 export function ProductShelf({items}){const ref=useRef(null);const [index,setIndex]=useState(0);const move=direction=>{const el=ref.current;const next=Math.max(0,Math.min(items.length-1,index+direction));el?.children[next]?.scrollIntoView({behavior:'instant',block:'nearest',inline:'start'});setIndex(next)};return <div className="product-shelf"><div ref={ref} className="lp-product-grid" onScroll={()=>{const el=ref.current;if(el?.children[0])setIndex(Math.min(items.length-1,Math.round(el.scrollLeft/(el.children[0].getBoundingClientRect().width+20))))}}>{items.map(p=><ProductCard product={p} key={p.slug}/>)}</div><div className="shelf-controls" aria-label="Produkte durchblättern"><button aria-label="Vorheriges Produkt" disabled={index===0} onClick={()=>move(-1)}>←</button><span aria-live="polite">{index+1} / {items.length} · DIE KOLLEKTION</span><button aria-label="Nächstes Produkt" disabled={index===items.length-1} onClick={()=>move(1)}>→</button></div></div>}
 export function ProductGallery({product}){return <Gallery product={product}/>}
-export function ProductPurchase({slug}){const [quantity,setQuantity]=useState(1);return <div className="purchase"><p className="price-pending">PRESALE <ProductPrice slug={slug}/></p><div className="purchase-actions"><div className="quantity"><button aria-label="Menge verringern" disabled={quantity===1} onClick={()=>setQuantity(q=>q-1)}>−</button><output aria-label="Menge">{quantity}</output><button aria-label="Menge erhöhen" disabled={quantity===12} onClick={()=>setQuantity(q=>q+1)}>+</button></div><AddButton slug={slug} quantity={quantity}/></div><small>Auf diesem Gerät vorgemerkt · Noch keine Bestellung</small></div>}
+export function ProductPurchase({slug}){const [quantity,setQuantity]=useState(1);return <div className="purchase"><p className="price-pending">PRESALE <ProductPrice slug={slug}/></p><div className="purchase-actions"><div className="quantity"><button aria-label="Menge verringern" disabled={quantity===1} onClick={()=>setQuantity(q=>q-1)}>−</button><output aria-label="Menge">{quantity}</output><button aria-label="Menge erhöhen" disabled={quantity===12} onClick={()=>setQuantity(q=>q+1)}>+</button></div><AddButton slug={slug} quantity={quantity}/></div><small>Nur auf diesem Gerät speichern · Kein Kauf, keine Bestellung</small></div>}
 export function Checkout(){const value=useContext(Cart);return <CheckoutPreview {...value}/>}
 export function RoutineQuiz(){
  const products=usePublishedCatalog()||catalogProducts
