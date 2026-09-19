@@ -15,7 +15,7 @@ function harness({user={},identity={},missing=false,duplicate=false,owner=false,
   $executeRaw:async(strings,...values)=>{writes.push({sql:strings.join('?'),values});return 1},
  }
  const createUser=async input=>{created.push(input);return createError?{error:{}}:{data:{user:{id:'new-identity'}}}}
- const context={bcrypt,Date,prisma:{$transaction:async fn=>fn(tx)},adminClient:()=>({auth:{admin:{createUser}}})}
+ const context={bcrypt,Date,activateRegistration:async()=>false,prisma:{$transaction:async fn=>fn(tx)},adminClient:()=>({auth:{admin:{createUser}}})}
  const source=readFileSync('lib/auth/legacy-password.js','utf8').replace(/^import .*$/gm,'').replaceAll('export ','')
  const prepare=vm.runInNewContext(source+'\nprepareLegacyPassword',context)
  return {prepare,writes,created}
