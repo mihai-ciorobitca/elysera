@@ -1,19 +1,17 @@
 'use client'
 import {useEffect,useId,useRef,useState} from 'react'
+import {countryCode} from '../../lib/auth/countries.mjs'
+import {matchesAddress,applyAddress} from '../../lib/auth/address-options.mjs'
 import './address-search.css'
 
 // Session-only, bounded cache; never persist personal address queries to disk.
-const suggestionsCache=new Map(),countryCodes=new Map();
+const suggestionsCache=new Map();
 let configuration;
 function getKey(){
  if(!configuration)configuration=fetch('/api/address/config',{cache:'no-store'}).then(async response=>{
   if(!response.ok)throw new Error('Unavailable');return (await response.json()).key;
  }).catch(error=>{configuration=null;throw error});
  return configuration;
-}
-function countryCode(name){
- if(!countryCodes.size){const names=new Intl.DisplayNames(['de'],{type:'region'});for(let a=65;a<=90;a++)for(let b=65;b<=90;b++){const code=String.fromCharCode(a,b);countryCodes.set(names.of(code),code.toLowerCase())}}
- return countryCodes.get(name);
 }
 const normalized=text=>(text||'').trim().toLocaleLowerCase('de');
 function remember(key,entry){
@@ -49,13 +47,12 @@ export default function AddressSearch({value,onChange,mode="street"}) {
     const apiKey=await keyReady;
     if(request!==sequence.current)return;
     const params=new URLSearchParams({text:postal?query:[value.street,value.postalCode,value.city,value.country].filter(Boolean).join(', '),type:mode,lang:'de',format:'json',limit:'8',apiKey});
-    if(postal&&value.country){const code=countryCode(value.country);if(code)params.set('filter','countrycode:'+code)}
+    if(value.country){const code=countryCode(value.country);if(code)params.set('filter','countrycode:'+code)}
     const response=await fetch('https://api.geoapify.com/v1/geocode/autocomplete?'+params,{signal:controller.signal});
     if(!response.ok)throw new Error('Unavailable');
     const data=await response.json();
     if(request!==sequence.current)return;
-    const normalize=text=>(text||'').replace(/\s/g,'').toLowerCase();
-    const predictions=(data.results||[]).filter(item=>postal?item.postcode&&normalize(item.postcode).startsWith(normalize(query)):item.street&&(!item.postcode||normalize(item.postcode)===normalize(value.postalCode))).slice(0,5).map(item=>{
+    const predictions=(data.results||[]).filter(item=>matchesAddress(item,value,query,postal)).slice(0,5).map(item=>{
      let country=item.country;
      try{if(item.country_code)country=new Intl.DisplayNames(['de'],{type:'region'}).of(item.country_code.toUpperCase())}catch{}
      return {street:item.street,postalCode:item.postcode||'',city:item.city||item.town||item.village||'',country,houseNumber:item.housenumber||'',text:postal?[item.postcode,item.city||item.town||item.village||item.county,item.state].filter(Boolean).join(' · '):item.formatted,placeId:item.place_id};
@@ -70,13 +67,13 @@ export default function AddressSearch({value,onChange,mode="street"}) {
   const request=++sequence.current;setItems([]);setStatus('Adresse wird übernommen …');
   try{
    const address=prediction,latest=current.current;
-   if(postal){setSelected(address.postalCode);latest.onChange({...latest.value,postalCode:address.postalCode,city:address.city||'',country:address.country||latest.value.country});setFocused(false);setStatus('PLZ übernommen. Bitte Ort prüfen und Straße eingeben.');return}
+   if(postal){setSelected(address.postalCode);latest.onChange(applyAddress(latest.value,address,true));setFocused(false);setStatus('PLZ übernommen. Bitte Ort prüfen und Straße eingeben.');return}
    if(address.postalCode&&address.postalCode.replace(/\s/g,'').toLowerCase()!==latest.value.postalCode.replace(/\s/g,'').toLowerCase()){
     setStatus('Dieser Vorschlag hat eine andere PLZ. Bitte prüfe deine PLZ oder wähle eine andere Straße.');return;
    }
    if(!address.street){setStatus('Bitte wähle eine Straße oder gib sie selbst ein.');return}
    setSelected(address.street);
-   latest.onChange({...latest.value,street:address.street,houseNumber:address.houseNumber||'',city:address.city||latest.value.city,country:address.country||latest.value.country});
+   latest.onChange(applyAddress(latest.value,address,false));
    setFocused(false);setStatus('Straße übernommen. Bitte Hausnummer ergänzen und Angaben prüfen.');
   }catch{if(request===sequence.current)setStatus('Bitte gib deine Adresse selbst ein.')}
  };

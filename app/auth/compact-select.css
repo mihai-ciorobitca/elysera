@@ -5,7 +5,7 @@
 .es-compact-trigger[aria-expanded=true]{border-color:#b39461}
 .es-compact-panel{margin-top:6px;padding:6px;border:1px solid #dce1e9;border-radius:9px;background:#fff;box-shadow:0 8px 22px #13244812}
 .es-compact-select input.es-compact-search{width:100%;height:42px;min-height:42px;margin:0 0 5px;padding:9px 11px;border:1px solid #dce1e9;border-radius:5px;background:#f7f8fa;font:400 16px/1.4 Arial,sans-serif;text-align:left}
-.es-compact-options{max-height:190px;max-height:min(190px,30svh);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b9c1ce transparent}
+.es-compact-options{position:relative;max-height:190px;max-height:min(190px,30svh);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b9c1ce transparent}
 .es-compact-select button.es-compact-option{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:44px;margin:0;padding:9px 10px;border:0;border-radius:5px;background:#fff;color:#132448;text-align:left;font:400 14px/1.35 Arial,sans-serif;letter-spacing:0;text-transform:none;cursor:pointer}
 .es-compact-select button.es-compact-option[aria-selected=true]{background:#edf1f7;font-weight:700}
 .es-compact-select button.es-compact-option:hover{background:#f3f5f8}
