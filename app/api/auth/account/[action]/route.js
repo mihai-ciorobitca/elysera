@@ -1,3 +1,5 @@
+import {setSharedPassword} from '@/lib/auth/shared-password'
+import {prepareLegacyPassword} from '@/lib/auth/legacy-password'
 import {validateDetails} from '@/lib/auth/details-policy.mjs'
 import {NextResponse} from 'next/server'
 import {requireMail,passwordNotice} from '@/lib/auth/account-mail'
@@ -23,8 +25,9 @@ export async function POST(request,{params}){
  if(action==='reset'){const result=await resetPassword(b.token,b.password);if(!result)return reply({error:'Dieser Link ist ungültig oder abgelaufen. Bitte einen neuen anfordern.'},400);return reply({message:'Dein Passwort wurde geändert. Melde dich mit deinem neuen Passwort an.'})}
  const client=await authClient(),user=await principalFor(client);if(!user)return reply({error:'Bitte anmelden.'},401)
  if(typeof b.currentPassword!=='string'||b.currentPassword.length>1024)return reply({error:'Bitte dein aktuelles Passwort eingeben.'},400)
+ const preparationError=await prepareLegacyPassword(user.email,b.currentPassword);if(preparationError)return reply({error:'Das aktuelle Passwort stimmt nicht.'},400);
  const {url,key}=authConfig(),check=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});const {error}=await check.auth.signInWithPassword({email:user.email,password:b.currentPassword});if(error)return reply({error:'Das aktuelle Passwort stimmt nicht.'},400);await check.auth.signOut({scope:'local'});
- const {error:updateError}=await client.auth.updateUser({password:b.password});if(updateError)return reply({error:'Das Passwort konnte nicht geändert werden. Bitte erneut anmelden und versuchen.'},400)
+ await setSharedPassword(user,b.password)
  await client.auth.signOut({scope:'local'});const notificationSent=await passwordNotice(user.email);return reply({message:'Dein Passwort wurde geändert. Bitte erneut anmelden.',notificationSent})
  }catch(error){if(['REFERRAL_REQUIRED','REFERRAL_INVALID'].includes(error.message))return reply({error:'Bitte einen gültigen ELYSERA Referral-Link oder Empfehlungscode eingeben.'},400);return reply({error:'Der Vorgang ist vorübergehend nicht möglich. Bitte später erneut versuchen.'},503)}
 }

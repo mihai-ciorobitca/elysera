@@ -19,6 +19,7 @@ for (const method of ['signin', 'mfa']) {
    }}
    const scope = vm.createContext({
     NextResponse: {json: (body, options) => ({body, status: options.status})},
+    prepareLegacyPassword: async () => null,
     authClient: async () => client,
     loginPrincipalFor: async () => kind === 'denied' ? null : {id:kind,role:kind==='admin'?'ADMIN':'AFFILIATE'},
     sameOrigin: () => true, validCredentials: () => true, loginRateLimit: async () => true

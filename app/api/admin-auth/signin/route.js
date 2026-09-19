@@ -1,3 +1,4 @@
+import {signInError} from '@/lib/auth/signin-error.mjs'
 import {NextResponse} from 'next/server'
 import {authClient,adminPrincipalFor} from '@/lib/auth/server'
 import {sameOrigin,validCredentials} from '@/lib/auth/policy.mjs'
@@ -14,7 +15,7 @@ export async function POST(request){
   const email=body.email.trim().toLowerCase()
   if(!await loginRateLimit(request,email))return reply({error:'Zu viele Versuche. Bitte in 15 Minuten erneut versuchen.'},429)
   const client=await authClient();const {error}=await client.auth.signInWithPassword({email,password:body.password})
-  if(error)return reply({error:'Anmeldung nicht möglich. Bitte Zugangsdaten und Kontobestätigung prüfen.'},401)
+  if(error){const failure=signInError(error);return reply({error:failure.message},failure.status)}
   const {data:assurance,error:mfaError}=await client.auth.mfa.getAuthenticatorAssuranceLevel()
   if(mfaError){await client.auth.signOut({scope:'local'});return reply({error:'Anmeldung derzeit nicht möglich.'},503)}
   if(assurance?.nextLevel==='aal2'&&assurance.currentLevel!=='aal2')return reply({mfaRequired:true},200)
