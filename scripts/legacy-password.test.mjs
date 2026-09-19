@@ -27,9 +27,21 @@ test('current PeptiKing password repairs stale provider hash without altering co
  assert.equal(h.created.length,0)
 })
 test('wrong old passwords, blocked, unverified, banned and conflicting identities cannot repair credentials',async()=>{
- for(const options of [{},{user:{blocked:true}},{user:{emailVerified:false}},{identity:{email:'other@example.test'}},{identity:{banned_until:new Date(Date.now()+60000)}},{identity:{email_confirmed_at:null}},{identity:{id:'different'}},{owner:true}]){
+ for(const options of [{},{user:{blocked:true}},{user:{emailVerified:false}},{identity:{email:'other@example.test'}},{identity:{banned_until:new Date(Date.now()+60000)}},{identity:{email_confirmed_at:null},user:{emailDeliveryStatus:'BOUNCED'}},{identity:{id:'different'}},{owner:true}]){
   const h=harness(options);const result=await h.prepare('member@example.test',Object.keys(options).length?password:'wrong-password')
   assert.ok(result?.code);assert.equal(h.writes.length,0);assert.equal(h.created.length,0)
+ }
+})
+
+test('verified PeptiKing accounts repair an unconfirmed provider only after password and ownership proof',async()=>{
+ const h=harness({identity:{email_confirmed_at:null}})
+ assert.equal(await h.prepare('member@example.test',password),null)
+ assert.equal(h.writes.length,1);assert.match(h.writes[0].sql,/email_confirmed_at=NOW\(\)/)
+ assert.equal(h.writes[0].values[0],hash);assert.doesNotMatch(h.writes[0].sql,/banned|mfa/)
+ for(const options of [{},{owner:true},{user:{blocked:true}},{user:{emailVerified:false}},{user:{emailDeliveryStatus:'BOUNCED'}},{identity:{email:'other@example.test'}},{identity:{banned_until:new Date(Date.now()+60000)}}]){
+  const bad=harness({...options,identity:{...options.identity,email_confirmed_at:null}})
+  assert.ok((await bad.prepare('member@example.test',Object.keys(options).length?password:'incorrect'))?.code)
+  assert.equal(bad.writes.length,0);assert.equal(bad.created.length,0)
  }
 })
 test('verified legacy-only customers are provisioned and linked after password proof',async()=>{
