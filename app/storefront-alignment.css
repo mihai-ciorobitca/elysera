@@ -1,4 +1,19 @@
 /* Shared storefront alignment: keep the presale action on the same centerline. */
+/* Keep the science story compact and show the complete laboratory scene. */
+.prairie-site .lp-home .lp-feature{padding:48px 24px;margin-bottom:64px}
+.prairie-site .lp-home .lp-feature>.lp-heading{max-width:1120px;margin-bottom:32px}
+.prairie-site .lp-home .lp-feature>.lp-split{width:100%;max-width:1120px;min-height:0;margin:0 auto;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:32px}
+.prairie-site .lp-home .lp-feature .lp-split-image{width:100%;max-width:352px;height:auto;min-height:0;margin:0;justify-self:center}
+.prairie-site .lp-home .lp-feature .lp-split-image>img{position:relative;display:block;width:100%;height:auto;object-fit:contain}
+.prairie-site .lp-home .lp-feature .lp-split-copy{min-width:0;padding:24px 16px}
+.prairie-site .lp-home .lp-feature .lp-heading h2{font-size:clamp(22px,2.2vw,30px);text-wrap:balance}
+.prairie-site .lp-home .lp-feature .lp-split-copy h2{font-size:clamp(22px,2vw,26px);text-wrap:balance}
+.prairie-site .lp-home .lp-feature .lp-button{max-width:100%;white-space:normal}
+@media(max-width:800px){
+ .prairie-site .lp-home .lp-feature{padding:36px 20px;margin-bottom:48px}
+ .prairie-site .lp-home .lp-feature>.lp-split{grid-template-columns:minmax(0,1fr);max-width:560px;gap:8px}
+ .prairie-site .lp-home .lp-feature .lp-split-copy{padding:24px 0 0}
+}
 .prairie-site .lp-presale-band>.lp-presale-photo{display:block;width:100%;max-width:360px;margin:28px auto 24px;overflow:hidden;background:#091629}
 .prairie-site .lp-presale-photo>img{display:block;width:100%;height:auto}
 .prairie-site .lp-home .lp-portrait-split{align-items:center}
@@ -64,4 +79,59 @@
  .prairie-site .lp-footer-bottom{justify-content:center;flex-direction:column;font-size:11px;text-align:center}
  .prairie-site .lp-footer-bottom nav{justify-content:center}
  .prairie-site .lp-footer-bottom nav a{display:flex;align-items:center;min-height:44px}
+}
+
+/* Homepage reading order: collection, orientation, science, set, people, answers. */
+.prairie-site .lp-footer-mobile{display:none}
+.prairie-site .contact-direct-link{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:44px;margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:700px){
+ .prairie-site .lp-footer-columns{gap:0}
+ .prairie-site .lp-footer-group>.lp-footer-desktop{display:none}
+ .prairie-site .lp-footer-mobile{display:block;border-bottom:1px solid #dce3ed}
+ .prairie-site .lp-footer-mobile>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:16px 0;list-style:none;cursor:pointer;font-size:12px;letter-spacing:.06em;text-align:left}
+ .prairie-site .lp-footer-mobile>summary::-webkit-details-marker{display:none}
+ .prairie-site .lp-footer-mobile[open]>summary svg{transform:rotate(180deg)}
+ .prairie-site .lp-footer-mobile>nav{padding:0 0 16px}
+ .prairie-site .lp-footer-brand{margin-top:32px}
+ .prairie-site .lp-footer-mobile>summary:focus-visible{outline:2px solid #b39461;outline-offset:3px}
+ .prairie-site .atelier-shop .shop-grid{gap:32px}
+ .prairie-site .atelier-shop .shop-grid .lp-product-photo{height:240px}
+ .prairie-site .atelier-shop .shop-grid .lp-product-info{padding-top:16px}
+ .prairie-site .atelier-shop .ritual-set-photo{max-width:352px;justify-self:center}
+ .prairie-site .atelier-shop .mobile-product-comparison{gap:20px}
+ .prairie-site .atelier-shop .comparison-product-heading{margin-bottom:16px}
+ .prairie-site .atelier-shop .mobile-product-comparison dl{gap:12px}
+ .prairie-site .atelier-shop .mobile-product-comparison dl>div:not(:first-child){display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;align-items:baseline}
+ .prairie-site .atelier-shop .mobile-product-comparison dt{margin:0}
+}
+.prairie-site .lp-home-structured>.lp-collection{padding-block:64px}
+.prairie-site .lp-home-structured>.lp-ritual-panel{width:calc(100% - 48px);max-width:1120px;margin:0 auto 64px;grid-template-columns:repeat(2,minmax(0,1fr));min-height:0}
+.prairie-site .lp-home-structured>.lp-ritual-panel .lp-split-image{max-width:352px;justify-self:center}
+.prairie-site .lp-home-structured .lp-home-set{max-width:1120px;margin:0 auto 64px;text-align:center}
+.prairie-site .lp-home-structured .lp-home-set>.ritual-set-feature{margin:0 0 16px}
+.prairie-site .lp-home-structured .lp-home-set>.lp-underlink{padding:12px 20px;white-space:normal}
+.prairie-site .lp-founders{max-width:1120px;margin:0 auto 64px;padding:0 24px;color:#132448}
+.prairie-site .lp-founders-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px}
+.prairie-site .lp-founders-grid article{min-width:0;text-align:center}
+.prairie-site .lp-founders-grid img{display:block;width:100%;max-width:240px;height:300px;object-fit:cover;object-position:50% 15%;margin:0 auto 24px}
+.prairie-site .lp-founders-grid h3{font-size:20px;line-height:1.4;margin:0 0 12px}
+.prairie-site .lp-founders-grid p{max-width:36ch;margin:0 auto 16px;color:#526079;font-size:14px;line-height:1.8}
+.prairie-site .lp-mega.lp-mega-info{grid-template-columns:minmax(0,1fr);padding-block:28px}
+.prairie-site .lp-mega-info nav{max-width:1120px;width:100%;margin:auto}
+.prairie-site .mobile-links .mobile-nav-group{display:flex;flex-direction:column;margin-bottom:24px}
+.prairie-site .mobile-nav-group h3{margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.08em;color:#526079}
+.prairie-site .mobile-links .mobile-nav-group>a{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:12px 0;border-bottom:1px solid #dce3ed;font-size:15px}
+@media(max-width:800px){
+ .prairie-site .lp-home-structured>.lp-ritual-panel{grid-template-columns:minmax(0,1fr);max-width:560px}
+ .prairie-site .lp-home-structured>.lp-ritual-panel .lp-split-image{order:0}
+ .prairie-site .lp-home-structured>.lp-ritual-panel .lp-split-copy{padding:32px 24px}
+}
+@media(max-width:700px){
+ .prairie-site .lp-home-structured>.lp-collection{padding-block:40px}
+ .prairie-site .lp-home-structured>.lp-ritual-panel{width:calc(100% - 40px);margin-bottom:48px}
+ .prairie-site .lp-home-structured .lp-home-set{margin-bottom:48px}
+ .prairie-site .lp-home-structured .lp-home-set .ritual-set-photo{max-width:352px;justify-self:center}
+ .prairie-site .lp-founders{padding-inline:20px;margin-bottom:48px}
+ .prairie-site .lp-founders-grid{grid-template-columns:minmax(0,1fr);gap:40px}
+ .prairie-site .lp-founders-grid img{width:192px;height:240px;margin-bottom:20px}
 }
