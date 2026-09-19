@@ -1,3 +1,4 @@
+import {pageMetadata,publicPages} from '../../lib/seo.mjs'
 import {Suspense} from 'react'
 import LiveSiteContacts from '../live-site-contacts'
 import {CareKnowledge} from '../care-sections'
@@ -11,7 +12,7 @@ import {FAQ,Checkout,Icon,RoutineQuiz,TextureFilms,RoutineSet} from '../storefro
 import {CampaignImage} from '../campaign'
 const pages=['routine','science','about','faq','checkout','quiz','presale','account','contact']
 export function generateStaticParams(){return pages.map(page=>({page}))}
-export async function generateMetadata({params}){const {page}=await params;return {title:({quiz:'Dein Pflege-Finder',routine:'Deine Routine',science:'Peptidwissen',about:'Die Marke',faq:'Fragen & Antworten',checkout:'Deine Auswahl',presale:'Presale & Lieferung',account:'Dein Konto',contact:'Kontakt & Hilfe'})[page]}}
+export async function generateMetadata({params}){const {page}=await params;const path='/'+page;const info=publicPages[path]||['Deine Vormerkung','Deine lokal gespeicherte Produktauswahl. Kaufen und Bezahlen sind derzeit nicht möglich.'];return pageMetadata(...info,path,undefined,['checkout','account'].includes(page))}
 export default async function Content({params}){
  const {page}=await params;if(!pages.includes(page))notFound()
  if(page==='quiz')return <RoutineQuiz/>

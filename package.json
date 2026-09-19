@@ -8,7 +8,8 @@
     "start": "next start -p 3001",
     "postinstall": "prisma generate",
     "test:crm": "tsx --test lib/diamond-crm.test.ts lib/crm-login.test.ts lib/crm-contact.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prebuild": "node scripts/prepare-news.cjs"
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",

@@ -1,3 +1,5 @@
+import {pageMetadata,publicPages} from '../lib/seo.mjs'
+export const metadata=pageMetadata(...publicPages['/'],'/')
 import SplitVideo from './split-video'
 import RitualSet from './ritual-set'
 import HeroVideo from './hero-video'
