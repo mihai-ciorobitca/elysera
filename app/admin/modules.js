@@ -23,6 +23,7 @@ const definitions=[
  ['whatsapp-notification','WhatsApp-Versand',3,'bell','Nachrichten und Empfängergruppen vorbereiten.','Nachricht,Zielgruppe,Geplant am,Status'],
  ['whatsapp-templates','WhatsApp-Vorlagen',3,'copy','Wiederverwendbare Nachrichtenvorlagen pflegen.','Name,Sprache,Nachricht,Status'],
  ['community-chat','Community',3,'team','Community-Beiträge prüfen und moderieren.','Beitrag,Autor,Meldungen,Status'],
+ ['news','News',3,'copy','News als Entwurf vorbereiten, prüfen und veröffentlichen.','Titel,Status'],
  ['faq','FAQ',3,'help','Häufige Fragen und verständliche Antworten pflegen.','Frage,Antwort,Kategorie,Status'],
  ['product-feedback','Produktfeedback',3,'leaf','Rückmeldungen zur ELYSERA-Pflege auswerten.','Produkt,Kunde,Bewertung,Feedback,Status'],
  ['testimonials-reviews','Erfahrungsberichte',3,'user','Eingereichte Erfahrungen und Freigaben verwalten.','Titel,Autor,Bewertung,Status'],

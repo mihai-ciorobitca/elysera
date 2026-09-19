@@ -1,0 +1,1 @@
+export default function NewsBody({body}){return <div className="news-body">{body.split(/\n\s*\n/).filter(Boolean).map((text,i)=>text.startsWith('## ')?<h2 key={i}>{text.slice(3)}</h2>:<p key={i}>{text}</p>)}</div>}
