@@ -17,7 +17,13 @@ function activation({user={},missing=false,duplicate=false,fail=false}={}){
 test('pending ELYSERA registration activates both records atomically using its original password',async()=>{
  const h=activation();assert.equal(await h.activate('signup@example.test',password),true);assert.equal(h.isCommitted(),true);assert.equal(h.writes.length,3);
  assert.match(h.writes[0].sql,/email_confirmed_at/);assert.match(h.writes[1].sql,/"emailVerified"=true/);assert.match(h.writes[2].sql,/elysera:verify:/);
- assert.doesNotMatch(h.writes.map(x=>x.sql).join(' '),/SET .*password|banned_until=|emailDeliveryStatus.*SAFE|mfa/);
+ assert.equal(h.writes[1].values[0],hash);
+ assert.doesNotMatch(h.writes.map(x=>x.sql).join(' '),/banned_until=|emailDeliveryStatus.*SAFE|mfa/);
+});
+test('older provider-only email signups require the saved provider password and retain its hash',async()=>{
+ const h=activation({user:{password:'!supabase-only:legacy-fixture',providerPassword:hash}});
+ assert.equal(await h.activate('signup@example.test','wrong-password'),false);assert.equal(h.writes.length,0);
+ assert.equal(await h.activate('signup@example.test',password),true);assert.equal(h.writes[1].values[0],hash);
 });
 test('activation rejects wrong password, unrelated accounts, conflicting identities and restrictions',async()=>{
  for(const options of [{missing:true},{duplicate:true},{user:{blocked:true}},{user:{role:'ADMIN'}},{user:{role:'STAFF'}},{user:{emailDeliveryStatus:'BOUNCED'}},{user:{conflictingOwner:true}},{user:{authEmail:'other@example.test'}},{user:{banned_until:new Date(Date.now()+60000)}},{user:{password:'!supabase-only'}},{user:{emailVerified:true}}]){
