@@ -41,7 +41,7 @@ export function Shell({children}){
  return <MerchandisingProvider><PublishedCatalog.Provider value={contentProducts}><Cart.Provider value={{cart,change,add,addRoutine,count,ready,liveProducts,catalogProducts:products}}>
  <a className="skip" href="#main">Zum Inhalt</a>
  <Navigation count={count} openPanel={setPanel} products={products}/>
- <main id="main" data-store-ready={ready} data-page={pathname==='/'?'home':'inner'}>{children}</main>
+ <main id="main" data-route={pathname} data-store-ready={ready} data-page={pathname==='/'?'home':'inner'}>{children}</main>
  <PrairieFooter products={products}/>
  <dialog ref={dialog} className="drawer" onKeyDownCapture={e=>{if(e.key==="Escape"){e.preventDefault();e.stopPropagation();setPanel(null)}}} onCancel={()=>setPanel(null)} onClick={e=>{if(e.target===dialog.current)setPanel(null)}} aria-labelledby="panel-title" onKeyDown={e=>{if(e.key!=='Tab')return;const items=[...e.currentTarget.querySelectorAll('button:not(:disabled),a[href],input')].filter(el=>el.getClientRects().length);const first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}}}>
  <div className="drawer-inner"><div className="drawer-head"><h2 id="panel-title">{panel==='cart'?'DEINE VORMERKUNG':panel==='search'?'PRODUKTE SUCHEN':'ENTDECKE ELYSERA'}</h2><button className="icon-button" autoFocus aria-label="Schließen" onClick={()=>setPanel(null)}><Icon name="close"/></button></div>

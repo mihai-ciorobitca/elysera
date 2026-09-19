@@ -1,2 +1,2 @@
-import ChatWorkspace from '../admin/chat-workspace'
-export default function CommunityChatPage(){return <ChatWorkspace/>}
+import {redirect} from 'next/navigation'
+export default function CommunityChatPage(){redirect('/contact')}

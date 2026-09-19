@@ -13,7 +13,9 @@ const aliases={
  'toner-application':'ugc-toner','finder-eye':'ugc-eye','ugc-evening':'story-serum'
 }
 export const mediaName=name=>{let key=name;while(aliases[key]&&aliases[key]!==key)key=aliases[key];return key}
-export const mediaImage=(name,small=false)=>`${mediaRoot}${mediaName(name)}${small?'-560':''}.webp`
-export const mediaSrcSet=name=>[560,1120,1680].map(width=>`${mediaRoot}${mediaName(name)}-${width}.webp ${width}w`).concat(`${mediaImage(name)} ${mediaName(name).endsWith('-20260912')?2576:mediaName(name)==='hero-desktop'?3840:2160}w`).join(', ')
+const editorialNames={'routine-toner':'toner','routine-serum':'serum','routine-eye':'eye','contact-portrait':'toner','about-portrait':'serum'}
+const editorialRoot='/media/ritual-editorial-2026/'
+export const mediaImage=(name,small=false)=>editorialNames[name]?`${editorialRoot}${editorialNames[name]}-${small?560:1120}.webp`:`${mediaRoot}${mediaName(name)}${small?'-560':''}.webp`
+export const mediaSrcSet=name=>editorialNames[name]?[560,1120].map(width=>`${editorialRoot}${editorialNames[name]}-${width}.webp ${width}w`).join(', '):[560,1120,1680].map(width=>`${mediaRoot}${mediaName(name)}-${width}.webp ${width}w`).concat(`${mediaImage(name)} ${mediaName(name).endsWith('-20260912')?2576:mediaName(name)==='hero-desktop'?3840:2160}w`).join(', ')
 // New campaign films will be added only after they match the approved stills.
 export const mediaVideo=()=>null

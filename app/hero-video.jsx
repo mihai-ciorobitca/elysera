@@ -1,7 +1,7 @@
 'use client'
 import {useEffect,useState,useRef} from 'react'
 export default function HeroVideo(){
- const [mode,setMode]=useState(null),[playing,setPlaying]=useState(null),ref=useRef(null),selectedMode=useRef(null)
+ const [mode,setMode]=useState(null),[playing,setPlaying]=useState(null),[paused,setPaused]=useState(false),ref=useRef(null),selectedMode=useRef(null)
  useEffect(()=>{
   const mobile=matchMedia('(max-width:700px)'),reduced=matchMedia('(prefers-reduced-motion: reduce)'),connection=navigator.connection
   let idle
@@ -15,35 +15,12 @@ export default function HeroVideo(){
  useEffect(()=>{
   const video=ref.current;if(!video)return
   let visible=false
-  const update=()=>{if(visible&&!document.hidden)video.play().catch(()=>{});else video.pause()}
+  const update=()=>{if(visible&&!document.hidden&&!paused)video.play().catch(()=>{});else video.pause()}
   const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;update()},{threshold:.01})
   observer.observe(video);document.addEventListener('visibilitychange',update)
   return()=>{observer.disconnect();document.removeEventListener('visibilitychange',update);video.pause()}
- },[mode])
- useEffect(()=>{
-  const hero=ref.current?.closest('.lp-hero'),copy=hero?.querySelector('.lp-hero-copy')
-  if(!hero||!copy)return
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)')
-  let frame=0,last=''
-  const update=()=>{
-   frame=0
-   const rect=hero.getBoundingClientRect(),copyRect=copy.getBoundingClientRect()
-   const progress=reduced.matches?0:Math.min(1,Math.max(0,window.scrollY/(rect.height*.85)))
-   const fade=mode==='mobile'?Math.min(1,Math.max(0,(window.innerHeight*.55-copyRect.top)/copyRect.height)):progress
-   const state=`${progress.toFixed(4)}:${fade.toFixed(4)}:${rect.height}`
-   if(state===last)return
-   last=state
-   hero.style.setProperty('--hero-drift',`${mode==='mobile'||reduced.matches?0:Math.min(rect.height,Math.max(0,-rect.top))*.22}px`)
-   hero.style.setProperty('--hero-scale',String(1+(mode==='mobile'?0:progress*.16)))
-   hero.style.setProperty('--hero-copy-shift',`${mode==='mobile'?0:-progress*48}px`)
-   hero.style.setProperty('--hero-copy-opacity',String(reduced.matches?1:Math.max(.15,1-fade*1.3)))
-  }
-  const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)}
-  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule)
-  reduced.addEventListener('change',schedule);update()
-  return()=>{cancelAnimationFrame(frame);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);reduced.removeEventListener('change',schedule);for(const name of ['--hero-drift','--hero-scale','--hero-copy-opacity','--hero-copy-shift'])hero.style.removeProperty(name)}
- },[mode])
- return <div className="lp-hero-media"><picture><source media="(max-width:700px)" srcSet="/media/wavespeed-4k/hero-mobile-560.webp 560w, /media/wavespeed-4k/hero-mobile-1120.webp 1120w, /media/wavespeed-4k/hero-mobile-1680.webp 1680w" sizes="100vw"/><img src="/media/elysera-hero-desktop-dreamina-poster.webp" alt="Die ELYSERA Kollektion in einer animierten Produktinszenierung" fetchPriority="high" decoding="async"/></picture>{mode&&<video key={mode} ref={ref} src={mode==='mobile'?'/media/hero-mobile-delivery.mp4':'/media/hero-desktop-delivery.mp4'} muted playsInline loop preload="none" aria-hidden="true" onPlaying={()=>setPlaying(mode)} onError={()=>setPlaying(null)} style={{opacity:playing===mode?1:0}}/>}</div>
+ },[mode,paused])
+ return <><div className="lp-hero-media"><picture><source media="(max-width:700px)" srcSet="/media/wavespeed-4k/hero-mobile-560.webp 560w, /media/wavespeed-4k/hero-mobile-1120.webp 1120w, /media/wavespeed-4k/hero-mobile-1680.webp 1680w" sizes="100vw"/><img src="/media/elysera-hero-desktop-dreamina-poster.webp" alt="Die ELYSERA Kollektion in einer animierten Produktinszenierung" fetchPriority="high" decoding="async"/></picture>{mode&&<video key={mode} ref={ref} src={mode==='mobile'?'/media/hero-mobile-delivery.mp4':'/media/hero-desktop-delivery.mp4'} muted playsInline loop preload="none" aria-hidden="true" onPlaying={()=>setPlaying(mode)} onError={()=>setPlaying(null)} style={{opacity:playing===mode?1:0}}/>}</div>{mode&&<button className="hero-film-control" onClick={()=>setPaused(value=>!value)} aria-label={paused?'Hintergrundfilm abspielen':'Hintergrundfilm pausieren'} aria-pressed={paused}><span aria-hidden="true">{paused?'▶':'Ⅱ'}</span>{paused?'Film abspielen':'Film pausieren'}</button>}</>
 }
 
 

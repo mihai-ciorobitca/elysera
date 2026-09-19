@@ -1,0 +1,76 @@
+/* Final, deliberately scoped refinements: preserve the storefront and commerce flows. */
+.prairie-site #main{min-width:0}
+.prairie-site #main :is(.section,.route-banner,.founder-section,.skin-story){min-width:0}
+.prairie-site #main :is(.page-heading p,.feature-copy p,.skin-story-copy p,.about-body p,.routine-detail p){font-size:15px;line-height:1.85;font-weight:400;color:var(--navy)}
+.prairie-site #main .page-heading{max-width:760px;margin:0 auto 56px}
+.prairie-site #main .page-heading h1{font-size:clamp(30px,3.4vw,50px);line-height:1.2;text-wrap:balance}
+.prairie-site #main .page-heading p{max-width:56ch;margin:24px auto 0}
+.prairie-site #main .founder-section{max-width:1120px;margin:80px auto;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0}
+.prairie-site #main .founder-section .founder-copy{padding:clamp(28px,4vw,64px);min-width:0;text-align:left;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.prairie-site #main .founder-copy h2{font-size:clamp(25px,2.5vw,36px);line-height:1.3;text-wrap:balance;margin:18px 0}
+.prairie-site #main .founder-copy p{font-size:15px;line-height:1.85;margin:0 0 20px;max-width:58ch;font-weight:400}
+.prairie-site #main .founder-copy .founder-role{font-size:13px;color:var(--gold-ink);margin-bottom:28px}
+.prairie-site #main .founder-copy blockquote{font-size:17px;line-height:1.8;margin:10px 0 24px;padding:24px 0 0;border-top:1px solid var(--gold-line)}
+.prairie-site #main .founder-portraits,.prairie-site #main .founder-frames{min-width:0;height:100%}
+.prairie-site #main .founder-frames img{object-fit:contain;object-position:center bottom;background:var(--ice)}
+.prairie-site #main .routine-detail{max-width:1080px;margin:64px auto 96px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);border:0;background:transparent;align-items:center;scroll-margin-top:220px}
+.prairie-site #main .routine-detail>.campaign-motion{width:100%;max-width:480px;aspect-ratio:4/5;height:auto;justify-self:center;overflow:hidden;padding:0}
+.prairie-site #main .routine-detail>.campaign-motion img{display:block;width:100%;height:100%;object-fit:contain;transform:none}
+.prairie-site #main .routine-detail>div{padding:0;max-width:460px;min-width:0}
+.prairie-site #main .routine-detail h2{font-size:clamp(26px,2.6vw,38px);line-height:1.25;text-wrap:balance;margin:20px 0 28px}
+.prairie-site #main .routine-detail p{margin-bottom:18px}
+.prairie-site #main .routine-detail:nth-of-type(even)>.campaign-motion{order:2}
+.ritual-navigation{display:flex;justify-content:center;gap:clamp(16px,4vw,56px);max-width:760px;margin:0 auto 40px;border-block:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:5}
+.ritual-navigation a{display:flex;align-items:center;gap:12px;min-height:64px;position:relative;font-size:13px;color:var(--muted);text-decoration:none}
+.ritual-navigation a span{color:var(--gold-ink);font-size:11px}
+.ritual-navigation a:after{content:'';height:2px;position:absolute;bottom:0;inset-inline:0;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.ritual-navigation a[aria-current]{color:var(--navy)}
+.ritual-navigation a[aria-current]:after,.ritual-navigation a:hover:after{transform:scaleX(1)}
+.prairie-site #main .route-banner{max-width:1120px;margin:0 auto 56px;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+.prairie-site #main .route-banner>div{padding:clamp(28px,4vw,64px);min-width:0}
+.prairie-site #main .route-banner>.campaign-motion{max-height:520px;overflow:hidden}
+.prairie-site #main .route-banner img{object-fit:contain;height:100%;width:100%}
+.prairie-site #main .account-destinations,.prairie-site #main .presale-steps,.prairie-site #main .knowledge-grid{gap:clamp(24px,4vw,56px)}
+.prairie-site #main :is(.account-destinations,.presale-steps,.knowledge-grid) article{min-width:0;padding-top:28px;border-top:1px solid var(--gold-line)}
+.prairie-site #main :is(.account-destinations,.presale-steps,.knowledge-grid) p{font-size:15px;line-height:1.8}
+.prairie-site #main .science-feature{max-width:1120px;margin:auto;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.prairie-site #main .science-image{max-height:520px}
+.prairie-site #main .science-feature .feature-copy{padding:clamp(28px,4vw,60px)}
+.prairie-site #main .faq-list summary{padding-block:24px;min-height:80px;line-height:1.5}
+.prairie-site #main .faq-list details p{max-width:65ch;font-size:15px;line-height:1.85;padding-bottom:24px}
+.prairie-site #main :is(a,button,input,select,summary):focus-visible{outline:2px solid var(--gold-ink);outline-offset:5px}
+.prairie-site #main .text-link{min-height:44px;align-items:center}
+.prairie-site #main .text-link svg,.prairie-site #main .text-link>span{transition:transform .25s ease}
+.prairie-site #main .text-link:hover svg,.prairie-site #main .text-link:hover>span{transform:translateX(4px)}
+.prairie-site #main .button{transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+.prairie-site #main .button:active{box-shadow:inset 0 0 0 2px var(--gold)}
+.prairie-site #main .texture-description{animation:editorial-appear .4s ease both}
+@keyframes editorial-appear{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(min-width:701px){.prairie-site #main .lp-hero-blue{height:auto;aspect-ratio:16/9;min-height:420px;max-height:800px}.prairie-site #main .lp-hero-media img,.prairie-site #main .lp-hero-media video{object-fit:contain;transform:none}.prairie-site #main .lp-hero-copy{transform:none;opacity:1}}
+@media(max-width:700px){
+ .prairie-site #main .page-heading{margin-bottom:36px}
+ .prairie-site #main .founder-section{margin:48px 20px;grid-template-columns:1fr}
+ .prairie-site #main .founder-section .founder-copy{padding:32px 24px}
+ .prairie-site #main .founder-portraits{height:auto;max-height:480px}
+ .prairie-site #main .founder-frames{height:auto;aspect-ratio:4/5;max-height:480px}
+ .prairie-site #main .routine-detail{grid-template-columns:1fr;gap:28px;margin:40px auto 64px;scroll-margin-top:90px}
+ .prairie-site #main .routine-detail:nth-of-type(even)>.campaign-motion{order:0}
+ .prairie-site #main .routine-detail>div{max-width:none;text-align:left}
+ .prairie-site #main .routine-detail>.campaign-motion{max-width:400px}
+ .ritual-navigation{gap:18px;margin-bottom:28px}
+ .ritual-navigation a{font-size:12px;gap:6px;min-height:58px}
+ .prairie-site #main .route-banner,.prairie-site #main .science-feature{grid-template-columns:1fr}
+ .prairie-site #main .route-banner>.campaign-motion{max-height:420px}
+ .prairie-site #main .route-banner>div{padding:32px 24px}
+ .prairie-site #main .service-cta{flex-wrap:wrap;align-items:flex-start}
+}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media(prefers-reduced-motion:reduce){.prairie-site #main .texture-description{animation:none}.ritual-navigation a:after,.prairie-site #main .text-link svg,.prairie-site #main .text-link>span{transition:none}}
+
+.prairie-site #main .routine-detail>.campaign-motion{order:0}.prairie-site #main .routine-detail:nth-of-type(even)>.campaign-motion{order:2}@media(max-width:700px){.prairie-site #main .routine-detail:nth-of-type(even)>.campaign-motion{order:0}}
+
+.prairie-site #main .hero-film-control{position:absolute;right:24px;bottom:20px;z-index:3;display:flex;gap:10px;align-items:center;min-height:44px;padding:8px 14px;background:#07162ecc;color:#fff;border:1px solid #ffffff70;font:inherit;font-size:11px;cursor:pointer}.prairie-site #main .hero-film-control:hover{background:#07162e}.prairie-site #main .legal-document{max-width:880px}.prairie-site #main .legal-document p{font-size:15px;line-height:1.9}.prairie-site #main .legal-document h1{font-size:clamp(28px,3vw,42px);overflow-wrap:anywhere;text-wrap:balance}.prairie-site #main .legal-document h2{margin-top:40px;line-height:1.4}
+.prairie-site #main .quiz-options button{min-height:76px;transition:border-color .2s ease,background-color .2s ease}.prairie-site #main .quiz-options button:hover,.prairie-site #main .quiz-options button[aria-pressed=true]{border-color:var(--gold-ink);background:var(--ice)}.prairie-site #main .quiz-body{max-width:720px;margin-inline:auto}.prairie-site #main .purchase-actions .button{min-height:48px}
+@media(max-width:700px){.prairie-site #main .hero-film-control{right:16px;bottom:16px;font-size:10px}.prairie-site #main .founder-copy p{color:var(--navy)}.prairie-site #main .about-body{padding-top:40px;padding-bottom:40px}.prairie-site #main .founder-section{margin-block:40px}}
+.prairie-site #main .quiz-options button:hover,.prairie-site #main .quiz-options button[aria-pressed=true]{color:var(--navy)}.prairie-site #main .quiz-options button[aria-pressed=true] .radio-dot{background:var(--navy);border-color:var(--navy)}
+.prairie-site #main .founder-portraits{width:100%;align-self:center;height:auto}.prairie-site #main .founder-frames{width:100%;max-width:100%;height:auto;aspect-ratio:4/5}.prairie-site #main .founder-frames img{width:100%;max-width:100%;height:100%;object-fit:contain}@media(min-width:701px) and (max-width:1000px){.prairie-site #main .founder-section{margin-inline:24px;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}.prairie-site #main .founder-copy{padding:32px 24px}.prairie-site #main .skin-story-copy h1{font-size:30px}.prairie-site #main .routine-detail{gap:28px}.prairie-site #main .routine-detail h2{font-size:27px}}
